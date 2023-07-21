@@ -4,6 +4,55 @@ article{
     border: 1px solid;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.calendar{
+    width: 100%;
+    height: 100%;
+
+    transition: 1s;
+}
+.calendar.hide{
+    transform: translateX(-82%);
+}
+.calendar.hide a{
+    transition-delay: 1s;
+    visibility: hidden;
+}
+table{
+    width: 80%;
+    height: 90%;
+
+    transition: 1s;
+
+    border: 1px solid;
+    margin: 0 auto;
+    border-radius: 5px;
+
+}
+table thead th{
+    border: 1px solid;
+    border-left: 0 ;
+    border-right: 0 ;
+    border-bottom: 0 ;
+    padding: 10px;
+
+    margin-bottom: 10px;
+}
+table td{
+
+    border: 2px solid;
+
+    padding: 5px;
+}
+
+@media screen and (max-width:750px) {
+    .calendar.hide{
+        transform: translate(0,90%);
+    }
+    table{
+        width: 100%;
+    }
 }

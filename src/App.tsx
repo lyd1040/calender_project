@@ -21,7 +21,6 @@ function App() {
   let [contents_number,setContentsNumber] = useState<number>(0);
   //모드 바꾸기
   const onChangeMode=(data:number) :void=>{
-    console.log(data)
     if(data===0){
       setMode('WELCOME');
     }else{
@@ -42,17 +41,12 @@ function App() {
     contents_title='Wel Come to my Page';
     contents_desc='Hello~~'
   }else{
-    for(let x:number=0; x<header_Menu.length; x++){
-      if(contents_number === x+1){
-        contents_title=header_Menu[x].title;
-        contents_desc=header_Menu[x].desc;
-      }
-    }
+    
   }
   return (
     <div className="App">
       <Header header_Menu={header_Menu} onChangeMode={onChangeMode}></Header>
-      <Contents title={contents_title} desc={contents_desc}></Contents>
+      <Contents Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode}></Contents>
     </div>
   );
 }
