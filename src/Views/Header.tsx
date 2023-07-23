@@ -1,4 +1,4 @@
-import Nav from '../Components/Nav';
+import Nav from '../Components/Header/Nav/Nav';
 import './css/header.css';
 import React,{useState, useEffect} from 'react';
 

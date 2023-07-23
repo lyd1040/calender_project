@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import Header from './Views/Header';
-import Contents from './Views/Contents';
+import Contents from './Views/Article';
 
 function App() {
   //header menu
