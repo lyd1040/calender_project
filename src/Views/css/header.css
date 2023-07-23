@@ -6,6 +6,7 @@
 }
 
 header{
+    position: relative;
     border: 1px solid;
     height: 70px;
 
@@ -14,9 +15,31 @@ header{
     align-items: center;
 
     padding: 0 30px;
+
+    background: #fff;
+
+    z-index: 999;
 }
 
 h1{
     font-size: 1.8em;
     font-family: 'PyeongChangPeace-Bold';
+}
+
+.headerYMD{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+@media screen and (max-width:750px) {
+    h1{
+        font-size: 1.2em;
+    }
+
+    .headerYMD{
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
 }
