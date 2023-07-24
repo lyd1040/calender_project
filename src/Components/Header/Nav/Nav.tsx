@@ -1,4 +1,4 @@
-import './css/nav.css';
+import '../../../css/nav.css';
 
 //gnb 타입지정
 type ContentItem = {

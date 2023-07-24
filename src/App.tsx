@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import Header from './Views/Header';
-import Contents from './Views/Article';
+import Article from './Views/Article';
 
 function App() {
   //header menu
@@ -68,7 +68,7 @@ function App() {
   return (
     <div className="App">
       <Header Mode={mode} header_Menu={header_Menu} onChangeMode={onChangeMode} header_YMD={header_YMD}></Header>
-      <Contents Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode} onChangeMode2={onChangeMode}></Contents>
+      <Article Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode} onChangeMode2={onChangeMode}></Article>
     </div>
   );
 }

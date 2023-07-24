@@ -1,0 +1,87 @@
+.plan_list_wrap{
+    position: relative;
+    top: 50%;
+
+    transform: translateY(-50%);
+    width: 100%;
+    height: 70%;
+
+    border-bottom: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.plan_list_wrap h3{
+    width: 100%;
+
+    border: 1px solid;
+    border-bottom: 1px solid #808080;
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+.plan_list_wrap .plan_list{
+    position: relative;
+    border: 1px solid;
+    border-bottom: 0;
+}
+.plan_list_wrap .plan_list li{
+    padding: 7px;
+    margin: 10px 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 1.2em;
+}
+.plan_list_wrap .plan_list li:nth-child(1){
+    margin-top: 10px;
+}
+.plan_list_wrap .plan_list li:nth-last-child(1){
+    margin-bottom: 0;
+}
+/* 일정 없을때 */
+.not_plan{
+    text-align: center;
+    color: #808080;
+
+    font-size: 1.5em;
+}
+/* 일정 추가버튼 */
+.plan_list_wrap .Schedule_btnWrap{
+    position: relative;
+    border: 1px solid;
+    border-top: 0;
+
+    display: flex;
+    justify-content: center;
+
+    font-size: 1.2em;
+}
+
+.plan_list_wrap .Schedule_btnWrap .pagingBtn_wrap{
+    position: relative;
+
+    padding: 10px 0;
+}
+.plan_list_wrap .Schedule_btnWrap .pagingBtn_wrap a{
+    margin: 0 5px;
+}
+.plan_list_wrap .Schedule_btnWrap>button{
+    position: absolute;
+    top: 100%;
+    width: 100.5%;
+
+    padding: 7px;
+
+    display: flex;
+    justify-content: center;
+
+    cursor: pointer;
+
+    font-size: 1em;
+}

@@ -1,0 +1,95 @@
+.AddSchedule{
+    position: relative;
+    top: 50%;
+
+    transform: translateY(-60%);
+
+    width: 100%;
+    height: 70%;
+
+    border: 1px solid #808080;
+    border-bottom: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.AddSchedule .cancleBtn{
+    position: absolute;
+    top:5px;
+    right: 5px;
+
+    width: 30px;
+    height: 30px;
+
+    background: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 2px #000;
+}
+
+.AddSchedule .AddSchedule_center{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.AddSchedule h3{
+    width: 100%;
+
+    border: 0;
+    border-bottom: 1px solid #808080;
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: 700;
+    font-size: 1.3em;
+}
+/* 일정 추가 내용 */
+.AddSchedule form{
+    position: relative;
+
+    width: 100%;
+
+    margin: 30px 0;
+}
+.AddSchedule form>div{
+    margin: 30px 0;
+
+    display: flex;
+    align-items: center;
+}
+/* 일정 추가버튼 */
+
+.AddSchedule .Schedule_btnWrap>button{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    padding: 7px;
+
+    display: flex;
+    justify-content: center;
+}
+.AddSchedule .Schedule_btnWrap>button:hover{
+    cursor: pointer;
+}
+
+
+.AddSchedule .Schedule_btnWrap .pagingBtn_wrap{
+    padding: 10px 0;
+}
+
+
+
+@media screen and (max-width:750px) {
+    .AddSchedule h3{
+        border-left: 0;
+        border-right: 0;
+    }
+}
