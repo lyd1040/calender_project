@@ -3,7 +3,8 @@ import '../../../../css/Schedule.css'
 import DetailSchedule from "./Detail_schedule/DetailSchedule";
 import AddSchedule from "./AddSchedule/AddSchedule";
 import ScheduleList from "./ScheduleList/ScheduleList";
-import database from '../../../../firebase';
+import { db, auth } from '../../../../firebase';
+import { ref, push } from 'firebase/database';
 
 type Class ={
     SHclass:boolean;
@@ -45,11 +46,6 @@ function Schedule(props:Class){
         if(props.SHclass===true){
             setTimeout(()=>{setSchedule_class('show');},100);
         }
-        // Firebase 데이터베이스에서 데이터를 읽습니다.
-        const dataRef = database.ref('data');
-        dataRef.on('value', (snapshot:any) => {
-        console.log(snapshot.val());
-        });
     },[])
 
     //모드변경
