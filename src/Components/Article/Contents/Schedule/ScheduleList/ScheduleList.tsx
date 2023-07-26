@@ -2,6 +2,7 @@ import React,{useState, useEffect} from "react";
 import '../../../../../css/ScheduleList.css'
 
 type Schedule_list_props={
+    show_hide_Datail_plan_OnOff(OnOff:boolean, dataIndex:number):void;
     ChangeplanMode(mode:string):void;
     planList:planListType[];
 }
@@ -14,11 +15,9 @@ type planListType ={
 
 function ScheduleList(props:Schedule_list_props){
 
-    //추후에 firebase를 넣을때 추가해야함
     const [PlanList,setPlanList] = useState<JSX.Element[]>([]);
     const [pagingBtn_List,setpagingBtn_List] = useState<JSX.Element[]>([]);
 
-    //현재 for문은 임시임
     const addPlanList=(startNum:number):void=>{
         let list_arr:JSX.Element[] = [];
         let save_pagingBtn_number:number=Math.ceil(props.planList.length/5)
@@ -26,7 +25,7 @@ function ScheduleList(props:Schedule_list_props){
             for(let x=(startNum*5)-5; x<(startNum*5); x++){
                 list_arr.push(
                     <li key={'planList'+x}>
-                        <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault();}}>
+                        <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault(); props.show_hide_Datail_plan_OnOff(true,x);}}>
                             {props.planList[x].title}
                         </a>
                         <button><i className="fa-solid fa-trash"></i></button>
@@ -37,7 +36,7 @@ function ScheduleList(props:Schedule_list_props){
             for(let x=((startNum*5)-5); x<props.planList.length; x++){
                 list_arr.push(
                     <li key={'planList'+x}>
-                        <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault();}}>
+                        <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault(); props.show_hide_Datail_plan_OnOff(true,x);}}>
                             {props.planList[x].title}
                         </a>
                         <button><i className="fa-solid fa-trash"></i></button>

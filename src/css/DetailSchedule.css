@@ -1,0 +1,57 @@
+.DetailSchedule{
+    visibility: hidden;
+    opacity: 0;
+
+    transition: 0.5s;
+}
+.DetailSchedule.show{
+    width: 70%;
+
+    border: 1px solid;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    visibility: visible;
+    opacity: 1;
+}
+
+.DetailSchedule.show h3{
+    width: 100%;
+    height: 45px;
+
+    border-bottom: 1px solid #808080;
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: 700;
+    font-size: 1.3em;
+}
+.DetailPlanWrap{
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 10px;
+}
+.DetailPlan{
+    height: 30%;
+    border: 1px solid #2e2e2e;
+}
+.DetaileTimeLine{
+    height: 70%;
+    border: 1px solid #2e2e2e;
+}
+@media screen and (max-width:750px) {
+    .DetailSchedule.show{
+        width: 100%;
+        height: 50%;
+        flex-direction: column;
+    }
+}
