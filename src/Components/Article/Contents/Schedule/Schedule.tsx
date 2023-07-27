@@ -75,9 +75,9 @@ function Schedule(props:Class){
     //*필요 초기 렌더링시 파이어베이스에서 데이터 끌고와서 setPlanList에 저장해야함
     useEffect(()=>{
         let save_UID:any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
-
         if(save_UID!==null){
             const dataRef = ref(db, save_UID); // 경로를 지정합니다.
+
             get(dataRef)
                 .then((snapshot) => {
                     if (snapshot.exists()) {
@@ -87,6 +87,13 @@ function Schedule(props:Class){
                         setPlanListMode('READ');
                         setTimeout(()=>{setSchedule_class('show');},0);
                     } else {
+                        set(dataRef, save_UID)
+                        .then(() => {
+                            setPlanListMode('READ');
+                            setTimeout(() => {
+                                setSchedule_class('show');
+                            }, 0);
+                        })
                         console.log('firebase 경로 확인 필요');
                     }
                 })
@@ -103,6 +110,13 @@ function Schedule(props:Class){
                         setPlanListMode('READ');
                         setTimeout(()=>{setSchedule_class('show');},0);
                     } else {
+                        set(dataRef, planList)
+                        .then(() => {
+                            setPlanListMode('READ');
+                            setTimeout(() => {
+                                setSchedule_class('show');
+                            }, 0);
+                        })
                         console.log('firebase 경로 확인 필요');
                     }
                 })

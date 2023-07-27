@@ -33,8 +33,7 @@
 
         transition: 1s;
 
-        justify-content: center;        
-        flex-direction: column;
+        justify-content: center;
     }
 
     .schedule.show{

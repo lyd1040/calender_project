@@ -7,6 +7,7 @@ type Schedule_list_props={
     planList:planListType[];
 }
 type planListType ={
+    id:number,
     title:string,
     content:string,
     date:string,
@@ -26,11 +27,12 @@ function ScheduleList(props:Schedule_list_props){
                 list_arr.push(
                     <li key={'planList'+x}>
                         <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault(); props.show_hide_Datail_plan_OnOff(true,x);}}>
-                            {props.planList[x].title}
+                           {/*  {props.planList[x].title} */}
                         </a>
                         <button><i className="fa-solid fa-trash"></i></button>
                     </li>
                 );
+                console.log(props.planList);
             }
         }else{
             for(let x=((startNum*5)-5); x<props.planList.length; x++){
