@@ -2,6 +2,7 @@ import React,{useState, useEffect} from "react";
 import '../../../../css/Schedule.css'
 import DetailSchedule from "./Detail_schedule/DetailSchedule";
 import AddSchedule from "./AddSchedule/AddSchedule";
+import UpdateSchedule from "./UpdateSchedule/UpdateSchedule";
 import ScheduleList from "./ScheduleList/ScheduleList";
 import { db } from '../../../../firebase';
 import { ref, get , set } from 'firebase/database';
@@ -144,6 +145,8 @@ function Schedule(props:Class){
     const ChangeplanComponent=():void=>{
         if(planListMode==='READ'){
             setplanComponent(<ScheduleList ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
+        }else if(planListMode==='UPDATE'){
+            setplanComponent(<UpdateSchedule></UpdateSchedule>)
         }else{
             setplanComponent(<AddSchedule ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></AddSchedule>)
         }

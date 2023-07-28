@@ -84,7 +84,7 @@
 .plan_list_wrap .Schedule_btnWrap .pagingBtn_wrap a{
     margin: 0 5px;
 }
-.plan_list_wrap .Schedule_btnWrap>button{
+.plan_list_wrap .Schedule_btnWrap .Schedule_btn{
     position: absolute;
     bottom: 0;
 

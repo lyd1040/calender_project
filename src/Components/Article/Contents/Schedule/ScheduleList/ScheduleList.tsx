@@ -22,14 +22,18 @@ function ScheduleList(props:Schedule_list_props){
     const addPlanList=(startNum:number):void=>{
         let list_arr:JSX.Element[] = [];
         let save_pagingBtn_number:number=Math.ceil(props.planList.length/5)
+
         if(startNum!==save_pagingBtn_number){
             for(let x=(startNum*5)-5; x<(startNum*5); x++){
                 list_arr.push(
                     <li key={'planList'+x}>
                         <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault(); props.show_hide_Datail_plan_OnOff(true,x);}}>
-                           {/*  {props.planList[x].title} */}
+                            {props.planList[x].title}
                         </a>
-                        <button><i className="fa-solid fa-trash"></i></button>
+                        <div>
+                            <button><i className="fa-solid fa-pen-nib"></i></button>
+                            <button><i className="fa-solid fa-trash"></i></button>
+                        </div>
                     </li>
                 );
                 console.log(props.planList);
@@ -41,8 +45,11 @@ function ScheduleList(props:Schedule_list_props){
                         <a href="/" onClick={(e:React.MouseEvent<HTMLAnchorElement>)=>{e.preventDefault(); props.show_hide_Datail_plan_OnOff(true,x);}}>
                             {props.planList[x].title}
                         </a>
-                        <button><i className="fa-solid fa-trash"></i></button>
-                    </li>
+                        <div>
+                            <button><i className="fa-solid fa-pen-nib"></i></button>
+                            <button><i className="fa-solid fa-trash"></i></button>
+                        </div>
+                        </li>
                 );
             }
         }
@@ -88,7 +95,7 @@ function ScheduleList(props:Schedule_list_props){
             <div className="pagingBtn_wrap">
                 {pagingBtn_List}
             </div>
-            <button type="button" onClick={()=>{props.ChangeplanMode('CREATE')}}>일정 추가</button>
+            <button type="button" className="Schedule_btn" onClick={()=>{props.ChangeplanMode('CREATE')}}>일정 추가</button>
         </div>
     </div>
     )

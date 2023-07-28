@@ -92,11 +92,12 @@ const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
                 <div id="DetaileTimeLine" className="DetaileTimeLine">
                     <div>
                         <p>00</p>
-                        <div></div>
+                        <div className="Dshow"></div>
+                        <div ></div>
                     </div>
                     <div>
                         <p>01</p>
-                        
+                        <div></div>
                     </div>
                     <div>
                         <p>02</p>
@@ -141,7 +142,7 @@ const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
                     </div>
                     <div>
                         <p>13</p>
-                        <div></div>
+                        <div className="Dshow"></div>
                     </div>
                     <div>
                         <p>14</p>
@@ -181,7 +182,7 @@ const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
                     </div>
                     <div>
                         <p>23</p>
-                        <div></div>
+                        <div className="Dshow"></div>
                     </div>
                 </div>
             </div>
