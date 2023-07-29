@@ -5,6 +5,7 @@ type Schedule_list_props={
     show_hide_Datail_plan_OnOff(OnOff:boolean, dataIndex:number):void;
     ChangeplanMode(mode:string):void;
     planList:planListType[];
+    save_Update_Index(Update_Index:number):void;
 }
 type planListType ={
     id:number,
@@ -31,12 +32,11 @@ function ScheduleList(props:Schedule_list_props){
                             {props.planList[x].title}
                         </a>
                         <div>
-                            <button><i className="fa-solid fa-pen-nib"></i></button>
+                            <button type="button" onClick={()=>{props.ChangeplanMode('UPDATE'); props.save_Update_Index(x)}}><i className="fa-solid fa-pen-nib"></i></button>
                             <button><i className="fa-solid fa-trash"></i></button>
                         </div>
                     </li>
                 );
-                console.log(props.planList);
             }
         }else{
             for(let x=((startNum*5)-5); x<props.planList.length; x++){
@@ -46,7 +46,7 @@ function ScheduleList(props:Schedule_list_props){
                             {props.planList[x].title}
                         </a>
                         <div>
-                            <button><i className="fa-solid fa-pen-nib"></i></button>
+                            <button type="button" onClick={()=>{props.ChangeplanMode('UPDATE'); props.save_Update_Index(x)}}><i className="fa-solid fa-pen-nib"></i></button>
                             <button><i className="fa-solid fa-trash"></i></button>
                         </div>
                         </li>

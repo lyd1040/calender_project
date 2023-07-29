@@ -22,6 +22,9 @@ function Schedule(props:Class){
     const ChangeplanMode=(data:string):void=>{
         setPlanListMode(data)
     }
+    const save_Update_Index =(Update_Index:number):void =>{
+        setUseUpdate_PlanList_Index(Update_Index)
+    }
     //Detail 컴포넌트 show/hide
     const show_hide_Datail_plan_OnOff=(onOff:boolean, dataIndex:number):void=>{
         if(onOff===true){
@@ -34,15 +37,17 @@ function Schedule(props:Class){
     let [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
     let [detailPlanListMode, setDetailPlanListMode] = useState<boolean>(false) // Detail 컴포넌트를 켜고 끌 수 있는 값
     let [detailPlanListIndex, setdetailPlanListIndex] = useState<number>(NaN);
+    let [useUpdate_PlanList_Index,setUseUpdate_PlanList_Index] = useState<number>(NaN);
     const [planList,setPlanList] = useState<planListType[]>(
         [
             {id:NaN, title:'',content:'',date:'',time:''},
         ]
     )
-    const [planComponent, setplanComponent] =useState<JSX.Element | null>(<ScheduleList ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>);
+    const [planComponent, setplanComponent] =useState<JSX.Element | null>(<ScheduleList save_Update_Index={save_Update_Index} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>);
     const [detailplanComponent, setdetailplanComponent] =useState<JSX.Element | null>(<></>);
     
     //일정목록을 추가할 수 있는 이벤트 함수
+    //UpdateComponent에서는 Update로 사용
     const onAddPlanList=(data:planListType[]):void=>{
         setPlanList(data)
         setPlanListMode('READ');
@@ -134,7 +139,7 @@ function Schedule(props:Class){
     //모드변경
     useEffect(()=>{
         ChangeplanComponent()
-    },[planListMode,planList])
+    },[planListMode,planList,useUpdate_PlanList_Index])
 
     useEffect(()=>{
         show_hide_Datail_plan(detailPlanListMode)
@@ -144,9 +149,9 @@ function Schedule(props:Class){
     //모드 상황에 따라 컴포넌트 바꾸기
     const ChangeplanComponent=():void=>{
         if(planListMode==='READ'){
-            setplanComponent(<ScheduleList ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
+            setplanComponent(<ScheduleList save_Update_Index={save_Update_Index}  ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
         }else if(planListMode==='UPDATE'){
-            setplanComponent(<UpdateSchedule></UpdateSchedule>)
+            setplanComponent(<UpdateSchedule useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></UpdateSchedule>)
         }else{
             setplanComponent(<AddSchedule ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></AddSchedule>)
         }

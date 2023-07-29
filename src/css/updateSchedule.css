@@ -1,4 +1,4 @@
-.AddSchedule{
+.UpdateSchedule{
     position: absolute;
     left: 100%;
 
@@ -10,7 +10,7 @@
     border: 1px solid;
     border-radius: 5px;
 }
-.AddSchedule .cancleBtn{
+.UpdateSchedule .cancleBtn{
     position: absolute;
     top:5px;
     right: 5px;
@@ -28,7 +28,7 @@
     box-shadow: 0 0 2px #000;
 }
 
-.AddSchedule .AddSchedule_center{
+.UpdateSchedule .UpdateSchedule_center{
     width: 100%;
 
     display: flex;
@@ -36,7 +36,7 @@
     flex-direction: column;
 }
 
-.AddSchedule h3{
+.UpdateSchedule h3{
     width: 100%;
 
     border: 0;
@@ -49,14 +49,14 @@
     font-size: 1.3em;
 }
 /* 일정 추가 내용 */
-.AddSchedule form{
+.UpdateSchedule form{
     position: relative;
 
     width: 100%;
 
     margin: 30px 0;
 }
-.AddSchedule form>div{
+.UpdateSchedule form>div{
     margin: 30px 0;
 
     display: flex;
@@ -64,7 +64,7 @@
 }
 /* 일정 추가버튼 */
 
-.AddSchedule .Schedule_btnWrap>button{
+.UpdateSchedule .Schedule_btnWrap>button{
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -74,19 +74,19 @@
     display: flex;
     justify-content: center;
 }
-.AddSchedule .Schedule_btnWrap>button:hover{
+.UpdateSchedule .Schedule_btnWrap>button:hover{
     cursor: pointer;
 }
 
 
-.AddSchedule .Schedule_btnWrap .pagingBtn_wrap{
+.UpdateSchedule .Schedule_btnWrap .pagingBtn_wrap{
     padding: 10px 0;
 }
 
 
 
 @media screen and (max-width:750px) {
-    .AddSchedule{
+    .UpdateSchedule{
         position: relative;
         left: 0;
 
@@ -94,7 +94,7 @@
 
         width: 50%;
     }
-    .AddSchedule h3{
+    .UpdateSchedule h3{
         border-left: 0;
         border-right: 0;
     }
