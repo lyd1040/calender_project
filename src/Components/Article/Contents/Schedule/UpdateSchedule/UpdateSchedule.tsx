@@ -1,7 +1,5 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect} from "react";
 import '../../../../../css/updateSchedule.css'
-import { db } from '../../../../../firebase';
-import { ref, get } from 'firebase/database';
 
 type UpdateScheduleType= {
     onAddPlanList(data:planListType[]):void; //Update Component에서는 Update로 활용할것

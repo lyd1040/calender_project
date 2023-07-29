@@ -32,6 +32,16 @@ function Schedule(props:Class){
         }
         setDetailPlanListMode(onOff)
     }
+    //list 목록 삭제
+    const onDeleteList = (deleteIndex:number) =>{
+        console.log(deleteIndex); // ScheduleList에서 삭제 버튼 누른 인덱스값
+        //할 일1. 컨텐츠 복사본에 불러온 컨텐츠 저장
+        //할 일2. 복사본을 splice와 deleteIndex를 사용해서 수정
+        //할 일3. 수정된 복사본을 setPlanList를 사용해서 planList 변경
+        //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.
+
+    }
+
 
     let [Schedule_class, setSchedule_class] = useState<string | null>(null)
     let [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
@@ -43,7 +53,7 @@ function Schedule(props:Class){
             {id:NaN, title:'',content:'',date:'',time:''},
         ]
     )
-    const [planComponent, setplanComponent] =useState<JSX.Element | null>(<ScheduleList save_Update_Index={save_Update_Index} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>);
+    const [planComponent, setplanComponent] =useState<JSX.Element | null>(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>);
     const [detailplanComponent, setdetailplanComponent] =useState<JSX.Element | null>(<></>);
     
     //일정목록을 추가할 수 있는 이벤트 함수
@@ -149,7 +159,7 @@ function Schedule(props:Class){
     //모드 상황에 따라 컴포넌트 바꾸기
     const ChangeplanComponent=():void=>{
         if(planListMode==='READ'){
-            setplanComponent(<ScheduleList save_Update_Index={save_Update_Index}  ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
+            setplanComponent(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList}  ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
         }else if(planListMode==='UPDATE'){
             setplanComponent(<UpdateSchedule useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></UpdateSchedule>)
         }else{

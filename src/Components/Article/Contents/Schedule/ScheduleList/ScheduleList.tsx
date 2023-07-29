@@ -4,6 +4,7 @@ import '../../../../../css/ScheduleList.css'
 type Schedule_list_props={
     show_hide_Datail_plan_OnOff(OnOff:boolean, dataIndex:number):void;
     ChangeplanMode(mode:string):void;
+    onDeleteList(deleteIndex:number):void;
     planList:planListType[];
     save_Update_Index(Update_Index:number):void;
 }
@@ -33,7 +34,7 @@ function ScheduleList(props:Schedule_list_props){
                         </a>
                         <div>
                             <button type="button" onClick={()=>{props.ChangeplanMode('UPDATE'); props.save_Update_Index(x)}}><i className="fa-solid fa-pen-nib"></i></button>
-                            <button><i className="fa-solid fa-trash"></i></button>
+                            <button onClick={()=>{props.onDeleteList(x)}}><i className="fa-solid fa-trash"></i></button>
                         </div>
                     </li>
                 );
@@ -47,7 +48,7 @@ function ScheduleList(props:Schedule_list_props){
                         </a>
                         <div>
                             <button type="button" onClick={()=>{props.ChangeplanMode('UPDATE'); props.save_Update_Index(x)}}><i className="fa-solid fa-pen-nib"></i></button>
-                            <button><i className="fa-solid fa-trash"></i></button>
+                            <button onClick={()=>{props.onDeleteList(x)}}><i className="fa-solid fa-trash"></i></button>
                         </div>
                         </li>
                 );
