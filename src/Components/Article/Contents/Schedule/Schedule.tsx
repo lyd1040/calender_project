@@ -35,11 +35,26 @@ function Schedule(props:Class){
     //list 목록 삭제
     const onDeleteList = (deleteIndex:number) =>{
         console.log(deleteIndex); // ScheduleList에서 삭제 버튼 누른 인덱스값
+        
         //할 일1. 컨텐츠 복사본에 불러온 컨텐츠 저장
-        //할 일2. 복사본을 splice와 deleteIndex를 사용해서 수정
-        //할 일3. 수정된 복사본을 setPlanList를 사용해서 planList 변경
-        //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.
+        const Delete_list:planListType[]=[];
 
+        //할 일2. 복사본을 splice와 deleteIndex를 사용해서 수정
+        for(let x=0; x<planList.length; x++){
+            if(x!==deleteIndex){
+                Delete_list.push(planList[x]);
+            }
+        }
+
+        //할 일3. 일정 id 수정
+        for(let x=0; x<Delete_list.length; x++){
+            Delete_list[x].id=x+1;
+        }
+
+
+        //할 일4. 수정된 복사본을 setPlanList를 사용해서 planList 변경
+        setPlanList(Delete_list);
+        //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.(미완성)
     }
 
 
