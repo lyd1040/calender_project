@@ -8,6 +8,7 @@ import { db } from '../../../../firebase';
 import { ref, get, set } from 'firebase/database';
 
 type Class = {
+    Schedule_date_test: Schedule_date_test_type;
     SHclass: boolean;
 };
 type planListType = {
@@ -16,6 +17,12 @@ type planListType = {
     content: string,
     date: string,
     time: string
+}
+
+type Schedule_date_test_type = {
+    year: number;
+    month: number;
+    date_text: number;
 }
 function Schedule(props: Class) {
     //모드 바꾸기(하위 컴포넌트에서 실행)
@@ -34,7 +41,6 @@ function Schedule(props: Class) {
     }
     //list 목록 삭제
     const onDeleteList = (deleteIndex: number) => {
-        console.log(deleteIndex); // ScheduleList에서 삭제 버튼 누른 인덱스값
 
         //할 일1. 컨텐츠 복사본에 불러온 컨텐츠 저장
         const Delete_list: planListType[] = [];
@@ -100,12 +106,31 @@ function Schedule(props: Class) {
                 console.error('Error adding data: ', error);
             }
         }
-
     };
+
+    const Select_date_update = (): string => {
+        let select_year: string = props.Schedule_date_test.year.toString();
+        let select_month: number | string = props.Schedule_date_test.month;
+        let select_date_text: number | string = props.Schedule_date_test.date_text;
+        let select_YMD: string;
+
+        if (select_month <= 10) {
+            select_month = '0' + select_month;
+        }
+        if (select_date_text <= 10) {
+            select_date_text = '0' + select_date_text;
+        }
+        select_YMD = `${select_year}-${select_month}-${select_date_text}`;
+
+        return select_YMD;
+    }
 
     //초기 마운트시
     //*필요 초기 렌더링시 파이어베이스에서 데이터 끌고와서 setPlanList에 저장해야함
     useEffect(() => {
+        let select_YMD: string = Select_date_update();
+        let select_YMD_list: planListType[] = [];
+
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         if (save_UID !== null) {
             const dataRef = ref(db, save_UID); // 경로를 지정합니다.
@@ -139,11 +164,12 @@ function Schedule(props: Class) {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
                         for (let x = 0; x < data.length; x++) {
-                            if ((new Date(data[x].date.split(' ~ ')[0]).getTime() <= new Date('2023-08-01').getTime()) && (new Date(data[x].date.split(' ~ ')[1]).getTime() >= new Date('2023-08-01').getTime())) {
-                                console.log(data[x]);
+                            if ((new Date(data[x].date.split(' ~ ')[0]).getTime() <= new Date(select_YMD).getTime()) && (new Date(data[x].date.split(' ~ ')[1]).getTime() >= new Date(select_YMD).getTime())) {
+                                select_YMD_list.push(data[x]);
                             }
                         }
-                        setPlanList(data)
+                        console.log(planList)
+                        setPlanList(select_YMD_list)
                         setPlanListMode('READ');
                         setTimeout(() => { setSchedule_class('show'); }, 0);
                     } else {
@@ -190,7 +216,7 @@ function Schedule(props: Class) {
     //DetailSchedule 추가
     const show_hide_Datail_plan = (OnOff: boolean) => {
         if (OnOff) {
-            setdetailplanComponent(<DetailSchedule detailPlanListIndex={detailPlanListIndex}></DetailSchedule>);
+            setdetailplanComponent(<DetailSchedule detailPlanListIndex={detailPlanListIndex} planList={planList}></DetailSchedule>);
         } else {
             setdetailplanComponent(<></>)
         }

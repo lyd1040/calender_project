@@ -24,35 +24,38 @@ function ScheduleList(props: Schedule_list_props) {
     const addPlanList = (startNum: number): void => {
         let list_arr: JSX.Element[] = [];
         let save_pagingBtn_number: number = Math.ceil(props.planList.length / 5)
-
-        if (startNum !== save_pagingBtn_number) {
-            for (let x = (startNum * 5) - 5; x < (startNum * 5); x++) {
-                list_arr.push(
-                    <li key={'planList' + x}>
-                        <a href="/" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); props.show_hide_Datail_plan_OnOff(true, x); }}>
-                            {props.planList[x].title}
-                        </a>
-                        <div>
-                            <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
-                            <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
-                        </div>
-                    </li>
-                );
+        if (props.planList.length !== 0) {
+            if (startNum !== save_pagingBtn_number) {
+                for (let x = (startNum * 5) - 5; x < (startNum * 5); x++) {
+                    list_arr.push(
+                        <li key={'planList' + x}>
+                            <a href="/" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); props.show_hide_Datail_plan_OnOff(true, x); }}>
+                                {props.planList[x].title}
+                            </a>
+                            <div>
+                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
+                                <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
+                            </div>
+                        </li>
+                    );
+                }
+            } else {
+                for (let x = ((startNum * 5) - 5); x < props.planList.length; x++) {
+                    list_arr.push(
+                        <li key={'planList' + x}>
+                            <a href="/" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); props.show_hide_Datail_plan_OnOff(true, x); }}>
+                                {props.planList[x].title}
+                            </a>
+                            <div>
+                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
+                                <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
+                            </div>
+                        </li>
+                    );
+                }
             }
         } else {
-            for (let x = ((startNum * 5) - 5); x < props.planList.length; x++) {
-                list_arr.push(
-                    <li key={'planList' + x}>
-                        <a href="/" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); props.show_hide_Datail_plan_OnOff(true, x); }}>
-                            {props.planList[x].title}
-                        </a>
-                        <div>
-                            <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
-                            <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
-                        </div>
-                    </li>
-                );
-            }
+            list_arr.push(<p>내용이 없습니다.</p>)
         }
 
         setPlanList(list_arr);
@@ -78,6 +81,7 @@ function ScheduleList(props: Schedule_list_props) {
 
     useEffect(() => {
         settingPagingBtn();
+        console.log(PlanList);
     }, [PlanList, props.planList])
 
     return (
