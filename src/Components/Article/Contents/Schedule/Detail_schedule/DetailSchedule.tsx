@@ -5,6 +5,7 @@ import { ref, get } from 'firebase/database';
 type DetailScheduleProps = {
     planList: printDOM[];
     detailPlanListIndex: number;
+    Schedule_date_test: Schedule_date_test_type;
 }
 
 type printDOM = {
@@ -15,19 +16,26 @@ type printDOM = {
     title: string
 }
 
+type Schedule_date_test_type = {
+    year: number;
+    month: number;
+    date_text: number;
+}
+
 function DetailSchedule(props: DetailScheduleProps) {
     const [DetailSchedule_class, setDetailSchedule] = useState<string>('DetailSchedule'); //클래스 입히기
-    const [savePlanIndex, setsavePlanIndex] = useState<number>(NaN) //
     const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
+    const [DetaileTimeLine_list, setDetaileTimeLine_list] = useState<JSX.Element[]>([]);
 
 
     useEffect(() => {
         printDOM(props.planList[props.detailPlanListIndex]);
+        printTodayDom();
         setTimeout(() => {
             setDetailSchedule('DetailSchedule show')
         }, 100)
 
-    }, [props.detailPlanListIndex])
+    }, [props.detailPlanListIndex, props.planList])
 
     const printDOM = (DomEle: printDOM): void => {
         let plan_title: string[] = ['일정 제목', '일정 내용', '일정 날짜', '일정 시간'];
@@ -47,6 +55,51 @@ function DetailSchedule(props: DetailScheduleProps) {
         setToday_infomaition(todayinfo_local);
     }
 
+    const printTodayDom = () => {
+        let time_hours: string[] = []; // #DetaileTimeLine 시간표현
+        let list_hours: JSX.Element[][] = []; // #DetaileTimeLine 리스트표현
+        let TimeLine_list: JSX.Element[] = [];
+
+
+        //시간 표현
+        for (let x = 0; x < 24; x++) {
+            if (x < 10) {
+                time_hours.push(`0${x}`);
+            } else {
+                time_hours.push(x.toString());
+            }
+        }
+
+        // list_hours 배열의 내부 배열 초기화
+        for (let x = 0; x < 24; x++) {
+            list_hours.push([]); // 각 요소에 빈 배열을 추가하여 초기화
+        }
+
+        for (let x = 0; x < props.planList.length; x++) {
+            let firstTime = props.planList[x].time.split(' ~ ')[0];
+            let secoundTime = props.planList[x].time.split(' ~ ')[1];
+            for (let y = 0; y < 24; y++) {
+                if (Number(firstTime.split(':')[0]) <= Number(time_hours[y]) && Number(time_hours[y]) <= Number(secoundTime.split(':')[0])) {
+                    list_hours[y].push(<div className="Dshow">{props.planList[x].title}</div>)
+                }
+            }
+        }
+
+
+        for (let x = 0; x < 24; x++) {
+            TimeLine_list.push(
+                <div>
+                    <p>{time_hours[x]}</p>
+                    <div className="Dshow_wrap">
+                        {list_hours[x]}
+                    </div>
+                </div>
+            )
+        }
+
+        setDetaileTimeLine_list(TimeLine_list)
+    }
+
     return (
         <div id="DetailSchedule" className={DetailSchedule_class}>
             <h3>자세한 일정</h3>
@@ -58,100 +111,7 @@ function DetailSchedule(props: DetailScheduleProps) {
                 </div>
 
                 <div id="DetaileTimeLine" className="DetaileTimeLine">
-                    <div>
-                        <p>00</p>
-                        <div className="Dshow"></div>
-                        <div ></div>
-                    </div>
-                    <div>
-                        <p>01</p>
-                        <div></div>
-                    </div>
-                    <div>
-                        <p>02</p>
-                    </div>
-                    <div>
-                        <p>03</p>
-
-                    </div>
-                    <div>
-                        <p>04</p>
-
-                    </div>
-                    <div>
-                        <p>05</p>
-                    </div>
-                    <div>
-                        <p>06</p>
-
-                    </div>
-                    <div>
-                        <p>07</p>
-                    </div>
-                    <div>
-                        <p>08</p>
-
-                    </div>
-                    <div>
-                        <p>09</p>
-
-                    </div>
-                    <div>
-                        <p>10</p>
-
-                    </div>
-                    <div>
-                        <p>11</p>
-
-                    </div>
-                    <div>
-                        <p>12</p>
-
-                    </div>
-                    <div>
-                        <p>13</p>
-                        <div className="Dshow"></div>
-                    </div>
-                    <div>
-                        <p>14</p>
-
-                    </div>
-                    <div>
-                        <p>15</p>
-
-                    </div>
-                    <div>
-                        <p>16</p>
-
-                    </div>
-                    <div>
-                        <p>17</p>
-
-                    </div>
-                    <div>
-                        <p>18</p>
-
-                    </div>
-                    <div>
-                        <p>19</p>
-
-                    </div>
-                    <div>
-                        <p>20</p>
-
-                    </div>
-                    <div>
-                        <p>21</p>
-                        <div></div>
-                    </div>
-                    <div>
-                        <p>22</p>
-
-                    </div>
-                    <div>
-                        <p>23</p>
-                        <div className="Dshow"></div>
-                    </div>
+                    {DetaileTimeLine_list}
                 </div>
             </div>
         </div>

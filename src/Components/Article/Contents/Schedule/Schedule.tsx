@@ -5,7 +5,7 @@ import AddSchedule from "./AddSchedule/AddSchedule";
 import UpdateSchedule from "./UpdateSchedule/UpdateSchedule";
 import ScheduleList from "./ScheduleList/ScheduleList";
 import { db } from '../../../../firebase';
-import { ref, get, set } from 'firebase/database';
+import { ref, get, set, remove, update } from 'firebase/database';
 
 type Class = {
     Schedule_date_test: Schedule_date_test_type;
@@ -60,7 +60,7 @@ function Schedule(props: Class) {
 
         //할 일4. 수정된 복사본을 setPlanList를 사용해서 planList 변경
         setPlanList(Delete_list);
-        firebaseAddData(Delete_list);
+        firebaseRemoveDate(Delete_list);
         //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.(미완성)
     }
 
@@ -75,7 +75,7 @@ function Schedule(props: Class) {
             { id: NaN, title: '', content: '', date: '', time: '' },
         ]
     )
-    const [planComponent, setplanComponent] = useState<JSX.Element | null>(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>);
+    const [planComponent, setplanComponent] = useState<JSX.Element | null>(<></>);
     const [detailplanComponent, setdetailplanComponent] = useState<JSX.Element | null>(<></>);
 
     //일정목록을 추가할 수 있는 이벤트 함수
@@ -86,6 +86,45 @@ function Schedule(props: Class) {
         firebaseAddData(data)
     }
 
+    //유저 밑에 선택된 데이터 삭제
+    const firebaseRemoveDate = async (Delete_list: planListType[]) => {
+        let saveUID: any = sessionStorage.getItem('userUID');
+        if (saveUID !== null) {
+            try {
+                const usersRef = ref(db, saveUID);
+                await remove(usersRef);
+                await firebaseRemove_updateData(Delete_list);
+            } catch (error) {
+                console.error('Error deleting user data:', error);
+            }
+        } else {
+            try {
+                const usersRef = ref(db, 'test');
+                await remove(usersRef);
+                await firebaseRemove_updateData(Delete_list);
+            } catch (error) {
+                console.error('Error deleting user data:', error);
+            }
+        }
+    }
+
+    const firebaseRemove_updateData = async (Delete_list: planListType[]) => {
+        try {
+            const updates: any = {};
+
+            // dataArray를 사용하여 데이터 업데이트를 생성
+            Delete_list.forEach((data, index) => {
+                updates[`test/${index}`] = data;
+            });
+
+            // update 메서드를 사용하여 한 번에 여러 데이터 업데이트
+            await update(ref(db), updates);
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
+    }
+
+    //firebase에 데이터 추가
     const firebaseAddData = (data: planListType[]): void => {
 
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
@@ -108,6 +147,7 @@ function Schedule(props: Class) {
         }
     };
 
+    //선택된 데이터의 연도, 월, 일 합치기
     const Select_date_update = (): string => {
         let select_year: string = props.Schedule_date_test.year.toString();
         let select_month: number | string = props.Schedule_date_test.month;
@@ -216,7 +256,7 @@ function Schedule(props: Class) {
     //DetailSchedule 추가
     const show_hide_Datail_plan = (OnOff: boolean) => {
         if (OnOff) {
-            setdetailplanComponent(<DetailSchedule detailPlanListIndex={detailPlanListIndex} planList={planList}></DetailSchedule>);
+            setdetailplanComponent(<DetailSchedule detailPlanListIndex={detailPlanListIndex} Schedule_date_test={props.Schedule_date_test} planList={planList}></DetailSchedule>);
         } else {
             setdetailplanComponent(<></>)
         }
