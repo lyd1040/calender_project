@@ -1,4 +1,55 @@
+
+button.show_gnb{
+    width: 50px;
+    height: 50px;
+
+    background: 0;
+
+    border: 0;
+
+    cursor: pointer;
+}
+
+button.show_gnb i{
+    font-size: 1.8em;
+}
+
+button.show_gnb:hover i{
+    color: rgb(238, 109, 109);
+}
+
 nav{
+    position: absolute;
+    top: 70px;
+    left: 0;
+
+    width: 100%;
+    height: 100px;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+nav ul{
+    height: 100%;
+
+    transform: translateY(-100px);
+
     display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid #d3d3d3;
+
     gap: 20px;
+
+    backdrop-filter: blur(5px);
+
+    transition: 0.3s ease-in-out; 
+
+    pointer-events: all;
+}
+nav ul.show{
+    transform: translateY(0);
 }

@@ -2,7 +2,7 @@ import React,{useEffect} from "react";
 import '../../../../../css/updateSchedule.css'
 
 type UpdateScheduleType= {
-    onAddPlanList(data:planListType[]):void; //Update Component에서는 Update로 활용할것
+    onUpdatePlanList(data:planListType[]):void; //Update Component에서는 Update로 활용할것
     ChangeplanMode(mode:string):void;
     planList:planListType[];
     useUpdate_PlanList_Index:number;
@@ -42,7 +42,7 @@ function UpdateSchedule(props:UpdateScheduleType) {
 
             console.log(planlist_arr);
             
-            props.onAddPlanList(planlist_arr)
+            props.onUpdatePlanList(planlist_arr)
             
         };
     }

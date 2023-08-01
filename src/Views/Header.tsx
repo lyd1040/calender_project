@@ -2,15 +2,9 @@ import Nav from '../Components/Header/Nav/Nav';
 import '../css/header.css';
 import React, { useState, useEffect } from 'react';
 
-type ContentItem = {
-  id: number;
-  title: string;
-  desc: string;
-};
 
 type NavProps = {
   Mode: string;
-  header_Menu: ContentItem[];
   header_YMD: number[];
   onChangeMode: (id: number) => void; // 예시로 빈 함수 타입 설정
 };
@@ -50,7 +44,7 @@ function Header(props: NavProps) {
       <ul className='headerYMD'>
         {show_hide_date}
       </ul>
-      <Nav header_Menu={props.header_Menu} onChangeMode={props.onChangeMode}></Nav>
+      <Nav  onChangeMode={props.onChangeMode}></Nav>
     </header>
   )
 }

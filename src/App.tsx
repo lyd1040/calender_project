@@ -1,22 +1,8 @@
 import React,{useEffect, useState} from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import Header from './Views/Header';
 import Article from './Views/Article';
 
 function App() {
-  //header menu
-  type ContentItem = {
-    id: number;
-    title: string;
-    desc: string;
-  };
-  let [header_Menu,set_Header_Menu] = useState<ContentItem[]>(
-    [
-      {id:1,title:'HTML',desc:'HTML is...'},
-      {id:2,title:'CSS',desc:'CSS is...'},
-      {id:3,title:'JS',desc:'JS is...'}
-    ]
-  )
 
   let [header_YMD,set_header_YMD] = useState<number[]>([
     NaN, //year
@@ -67,12 +53,10 @@ function App() {
     
   }
   return (
-    <BrowserRouter>
       <div className="App">
-        <Header Mode={mode} header_Menu={header_Menu} onChangeMode={onChangeMode} header_YMD={header_YMD}></Header>
+        <Header Mode={mode} onChangeMode={onChangeMode} header_YMD={header_YMD}></Header>
         <Article Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode} onChangeMode2={onChangeMode}></Article>
       </div>
-    </BrowserRouter>
   );
 }
 

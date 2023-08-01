@@ -85,6 +85,26 @@ function Schedule(props: Class) {
         setPlanListMode('READ');
         firebaseAddData(data)
     }
+    const onUpdatePlanList = (data: planListType[]): void =>{
+        setPlanList(data)
+        setPlanListMode('READ');
+        firebaseUpdateList(data);
+    }
+
+    const firebaseUpdateList = async (data:planListType[]) =>{
+        
+        try {
+            const updates: any = {};
+
+            // dataArray를 사용하여 데이터 업데이트를 생성
+            updates[`test/${(data[0].id)-1}`] = data[0];
+            console.log('data',updates);
+            // update 메서드를 사용하여 한 번에 여러 데이터 업데이트
+            await update(ref(db), updates);
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
+    }
 
     //유저 밑에 선택된 데이터 삭제
     const firebaseRemoveDate = async (Delete_list: planListType[]) => {
@@ -248,7 +268,7 @@ function Schedule(props: Class) {
         if (planListMode === 'READ') {
             setplanComponent(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
         } else if (planListMode === 'UPDATE') {
-            setplanComponent(<UpdateSchedule useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></UpdateSchedule>)
+            setplanComponent(<UpdateSchedule useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></UpdateSchedule>)
         } else {
             setplanComponent(<AddSchedule ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></AddSchedule>)
         }

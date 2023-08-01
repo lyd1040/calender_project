@@ -80,7 +80,7 @@ function DetailSchedule(props: DetailScheduleProps) {
             let secoundTime = props.planList[x].time.split(' ~ ')[1];
             for (let y = 0; y < 24; y++) {
                 if (Number(firstTime.split(':')[0]) <= Number(time_hours[y]) && Number(time_hours[y]) <= Number(secoundTime.split(':')[0])) {
-                    list_hours[y].push(<div className="Dshow">{props.planList[x].title}</div>)
+                    list_hours[y].push(<div key={`propsPlanList${x}${y}`} className="Dshow">{props.planList[x].title}</div>)
                 }
             }
         }
@@ -88,7 +88,7 @@ function DetailSchedule(props: DetailScheduleProps) {
 
         for (let x = 0; x < 24; x++) {
             TimeLine_list.push(
-                <div>
+                <div key={`TimeLine${x}`}>
                     <p>{time_hours[x]}</p>
                     <div className="Dshow_wrap">
                         {list_hours[x]}
