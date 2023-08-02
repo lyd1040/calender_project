@@ -2,3 +2,9 @@
     height: 100%;
     border: 1px solid blue;
 }
+
+@media screen and (max-width:750px) {
+    .SignUp{
+        width: 100%;
+    }
+}
