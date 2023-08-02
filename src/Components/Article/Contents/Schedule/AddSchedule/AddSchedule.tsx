@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { db } from '../../../../../firebase';
 import { ref, get, set } from 'firebase/database';
 import '../../../../../css/AddSchedule.css'
@@ -11,9 +11,16 @@ type planListType = {
     time: string
 }
 type AddSchedule_props = {
-    onAddPlanList(data: planListType[]): void;
+    onUpdatePlanList(data: planListType[]): void;
     ChangeplanMode(mode: string): void;
     planList: planListType[];
+    Schedule_date_test: Schedule_date_test_type;
+}
+
+type Schedule_date_test_type = {
+    year: number;
+    month: number;
+    date_text: number;
 }
 function AddSchedule(props: AddSchedule_props) {
 
@@ -61,14 +68,60 @@ function AddSchedule(props: AddSchedule_props) {
     }
 
     //firebase 데이터 추가
-    const firebaseAddData = (list: planListType, data: planListType[]) => {
+    const firebaseAddData = (list: planListType, data: planListType[]):void => {
+
+        
         const dataRef = ref(db, 'test');
         set(dataRef, [...data, list]);
 
-        props.onAddPlanList([
-            ...props.planList,
-            list,
-        ])
+        get(dataRef)
+            .then((snapshot)=>{
+                if(snapshot.exists())
+                    return snapshot.val();
+            })
+            .then((snapshotValue)=>{
+                returnList(snapshotValue);
+            })
+        
+        
+    }
+
+    const returnList =(data: planListType[]):void =>{
+
+        let select_YMD: string = Select_date_update();
+        let filter_list: planListType[] =[];
+
+        let selectYMD_Date = new Date(select_YMD);
+
+        for(let x=0; x<data.length; x++){
+            if (
+                (new Date(data[x].date.split(' ~ ')[0]).getTime() <= selectYMD_Date.getTime()) 
+                && 
+                (new Date(data[x].date.split(' ~ ')[1]).getTime() >= selectYMD_Date.getTime())
+                ){
+                    filter_list.push(data[x]);
+            }
+        }
+        
+        props.onUpdatePlanList(filter_list)
+    }
+
+    //선택된 데이터의 연도, 월, 일 합치기
+    const Select_date_update = (): string => {
+        let select_year: string = props.Schedule_date_test.year.toString();
+        let select_month: number | string = props.Schedule_date_test.month;
+        let select_date_text: number | string = props.Schedule_date_test.date_text;
+        let select_YMD: string;
+
+        if (select_month <= 10) {
+            select_month = '0' + select_month;
+        }
+        if (select_date_text <= 10) {
+            select_date_text = '0' + select_date_text;
+        }
+        select_YMD = `${select_year}-${select_month}-${select_date_text}`;
+
+        return select_YMD;
     }
 
     const onchangedate = () => {

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../../../../css/Schedule.css'
 import DetailSchedule from "./Detail_schedule/DetailSchedule";
 import AddSchedule from "./AddSchedule/AddSchedule";
 import UpdateSchedule from "./UpdateSchedule/UpdateSchedule";
 import ScheduleList from "./ScheduleList/ScheduleList";
 import { db } from '../../../../firebase';
-import { ref, get, set, remove, update } from 'firebase/database';
+import { ref, get, set, remove } from 'firebase/database';
 
 type Class = {
     Schedule_date_test: Schedule_date_test_type;
@@ -42,35 +42,40 @@ function Schedule(props: Class) {
     //list 목록 삭제
     const onDeleteList = (deleteIndex: number) => {
 
-        console.log(deleteIndex);
+        console.log('deleteIndex',deleteIndex);
 
-        //할 일1. 컨텐츠 복사본에 불러온 컨텐츠 저장
-        const Delete_list: planListType[] = [];
+        //컨텐츠 복사본에 불러온 컨텐츠 저장
+        let Delete_list: planListType[] = [];
 
-        //할 일2. 복사본을 splice와 deleteIndex를 사용해서 수정
-        for (let x = 0; x < planList.length; x++) {
-            if (x !== deleteIndex) {
-                Delete_list.push(planList[x]);
-            }
-        }
-
-        //할 일3. 일정 id 수정
-        for (let x = 0; x < Delete_list.length; x++) {
-            Delete_list[x].id = x + 1;
-        }
-
+        //복사본 수정
         const dataRef = ref(db, 'test');
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    console.log('data', data);
+                    return data;
                 }
             })
-        //할 일4. 수정된 복사본을 setPlanList를 사용해서 planList 변경
-        setPlanList(Delete_list);
-        //firebaseRemoveDate(Delete_list);
-        //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.(미완성)
+            .then(async(data)=>{
+                Delete_list=data;
+                Delete_list.splice(deleteIndex-1,1);
+
+                //일정 id 수정
+                Delete_list=changeID(Delete_list);
+
+                const usersRef = ref(db, 'test');
+                await remove(usersRef);
+                await set(usersRef,Delete_list);
+                printList(Delete_list);
+            })
+    }
+
+    // 삭제리스트 아이디 바꾸는 리스트
+    const changeID = (Delete_list:planListType[]):planListType[] =>{
+        for (let x = 0; x < Delete_list.length; x++) {
+            Delete_list[x].id = x + 1;
+        }
+        return Delete_list;
     }
 
 
@@ -87,52 +92,10 @@ function Schedule(props: Class) {
     const [planComponent, setplanComponent] = useState<JSX.Element | null>(<></>);
     const [detailplanComponent, setdetailplanComponent] = useState<JSX.Element | null>(<></>);
 
-    //일정목록을 추가할 수 있는 이벤트 함수
-    //UpdateComponent에서는 Update로 사용
-    const onAddPlanList = (data: planListType[]): void => {
-        setPlanList(data)
-        setPlanListMode('READ');
-    }
+    //일정목록을 추가, 업데이트 할 수 있는 이벤트 함수
     const onUpdatePlanList = (data: planListType[]): void => {
         setPlanList(data)
         setPlanListMode('READ');
-    }
-
-    //유저 밑에 선택된 데이터 삭제
-    const firebaseRemoveDate = async (Delete_list: planListType[]) => {
-        let saveUID: any = sessionStorage.getItem('userUID');
-        if (saveUID !== null) {
-            try {
-                const usersRef = ref(db, saveUID);
-                await remove(usersRef);
-                await firebaseRemove_updateData(Delete_list);
-            } catch (error) {
-                console.error('Error deleting user data:', error);
-            }
-        } else {
-            try {
-                const usersRef = ref(db, 'test');
-                await remove(usersRef);
-                await firebaseRemove_updateData(Delete_list);
-            } catch (error) {
-                console.error('Error deleting user data:', error);
-            }
-        }
-    }
-
-    const firebaseRemove_updateData = async (Delete_list: planListType[]) => {
-        try {
-            const updates: any = {};
-
-            // dataArray를 사용하여 데이터 업데이트를 생성
-            Delete_list.forEach((data, index) => {
-                updates[`test/${index}`] = data;
-            });
-            // update 메서드를 사용하여 한 번에 여러 데이터 업데이트
-            await update(ref(db), updates);
-        } catch (error) {
-            console.error('Error updating user data:', error);
-        }
     }
 
     //선택된 데이터의 연도, 월, 일 합치기
@@ -153,11 +116,30 @@ function Schedule(props: Class) {
         return select_YMD;
     }
 
+    //Planlist를 날짜에 맞게 필터해서 출력시켜주는 함수
+    const printList = (data: planListType[]):void =>{
+        let select_YMD: string = Select_date_update();
+        let filter_list: planListType[] =[];
+
+        let selectYMD_Date = new Date(select_YMD);
+
+        for(let x=0; x<data.length; x++){
+            if (
+                (new Date(data[x].date.split(' ~ ')[0]).getTime() <= selectYMD_Date.getTime()) 
+                && 
+                (new Date(data[x].date.split(' ~ ')[1]).getTime() >= selectYMD_Date.getTime())
+                ){
+                    filter_list.push(data[x]);
+            }
+        }
+
+        setPlanList(filter_list)
+        setPlanListMode('READ');
+    }
+
     //초기 마운트시
     //*필요 초기 렌더링시 파이어베이스에서 데이터 끌고와서 setPlanList에 저장해야함
     useEffect(() => {
-        let select_YMD: string = Select_date_update();
-        let select_YMD_list: planListType[] = [];
 
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         if (save_UID !== null) {
@@ -167,38 +149,26 @@ function Schedule(props: Class) {
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        setPlanList(data)
-                        setPlanListMode('READ');
-                        setTimeout(() => { setSchedule_class('show'); }, 0);
+                        return data;
                     } else {
-                        set(dataRef, save_UID)
-                            .then(() => {
-                                setPlanListMode('READ');
-                                setTimeout(() => {
-                                    setSchedule_class('show');
-                                }, 0);
-                            })
                         console.log('firebase 경로 확인 필요');
                     }
+                })
+                .then((data:planListType[])=>{
+                    printList(data);
+                    setTimeout(() => { setSchedule_class('show'); }, 0);
                 })
                 .catch((error) => {
                     console.error('에러 내용: ', error);
                 });
-        } else {
+        } else { //else부분은 테스트용이니 로그인이 마치면 admin 계정 생성후 이부분은 제거
+            
             const dataRef = ref(db, 'test'); // 경로를 지정합니다.
             get(dataRef)
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        for (let x = 0; x < data.length; x++) {
-                            if ((new Date(data[x].date.split(' ~ ')[0]).getTime() <= new Date(select_YMD).getTime()) && (new Date(data[x].date.split(' ~ ')[1]).getTime() >= new Date(select_YMD).getTime())) {
-                                select_YMD_list.push(data[x]);
-                            }
-                        }
-                        console.log(planList)
-                        setPlanList(select_YMD_list)
-                        setPlanListMode('READ');
-                        setTimeout(() => { setSchedule_class('show'); }, 0);
+                        return data;
                     } else {
                         set(dataRef, planList)
                             .then(() => {
@@ -207,8 +177,11 @@ function Schedule(props: Class) {
                                     setSchedule_class('show');
                                 }, 0);
                             })
-                        console.log('firebase 경로 확인 필요');
                     }
+                })
+                .then((data:planListType[])=>{
+                    printList(data);
+                    setTimeout(() => { setSchedule_class('show'); }, 0);
                 })
                 .catch((error) => {
                     console.error('에러 내용: ', error);
@@ -235,9 +208,9 @@ function Schedule(props: Class) {
         if (planListMode === 'READ') {
             setplanComponent(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
         } else if (planListMode === 'UPDATE') {
-            setplanComponent(<UpdateSchedule useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></UpdateSchedule>)
+            setplanComponent(<UpdateSchedule Schedule_date_test={props.Schedule_date_test} useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></UpdateSchedule>)
         } else {
-            setplanComponent(<AddSchedule ChangeplanMode={ChangeplanMode} onAddPlanList={onAddPlanList} planList={planList}></AddSchedule>)
+            setplanComponent(<AddSchedule Schedule_date_test={props.Schedule_date_test} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></AddSchedule>)
         }
     }
     //DetailSchedule 추가

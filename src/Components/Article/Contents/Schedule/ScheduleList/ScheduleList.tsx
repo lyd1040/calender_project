@@ -34,7 +34,7 @@ function ScheduleList(props: Schedule_list_props) {
                             </a>
                             <div>
                                 <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(props.planList[x].id) }}><i className="fa-solid fa-pen-nib"></i></button>
-                                <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
+                                <button onClick={() => { props.onDeleteList(props.planList[x].id) }}><i className="fa-solid fa-trash"></i></button>
                             </div>
                         </li>
                     );
@@ -48,7 +48,7 @@ function ScheduleList(props: Schedule_list_props) {
                             </a>
                             <div>
                                 <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(props.planList[x].id) }}><i className="fa-solid fa-pen-nib"></i></button>
-                                <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
+                                <button onClick={() => { props.onDeleteList(props.planList[x].id) }}><i className="fa-solid fa-trash"></i></button>
                             </div>
                         </li>
                     );
@@ -81,7 +81,6 @@ function ScheduleList(props: Schedule_list_props) {
 
     useEffect(() => {
         settingPagingBtn();
-        console.log(PlanList);
     }, [PlanList, props.planList])
 
     return (

@@ -1,6 +1,6 @@
 import Nav from '../Components/Header/Nav/Nav';
 import '../css/header.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 
 

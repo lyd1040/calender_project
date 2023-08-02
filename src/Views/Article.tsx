@@ -1,5 +1,4 @@
 import '../css/Article.css'
-import React, { useState, useEffect } from 'react';
 import Contents from '../Components/Article/Contents/Contents';
 import SignIn_SignUp from '../Components/Article/SignIn_SignUp/SignIn_SignUp';
 import Contect from '../Components/Article/Contect/Contect';

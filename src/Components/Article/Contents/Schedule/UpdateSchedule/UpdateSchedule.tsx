@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import '../../../../../css/updateSchedule.css'
 import { db } from '../../../../../firebase';
 import { ref, get, update } from 'firebase/database';
@@ -8,6 +8,7 @@ type UpdateScheduleType = {
     ChangeplanMode(mode: string): void;
     planList: planListType[];
     useUpdate_PlanList_Index: number;
+    Schedule_date_test: Schedule_date_test_type;
 }
 
 type planListType = {
@@ -16,6 +17,11 @@ type planListType = {
     content: string,
     date: string,
     time: string
+}
+type Schedule_date_test_type = {
+    year: number;
+    month: number;
+    date_text: number;
 }
 
 function UpdateSchedule(props: UpdateScheduleType) {
@@ -66,7 +72,6 @@ function UpdateSchedule(props: UpdateScheduleType) {
 
             // dataArray를 사용하여 데이터 업데이트를 생성
             updates[`test/${props.useUpdate_PlanList_Index - 1}`] = data[props.useUpdate_PlanList_Index - 1];
-            console.log('data', updates);
 
             // update 메서드를 사용하여 한 번에업데이트
             update(ref(db), updates);
@@ -78,7 +83,40 @@ function UpdateSchedule(props: UpdateScheduleType) {
     }
 
     const returnlist = (data: planListType[]) => {
-        props.onUpdatePlanList(data)
+        let select_YMD: string = Select_date_update();
+        let filter_list: planListType[] =[];
+
+        let selectYMD_Date = new Date(select_YMD);
+
+        for(let x=0; x<data.length; x++){
+            if (
+                (new Date(data[x].date.split(' ~ ')[0]).getTime() <= selectYMD_Date.getTime()) 
+                && 
+                (new Date(data[x].date.split(' ~ ')[1]).getTime() >= selectYMD_Date.getTime())
+                ){
+                    filter_list.push(data[x]);
+            }
+        }
+        
+        props.onUpdatePlanList(filter_list)
+    }
+
+    //선택된 데이터의 연도, 월, 일 합치기
+    const Select_date_update = (): string => {
+        let select_year: string = props.Schedule_date_test.year.toString();
+        let select_month: number | string = props.Schedule_date_test.month;
+        let select_date_text: number | string = props.Schedule_date_test.date_text;
+        let select_YMD: string;
+
+        if (select_month <= 10) {
+            select_month = '0' + select_month;
+        }
+        if (select_date_text <= 10) {
+            select_date_text = '0' + select_date_text;
+        }
+        select_YMD = `${select_year}-${select_month}-${select_date_text}`;
+
+        return select_YMD;
     }
 
     const onchangedate = () => {
