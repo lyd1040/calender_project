@@ -1,5 +1,4 @@
-
-button.show_gnb{
+button.show_gnb {
     width: 50px;
     height: 50px;
 
@@ -10,15 +9,15 @@ button.show_gnb{
     cursor: pointer;
 }
 
-button.show_gnb i{
+button.show_gnb i {
     font-size: 1.8em;
 }
 
-button.show_gnb:hover i{
+button.show_gnb:hover i {
     color: rgb(238, 109, 109);
 }
 
-nav{
+nav {
     position: absolute;
     top: 70px;
     left: 0;
@@ -31,7 +30,7 @@ nav{
     pointer-events: none;
 }
 
-nav ul{
+nav ul {
     height: 100%;
 
     transform: translateY(-100px);
@@ -46,10 +45,19 @@ nav ul{
 
     backdrop-filter: blur(5px);
 
-    transition: 0.3s ease-in-out; 
+    transition: 0.3s ease-in-out;
 
     pointer-events: all;
 }
-nav ul.show{
+
+nav ul.show {
     transform: translateY(0);
+}
+
+
+
+a.active {
+    position: relative;
+
+    font-weight: 700;
 }

@@ -3,6 +3,7 @@ import '../css/header.css';
 import React, { useState, useEffect } from 'react';
 
 
+
 type NavProps = {
   Mode: string;
   header_YMD: number[];
@@ -44,7 +45,7 @@ function Header(props: NavProps) {
       <ul className='headerYMD'>
         {show_hide_date}
       </ul>
-      <Nav  onChangeMode={props.onChangeMode}></Nav>
+      <Nav onChangeMode={props.onChangeMode}></Nav>
     </header>
   )
 }

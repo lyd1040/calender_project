@@ -1,0 +1,8 @@
+.LoginPage_Clock_wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    backface-visibility: hidden;
+    transform: rotateY(0);
+}
