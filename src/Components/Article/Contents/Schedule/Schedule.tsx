@@ -92,27 +92,10 @@ function Schedule(props: Class) {
     const onAddPlanList = (data: planListType[]): void => {
         setPlanList(data)
         setPlanListMode('READ');
-        firebaseAddData(data)
     }
-    const onUpdatePlanList = (data: planListType[], firebaseSelect_idx: number, localSelect_idx: number): void => {
+    const onUpdatePlanList = (data: planListType[]): void => {
         setPlanList(data)
         setPlanListMode('READ');
-        firebaseUpdateList(data, firebaseSelect_idx, localSelect_idx);
-    }
-
-    const firebaseUpdateList = async (data: planListType[], firebaseSelect_idx: number, localSelect_idx: number) => {
-        try {
-            const updates: any = {};
-
-            // dataArray를 사용하여 데이터 업데이트를 생성
-            updates[`test/${firebaseSelect_idx - 1}`] = data[localSelect_idx];
-            console.log('data', updates);
-
-            // update 메서드를 사용하여 한 번에업데이트
-            await update(ref(db), updates);
-        } catch (error) {
-            console.error('Error updating user data:', error);
-        }
     }
 
     //유저 밑에 선택된 데이터 삭제
@@ -151,29 +134,6 @@ function Schedule(props: Class) {
             console.error('Error updating user data:', error);
         }
     }
-
-    //firebase에 데이터 추가
-    const firebaseAddData = (data: planListType[]): void => {
-
-        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
-        if (sessionStorage.getItem('userUID') !== null) {
-            try {
-                // 새로운 데이터를 Realtime Database에 추가합니다.
-                const dataRef = ref(db, save_UID); // 여기에 데이터 저장 경로를 지정합니다.
-                set(dataRef, data);
-            } catch (error) {
-                console.error('Error adding data: ', error);
-            }
-        } else {
-            try {
-                // 새로운 데이터를 Realtime Database에 추가합니다.
-                const dataRef = ref(db, 'test'); // 여기에 데이터 저장 경로를 지정합니다.
-                set(dataRef, data);
-            } catch (error) {
-                console.error('Error adding data: ', error);
-            }
-        }
-    };
 
     //선택된 데이터의 연도, 월, 일 합치기
     const Select_date_update = (): string => {

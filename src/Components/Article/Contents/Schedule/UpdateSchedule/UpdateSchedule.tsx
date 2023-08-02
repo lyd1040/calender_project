@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import '../../../../../css/updateSchedule.css'
+import { db } from '../../../../../firebase';
+import { ref, get, update } from 'firebase/database';
 
 type UpdateScheduleType = {
-    onUpdatePlanList(data: planListType[], firebaseSelect_idx: number, localSelect_idx: number): void; //Update Component에서는 Update로 활용할것
+    onUpdatePlanList(data: planListType[]): void; //Update Component에서는 Update로 활용할것
     ChangeplanMode(mode: string): void;
     planList: planListType[];
     useUpdate_PlanList_Index: number;
@@ -24,28 +26,61 @@ function UpdateSchedule(props: UpdateScheduleType) {
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
-        let planlist_arr: planListType[] = props.planList;
-        if (content_title && content_text && startDate && endDate && startTime && endTime) {
-            if (content_title.value === '') {
-                alert('제목은 비어있을 수 없습니다.');
-                return false;
-            }
-            planlist_arr[props.useUpdate_PlanList_Index].title = content_title.value;
-            if (content_text.value === '') {
-                planlist_arr[props.useUpdate_PlanList_Index].content = '내용이 없습니다.';
-            } else {
-                planlist_arr[props.useUpdate_PlanList_Index].content = content_text.value;
-            }
-            planlist_arr[props.useUpdate_PlanList_Index].date = `${startDate.value} ~ ${endDate.value}`;
-            planlist_arr[props.useUpdate_PlanList_Index].time = `${startTime.value} ~ ${endTime.value}`;
 
+        const dataRef = ref(db, 'test');
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
 
-            console.log('od', planlist_arr[props.useUpdate_PlanList_Index].id);
+                    return data;
+                }
+            })
+            .then((data) => {
+                console.log(props.useUpdate_PlanList_Index);
+                let planlist_arr: planListType[] = data;
+                if (content_title && content_text && startDate && endDate && startTime && endTime) {
+                    if (content_title.value === '') {
+                        alert('제목은 비어있을 수 없습니다.');
+                        return false;
+                    }
+                    planlist_arr[props.useUpdate_PlanList_Index - 1].title = content_title.value;
+                    if (content_text.value === '') {
+                        planlist_arr[props.useUpdate_PlanList_Index - 1].content = '내용이 없습니다.';
+                    } else {
+                        planlist_arr[props.useUpdate_PlanList_Index - 1].content = content_text.value;
+                    }
+                    planlist_arr[props.useUpdate_PlanList_Index - 1].date = `${startDate.value} ~ ${endDate.value}`;
+                    planlist_arr[props.useUpdate_PlanList_Index - 1].time = `${startTime.value} ~ ${endTime.value}`;
 
-            props.onUpdatePlanList(planlist_arr, planlist_arr[props.useUpdate_PlanList_Index].id, props.useUpdate_PlanList_Index)
+                    firebaseUpdateList(planlist_arr)
+                };
+            })
 
-        };
     }
+
+    //파이어베이스 데이터 업데이트
+    const firebaseUpdateList = (data: planListType[]) => {
+        try {
+            const updates: any = {};
+
+            // dataArray를 사용하여 데이터 업데이트를 생성
+            updates[`test/${props.useUpdate_PlanList_Index - 1}`] = data[props.useUpdate_PlanList_Index - 1];
+            console.log('data', updates);
+
+            // update 메서드를 사용하여 한 번에업데이트
+            update(ref(db), updates);
+            returnlist(data);
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
+
+    }
+
+    const returnlist = (data: planListType[]) => {
+        props.onUpdatePlanList(data)
+    }
+
     const onchangedate = () => {
         //날짜변수
         let startDate: HTMLInputElement | null = document.getElementById('startDate') as HTMLInputElement;
@@ -86,15 +121,23 @@ function UpdateSchedule(props: UpdateScheduleType) {
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
 
-        content_title.value = props.planList[props.useUpdate_PlanList_Index].title;
-        content_text.value = props.planList[props.useUpdate_PlanList_Index].content;
-        startDate.value = props.planList[props.useUpdate_PlanList_Index].date.split(' ~ ')[0];
-        endDate.value = props.planList[props.useUpdate_PlanList_Index].date.split(' ~ ')[1];
-        startTime.value = props.planList[props.useUpdate_PlanList_Index].time.split(' ~ ')[0];
-        endTime.value = props.planList[props.useUpdate_PlanList_Index].time.split(' ~ ')[1];
+        const dataRef = ref(db, 'test');
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
 
-
-
+                    return data;
+                }
+            })
+            .then((data) => {
+                content_title.value = data[props.useUpdate_PlanList_Index - 1].title;
+                content_text.value = data[props.useUpdate_PlanList_Index - 1].content;
+                startDate.value = data[props.useUpdate_PlanList_Index - 1].date.split(' ~ ')[0];
+                endDate.value = data[props.useUpdate_PlanList_Index - 1].date.split(' ~ ')[1];
+                startTime.value = data[props.useUpdate_PlanList_Index - 1].time.split(' ~ ')[0];
+                endTime.value = data[props.useUpdate_PlanList_Index - 1].time.split(' ~ ')[1];
+            })
     }, [])
     return (
         <div id="UpdateSchedule" className="UpdateSchedule">

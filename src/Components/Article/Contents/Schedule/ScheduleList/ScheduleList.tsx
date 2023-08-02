@@ -33,7 +33,7 @@ function ScheduleList(props: Schedule_list_props) {
                                 {props.planList[x].title}
                             </a>
                             <div>
-                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
+                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(props.planList[x].id) }}><i className="fa-solid fa-pen-nib"></i></button>
                                 <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
                             </div>
                         </li>
@@ -47,7 +47,7 @@ function ScheduleList(props: Schedule_list_props) {
                                 {props.planList[x].title}
                             </a>
                             <div>
-                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(x) }}><i className="fa-solid fa-pen-nib"></i></button>
+                                <button type="button" onClick={() => { props.ChangeplanMode('UPDATE'); props.save_Update_Index(props.planList[x].id) }}><i className="fa-solid fa-pen-nib"></i></button>
                                 <button onClick={() => { props.onDeleteList(x) }}><i className="fa-solid fa-trash"></i></button>
                             </div>
                         </li>
