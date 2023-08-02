@@ -42,6 +42,8 @@ function Schedule(props: Class) {
     //list 목록 삭제
     const onDeleteList = (deleteIndex: number) => {
 
+        console.log(deleteIndex);
+
         //할 일1. 컨텐츠 복사본에 불러온 컨텐츠 저장
         const Delete_list: planListType[] = [];
 
@@ -57,10 +59,17 @@ function Schedule(props: Class) {
             Delete_list[x].id = x + 1;
         }
 
-
+        const dataRef = ref(db, 'test');
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    console.log('data', data);
+                }
+            })
         //할 일4. 수정된 복사본을 setPlanList를 사용해서 planList 변경
         setPlanList(Delete_list);
-        firebaseRemoveDate(Delete_list);
+        //firebaseRemoveDate(Delete_list);
         //참고해야할 점은 이 함수는 목록을 삭제하는 함수이다.(미완성)
     }
 
@@ -85,21 +94,21 @@ function Schedule(props: Class) {
         setPlanListMode('READ');
         firebaseAddData(data)
     }
-    const onUpdatePlanList = (data: planListType[]): void =>{
+    const onUpdatePlanList = (data: planListType[], firebaseSelect_idx: number, localSelect_idx: number): void => {
         setPlanList(data)
         setPlanListMode('READ');
-        firebaseUpdateList(data);
+        firebaseUpdateList(data, firebaseSelect_idx, localSelect_idx);
     }
 
-    const firebaseUpdateList = async (data:planListType[]) =>{
-        
+    const firebaseUpdateList = async (data: planListType[], firebaseSelect_idx: number, localSelect_idx: number) => {
         try {
             const updates: any = {};
 
             // dataArray를 사용하여 데이터 업데이트를 생성
-            updates[`test/${(data[0].id)-1}`] = data[0];
-            console.log('data',updates);
-            // update 메서드를 사용하여 한 번에 여러 데이터 업데이트
+            updates[`test/${firebaseSelect_idx - 1}`] = data[localSelect_idx];
+            console.log('data', updates);
+
+            // update 메서드를 사용하여 한 번에업데이트
             await update(ref(db), updates);
         } catch (error) {
             console.error('Error updating user data:', error);
@@ -136,7 +145,6 @@ function Schedule(props: Class) {
             Delete_list.forEach((data, index) => {
                 updates[`test/${index}`] = data;
             });
-
             // update 메서드를 사용하여 한 번에 여러 데이터 업데이트
             await update(ref(db), updates);
         } catch (error) {
@@ -199,7 +207,6 @@ function Schedule(props: Class) {
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        console.log('Data found: ', data);
                         setPlanList(data)
                         setPlanListMode('READ');
                         setTimeout(() => { setSchedule_class('show'); }, 0);

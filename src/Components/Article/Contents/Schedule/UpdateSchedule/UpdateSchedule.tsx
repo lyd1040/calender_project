@@ -1,57 +1,57 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import '../../../../../css/updateSchedule.css'
 
-type UpdateScheduleType= {
-    onUpdatePlanList(data:planListType[]):void; //Update Component에서는 Update로 활용할것
-    ChangeplanMode(mode:string):void;
-    planList:planListType[];
-    useUpdate_PlanList_Index:number;
+type UpdateScheduleType = {
+    onUpdatePlanList(data: planListType[], firebaseSelect_idx: number, localSelect_idx: number): void; //Update Component에서는 Update로 활용할것
+    ChangeplanMode(mode: string): void;
+    planList: planListType[];
+    useUpdate_PlanList_Index: number;
 }
 
-type planListType ={
-    id:number,
-    title:string,
-    content:string,
-    date:string,
-    time:string
+type planListType = {
+    id: number,
+    title: string,
+    content: string,
+    date: string,
+    time: string
 }
 
-function UpdateSchedule(props:UpdateScheduleType) {
-    const onUpdatePlanList = ():void | boolean =>{
+function UpdateSchedule(props: UpdateScheduleType) {
+    const onUpdatePlanList = (): void | boolean => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
         const content_text: HTMLInputElement | null = document.getElementById('content_text') as HTMLInputElement;
         const startDate: HTMLInputElement | null = document.getElementById('startDate') as HTMLInputElement;
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
-        let planlist_arr:planListType[] = props.planList;
-        if(content_title && content_text && startDate && endDate && startTime && endTime){
-            if(content_title.value === ''){
+        let planlist_arr: planListType[] = props.planList;
+        if (content_title && content_text && startDate && endDate && startTime && endTime) {
+            if (content_title.value === '') {
                 alert('제목은 비어있을 수 없습니다.');
                 return false;
             }
-            planlist_arr[props.useUpdate_PlanList_Index].title=content_title.value;
-            if(content_text.value===''){
-                planlist_arr[props.useUpdate_PlanList_Index].content='내용이 없습니다.';
-            }else{
-                planlist_arr[props.useUpdate_PlanList_Index].content=content_text.value;
+            planlist_arr[props.useUpdate_PlanList_Index].title = content_title.value;
+            if (content_text.value === '') {
+                planlist_arr[props.useUpdate_PlanList_Index].content = '내용이 없습니다.';
+            } else {
+                planlist_arr[props.useUpdate_PlanList_Index].content = content_text.value;
             }
-            planlist_arr[props.useUpdate_PlanList_Index].date=`${startDate.value} ~ ${endDate.value}`;
-            planlist_arr[props.useUpdate_PlanList_Index].time=`${startTime.value} ~ ${endTime.value}`;
-            
+            planlist_arr[props.useUpdate_PlanList_Index].date = `${startDate.value} ~ ${endDate.value}`;
+            planlist_arr[props.useUpdate_PlanList_Index].time = `${startTime.value} ~ ${endTime.value}`;
 
-            console.log(planlist_arr);
-            
-            props.onUpdatePlanList(planlist_arr)
-            
+
+            console.log('od', planlist_arr[props.useUpdate_PlanList_Index].id);
+
+            props.onUpdatePlanList(planlist_arr, planlist_arr[props.useUpdate_PlanList_Index].id, props.useUpdate_PlanList_Index)
+
         };
     }
-    const onchangedate=()=>{
+    const onchangedate = () => {
         //날짜변수
         let startDate: HTMLInputElement | null = document.getElementById('startDate') as HTMLInputElement;
         let endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
-        let startDate_arr=startDate.value.split('-');
-        let endDate_arr=endDate.value.split('-');
+        let startDate_arr = startDate.value.split('-');
+        let endDate_arr = endDate.value.split('-');
 
         //시간변수
         let startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
@@ -60,34 +60,34 @@ function UpdateSchedule(props:UpdateScheduleType) {
         let endTime_arr = endTime.value.split(':');
 
         //날짜비교
-        let start_date_time = new Date(Number(startDate_arr[0]),Number(startDate_arr[1]),Number(startDate_arr[2])).getTime();
-        let end_date_time = new Date(Number(endDate_arr[0]),Number(endDate_arr[1]),Number(endDate_arr[2])).getTime();
-        if(start_date_time>end_date_time){
-            endDate.value=startDate.value;
+        let start_date_time = new Date(Number(startDate_arr[0]), Number(startDate_arr[1]), Number(startDate_arr[2])).getTime();
+        let end_date_time = new Date(Number(endDate_arr[0]), Number(endDate_arr[1]), Number(endDate_arr[2])).getTime();
+        if (start_date_time > end_date_time) {
+            endDate.value = startDate.value;
         }
 
         //시간비교
-        if(start_date_time===end_date_time){
-            if(Number(startTime_arr[0])>Number(endTime_arr[0])){
-                endTime.value=startTime.value;
+        if (start_date_time === end_date_time) {
+            if (Number(startTime_arr[0]) > Number(endTime_arr[0])) {
+                endTime.value = startTime.value;
             }
 
-            if(Number(startTime_arr[0])===Number(endTime_arr[0]) && Number(startTime_arr[1])>Number(endTime_arr[1])){
-                endTime.value=startTime.value;
+            if (Number(startTime_arr[0]) === Number(endTime_arr[0]) && Number(startTime_arr[1]) > Number(endTime_arr[1])) {
+                endTime.value = startTime.value;
             }
         }
     }
     //처음 렌더링 됐을때만 실행
-    useEffect(()=>{
+    useEffect(() => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
         const content_text: HTMLInputElement | null = document.getElementById('content_text') as HTMLInputElement;
         const startDate: HTMLInputElement | null = document.getElementById('startDate') as HTMLInputElement;
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
-        
-        content_title.value=props.planList[props.useUpdate_PlanList_Index].title;
-        content_text.value=props.planList[props.useUpdate_PlanList_Index].content;
+
+        content_title.value = props.planList[props.useUpdate_PlanList_Index].title;
+        content_text.value = props.planList[props.useUpdate_PlanList_Index].content;
         startDate.value = props.planList[props.useUpdate_PlanList_Index].date.split(' ~ ')[0];
         endDate.value = props.planList[props.useUpdate_PlanList_Index].date.split(' ~ ')[1];
         startTime.value = props.planList[props.useUpdate_PlanList_Index].time.split(' ~ ')[0];
@@ -95,25 +95,25 @@ function UpdateSchedule(props:UpdateScheduleType) {
 
 
 
-    },[])
-    return(
+    }, [])
+    return (
         <div id="UpdateSchedule" className="UpdateSchedule">
-             <h3>일정수정</h3> 
-            <button className="cancleBtn" onClick={()=>{props.ChangeplanMode('READ');}}><i className="fa-solid fa-x"></i></button>
+            <h3>일정수정</h3>
+            <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="UpdateSchedule_center">
-                
-                
+
+
                 <form action="">
-                    <div key={'UpdateSchedule_input_title'}><label htmlFor="">제목</label><input type="text" id="content_title" required/></div>
+                    <div key={'UpdateSchedule_input_title'}><label htmlFor="">제목</label><input type="text" id="content_title" required /></div>
                     <div key={'UpdateSchedule_input_content'}><label htmlFor="">내용</label><textarea id="content_text" /></div>
-                    <div key={'UpdateSchedule_input_date'}><label htmlFor="">날짜</label><input type="date" id="startDate" onChange={()=>{onchangedate()}}/>
-                    <label htmlFor="">~</label><input type="date" id="endDate" onChange={()=>{onchangedate()}}/></div>
-                    <div key={'UpdateSchedule_input_time'}><label htmlFor="">시간</label><input type="time" id="startTime" onChange={()=>{onchangedate()}}/>
-                    <label htmlFor="">~</label><input type="time" id="endTime" onChange={()=>{onchangedate()}}/></div>
+                    <div key={'UpdateSchedule_input_date'}><label htmlFor="">날짜</label><input type="date" id="startDate" onChange={() => { onchangedate() }} />
+                        <label htmlFor="">~</label><input type="date" id="endDate" onChange={() => { onchangedate() }} /></div>
+                    <div key={'UpdateSchedule_input_time'}><label htmlFor="">시간</label><input type="time" id="startTime" onChange={() => { onchangedate() }} />
+                        <label htmlFor="">~</label><input type="time" id="endTime" onChange={() => { onchangedate() }} /></div>
                 </form>
             </div>
             <div className="Schedule_btnWrap">
-                <button type="submit" onClick={()=>{onUpdatePlanList()}}>일정 수정</button>
+                <button type="submit" onClick={() => { onUpdatePlanList() }}>일정 수정</button>
             </div>
         </div>
     )
