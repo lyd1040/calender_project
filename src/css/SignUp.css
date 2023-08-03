@@ -1,10 +1,138 @@
 .SignUp {
     height: 100%;
-    border: 1px solid blue;
+}
+
+.SignUp h2 {
+    height: 20%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 700;
+    font-size: 1.8em;
+}
+
+.SignUp form {
+    height: 65%;
+
+    margin-top: 30px;
+
+    overflow-y: scroll;
+}
+
+.SignUp form>div {
+    width: 70%;
+    height: 100%;
+
+    margin: auto;
+}
+
+.SignUp form>div>div {
+    position: relative;
+    max-width: 350px;
+    margin: auto;
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.SignUp form>div>div:nth-child(1) {
+    margin-top: 20px;
+}
+
+.SignUp form>div>div label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    transition: 0.5s;
+    transform: translateY(-50%);
+
+    pointer-events: none;
+}
+
+.SignUp form>div>div label.active {
+    transform: translate(10%, -190%);
+
+    background: #fff;
+
+    font-size: 0.8em;
+}
+
+.SignUp form>div>div input {
+    width: 100%;
+
+    padding: 10px;
+
+}
+
+.SignUp form>div .SignUpBtnWrap {
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.SignUp form>div .SignUpBtnWrap button {
+    border: 1px solid;
+    margin-top: 30px;
+    padding: 7px 21px;
+    border-radius: 3px;
+
+    cursor: pointer;
 }
 
 @media screen and (max-width:750px) {
-    .SignUp{
+    .SignUp {
         width: 100%;
+    }
+
+    .SignUp form>div>div {
+        position: relative;
+        max-width: 350px;
+        margin: auto;
+        margin-top: 0;
+        margin-bottom: 10px;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .SignUp form>div>div:nth-child(1) {
+        margin-top: 0;
+    }
+
+    .SignUp form>div {
+        width: 100%;
+    }
+
+    .SignUp form>div>div {
+        width: 100%;
+    }
+
+    .SignUp form>div>div label {
+        position: relative;
+
+        transform: translateY(25%);
+
+        pointer-events: none;
+
+        width: 250px;
+    }
+
+    .SignUp form>div>div label.active {
+        background: 0;
+        transform: translate(0, 25%);
+
+        font-size: 1em;
+    }
+
+    .SignUp form>div>div input {
+        width: 100%;
+
+        border: 1px solid;
+        padding: 3px;
+
     }
 }

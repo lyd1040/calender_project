@@ -1,5 +1,5 @@
 .SignIn_SignUp_wrap {
-    width:70%;
+    width: 70%;
     height: 100%;
 
     display: flex;
@@ -30,7 +30,8 @@
     transform-origin: center;
     transition: 1s;
 
-    background: #808080;
+    background: #2e2e2e80 url('../../public/imgs/EVENT.png');
+    background-blend-mode: multiply;
 }
 
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_date_time_3dcard>div {
@@ -50,17 +51,25 @@
     width: 100%;
     height: 100%;
 
-    transform: translateY(-0%);
+    transform: translateY(-100%);
 
     transition: 0.5s;
 
     border: 1px solid;
 }
 
+.SignUp .erroralram {
+    text-align: center;
+    font-size: 1.5em;
+
+    color: #ff0000;
+}
+
 @media screen and (max-width:750px) {
     .SignIn_SignUp_wrap {
-        width:100%;
+        width: 100%;
     }
+
     .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap {
         height: 90%;
 
