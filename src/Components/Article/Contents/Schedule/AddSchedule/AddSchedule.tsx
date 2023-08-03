@@ -31,8 +31,13 @@ function AddSchedule(props: AddSchedule_props) {
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
+        
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
 
-        const dataRef = ref(db, 'test')
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
+
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -69,9 +74,10 @@ function AddSchedule(props: AddSchedule_props) {
 
     //firebase 데이터 추가
     const firebaseAddData = (list: planListType, data: planListType[]):void => {
-
-        
-        const dataRef = ref(db, 'test');
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef; 
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
         set(dataRef, [...data, list]);
 
         get(dataRef)
@@ -82,7 +88,6 @@ function AddSchedule(props: AddSchedule_props) {
             .then((snapshotValue)=>{
                 returnList(snapshotValue);
             })
-        
         
     }
 

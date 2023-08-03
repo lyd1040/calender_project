@@ -42,13 +42,16 @@ function Schedule(props: Class) {
     //list 목록 삭제
     const onDeleteList = (deleteIndex: number) => {
 
-        console.log('deleteIndex',deleteIndex);
-
         //컨텐츠 복사본에 불러온 컨텐츠 저장
         let Delete_list: planListType[] = [];
 
         //복사본 수정
-        const dataRef = ref(db, 'test');
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
+
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -63,7 +66,11 @@ function Schedule(props: Class) {
                 //일정 id 수정
                 Delete_list=changeID(Delete_list);
 
-                const usersRef = ref(db, 'test');
+                let usersRef;
+
+                if (save_UID !== null) {usersRef = ref(db, save_UID);}
+                else{usersRef = ref(db, 'test');}
+                
                 await remove(usersRef);
                 await set(usersRef,Delete_list);
                 printList(Delete_list);
@@ -142,51 +149,26 @@ function Schedule(props: Class) {
     useEffect(() => {
 
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
-        if (save_UID !== null) {
-            const dataRef = ref(db, save_UID); // 경로를 지정합니다.
+        let dataRef;
 
-            get(dataRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        return data;
-                    } else {
-                        console.log('firebase 경로 확인 필요');
-                    }
-                })
-                .then((data:planListType[])=>{
-                    printList(data);
-                    setTimeout(() => { setSchedule_class('show'); }, 0);
-                })
-                .catch((error) => {
-                    console.error('에러 내용: ', error);
-                });
-        } else { //else부분은 테스트용이니 로그인이 마치면 admin 계정 생성후 이부분은 제거
-            
-            const dataRef = ref(db, 'test'); // 경로를 지정합니다.
-            get(dataRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        return data;
-                    } else {
-                        set(dataRef, planList)
-                            .then(() => {
-                                setPlanListMode('READ');
-                                setTimeout(() => {
-                                    setSchedule_class('show');
-                                }, 0);
-                            })
-                    }
-                })
-                .then((data:planListType[])=>{
-                    printList(data);
-                    setTimeout(() => { setSchedule_class('show'); }, 0);
-                })
-                .catch((error) => {
-                    console.error('에러 내용: ', error);
-                });
-        }
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return data;
+                } else {
+                    console.log('firebase 경로 확인 필요');
+                }
+            })
+            .then((data:planListType[])=>{
+                printList(data);
+                setTimeout(() => { setSchedule_class('show'); }, 0);
+            })
+            .catch((error) => {
+                console.error('에러 내용: ', error);
+            });
 
         return (
             ChangeplanComponent()

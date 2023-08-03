@@ -1,23 +1,124 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import '../../../../css/SignIn.css'
+import { db, auth } from '../../../../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { ref, get, set } from 'firebase/database';
 
-function SignIn() {
+type SignInType ={
+    showSignUpFunction(CHSG:string):void;
+    SignIn_SignUp_class:string;
+}
 
+function SignIn(props:SignInType) {
+    let [notSelect,setNotSelect] = useState<string>('');
 
-    return (
-        <div id="SignIn" className="SignIn">
-            <div id="SignIn_contents_wrap" className="SignIn_contents_wrap">
-            <h2>로그인</h2>
-            <form action="" method="post" name="">
-                <div id="Login_input_wrap" className="Login_input_wrap">
-                    <div><label htmlFor="LoginEmailID">이메일</label><input id="LoginIdInput" className="LoginIdInput" type="text"/></div>
-                    <div><label htmlFor="LoginEmailPW">비밀번호</label><input id="LoginPwInput" className="LoginPwInput" type="text"/></div>
+    const [Sign_inputTags, setSign_inputTags]= useState<JSX.Element[]>([<></>]);
+
+    //화면에 input label 그리기
+    const draw_SignInTag=()=>{
+        const SignTag:JSX.Element[]=[];
+        const SignInlabelText:string[]=['이메일','비밀번호'];
+        const SignInInputID:string[]=['LoginIdInput','LoginPwInput'];
+        const SignInInputype:string[]=['text','password'];
+
+        for(let x=0; x<SignInlabelText.length; x++){
+            SignTag.push(
+                <div key={`SignTagInputLabelWrap${x}`}>
+                    <label htmlFor={SignInInputID[x]} className={`${SignInInputID[x]}label${x}`}>{SignInlabelText[x]}</label>
+                    <input id={SignInInputID[x]} className={SignInInputID[x]}
+                    key={`${SignInInputID[x]}inputTag${x}`} 
+                    onFocus={(event)=>{
+                        const SignInFocusTagLabel:HTMLElement = document.querySelector(`.${SignInInputID[x]}label${x}`) as HTMLElement;
+                        SignInFocusTagLabel.classList.add('active');
+
+                        event.target.addEventListener('focusout',()=>{
+                            if(event.target.value===''){
+                                SignInFocusTagLabel.classList.remove('active');
+                            }
+                        })
+                    }} 
+                    type={SignInInputype[x]}/>
                 </div>
-            </form>
-            <div id="LoginBtn_wrap" className="LoginBtn_wrap">
-                <a href="" onClick={(event)=>{event.preventDefault();}}>아이디/비밀번호 찾기</a>
-                <a href="" onClick={(event)=>{event.preventDefault();}}>회원가입</a>
-            </div>
+            )
+        }
+        setSign_inputTags(SignTag);
+    }
+
+    const TryLogin = async() =>{
+        const InputElementTags:HTMLInputElement[] = document.querySelectorAll('.SignIn form .Login_input_wrap input') as unknown as HTMLInputElement[];
+
+        console.log(InputElementTags[0].value, InputElementTags[1].value);
+
+        // 이메일과 비밀번호로 로그인을 시도합니다.
+        try {
+            await signInWithEmailAndPassword(auth ,InputElementTags[0].value, InputElementTags[1].value);
+            const user = auth.currentUser;
+            if(user){
+                const dataRef = ref(db, user.uid);
+                get(dataRef)
+                    .then((snapshot)=>{
+                        if(snapshot.exists()){
+                            return true;
+                        }else{
+                            set(dataRef, "");
+                            return true;
+                        }
+                    })
+                    .then((data:boolean)=>{
+                        if(data===true){
+                            sessionStorage.setItem('userUID',user.uid);
+                        }
+                    })
+                //set(dataRef, '');
+            }
+            
+            // 로그인에 성공한 경우 원하는 동작을 수행합니다.
+
+            
+          } catch (error:any) {
+            window.alert('이메일이나 비밀번호가 다릅니다.');
+            console.error('로그인 실패:', error.message);
+            // 로그인에 실패한 경우 오류 처리를 수행합니다.
+          }
+    }
+
+
+    //회원가입누를시 Tab 막기
+    const visibility = () =>{
+        setTimeout(()=>{
+            if(props.SignIn_SignUp_class==='signup'){
+                setNotSelect('VSB');
+            }
+        },500);
+        if(props.SignIn_SignUp_class===''){
+            setNotSelect('');
+        }
+    }
+
+    //마운트 최초실행
+    useEffect(()=>{
+        draw_SignInTag();
+    },[])
+
+    //업데이트
+    useEffect(()=>{
+        visibility();
+    },[props.SignIn_SignUp_class])
+    return (
+        <div id="SignIn" className={`SignIn ${notSelect}`}>
+            <div id="SignIn_contents_wrap" className="SignIn_contents_wrap">
+                <h2>로그인</h2>
+                <form action="" method="post" name="">
+                    <div id="Login_input_wrap" className="Login_input_wrap">
+                        {Sign_inputTags}
+                    </div>
+
+                    <button type="button" className="LoginBtn" id="LoginBtn" onClick={()=>{TryLogin();}}>Login</button>
+                </form>
+                <div id="LoginBtn_wrap" className="LoginBtn_wrap">
+                    <a href="" onClick={(event)=>{event.preventDefault();}}>아이디/비밀번호 찾기</a>
+                    <a href="" onClick={(event)=>{event.preventDefault(); props.showSignUpFunction('signup')}}>회원가입</a>
+                </div>
             </div>
         </div>
     )

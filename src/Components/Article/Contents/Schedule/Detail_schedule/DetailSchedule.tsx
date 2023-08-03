@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '../../../../../css/DetailSchedule.css'
-import { db } from '../../../../../firebase';
-import { ref, get } from 'firebase/database';
 type DetailScheduleProps = {
     planList: printDOM[];
     detailPlanListIndex: number;

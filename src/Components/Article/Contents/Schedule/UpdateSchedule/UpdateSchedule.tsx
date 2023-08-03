@@ -32,8 +32,12 @@ function UpdateSchedule(props: UpdateScheduleType) {
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
+        
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
 
-        const dataRef = ref(db, 'test');
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -67,11 +71,15 @@ function UpdateSchedule(props: UpdateScheduleType) {
 
     //파이어베이스 데이터 업데이트
     const firebaseUpdateList = (data: planListType[]) => {
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+        if(save_UID !== null){dataRef=save_UID}
+        else{dataRef='test'};
         try {
             const updates: any = {};
 
             // dataArray를 사용하여 데이터 업데이트를 생성
-            updates[`test/${props.useUpdate_PlanList_Index - 1}`] = data[props.useUpdate_PlanList_Index - 1];
+            updates[`${dataRef}/${props.useUpdate_PlanList_Index - 1}`] = data[props.useUpdate_PlanList_Index - 1];
 
             // update 메서드를 사용하여 한 번에업데이트
             update(ref(db), updates);
@@ -159,7 +167,11 @@ function UpdateSchedule(props: UpdateScheduleType) {
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
 
-        const dataRef = ref(db, 'test');
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {

@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import '../../../../css/SignUp.css'
-import { createUserWithEmailAndPassword, sendEmailVerification, Auth, UserCredential, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, User } from 'firebase/auth';
 import { auth } from '../../../../firebase';
 
 type FunctionType = () => void;
 
-function SignUp() {
+type SignUpType ={
+    showSignUpFunction(CHSG:string):void;
+    SignIn_SignUp_class:string;
+}
+function SignUp(props:SignUpType) {
+    let [notSelect,setNotSelect] = useState<string>('');
 
     //input 태그 그리기
     const [SignUpTags, setSignUpTags] = useState<JSX.Element[]>([])
@@ -70,13 +75,11 @@ function SignUp() {
     }
 
     //비밀번호 입력시
-    let [PassWordText, setPassWordText] = useState<string>('');
     const passwordValidation = (): void | boolean => {
         let SignUpuserPW: HTMLInputElement = document.querySelector('.SignUpuserPW') as HTMLInputElement;
         var PasswordValidation: RegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@!#$%^&*])[A-Za-z\d@!#$%^&*]{8,15}$/;
 
         if (SignUpuserPW) {
-            setPassWordText(SignUpuserPW.value);
             if (PasswordValidation.test(SignUpuserPW.value)) {
                 //비밀번호 성공
                 return true;
@@ -85,13 +88,11 @@ function SignUp() {
     }
 
     //비밀번호 확인 입력시
-    let [CheckPassWordText, setCheckPassWordText] = useState<string>('');
     const checkPwValidation = (): void | Boolean => {
         let SignUpuserPW: HTMLInputElement = document.querySelector('.SignUpuserPW') as HTMLInputElement;
         let SignUpuserPWCheck: HTMLInputElement = document.querySelector('.SignUpuserPWCheck') as HTMLInputElement
 
         if (SignUpuserPW && SignUpuserPWCheck) {
-            setCheckPassWordText(SignUpuserPWCheck.value);
             if (SignUpuserPW.value === SignUpuserPWCheck.value) {
                 return true;
             } else { return false; }
@@ -99,12 +100,10 @@ function SignUp() {
     }
 
     //이름 유효성 검사
-    let [UserNameText, setUserNameText] = useState<string>('');
     const checkUserName = (): void | Boolean => {
         let SignUpusername: HTMLInputElement = document.querySelector('.SignUpusername') as HTMLInputElement;
         const nameValidation: RegExp = /^[가-힣]{2,10}$/;
         if (SignUpusername) {
-            setUserNameText(SignUpusername.value);
             if (nameValidation.test(SignUpusername.value)) {
                 return true;
             } else {
@@ -114,14 +113,12 @@ function SignUp() {
     }
 
     //생일 유효성 검사
-    let [UserBirthDayText, setUserBirthDayText] = useState<string>('');
     const birthdayValidation = (): void | Boolean => {
         const SignUpuserbirth: HTMLInputElement = document.querySelector('.SignUpuserbirth') as HTMLInputElement
         const BirthDayCheck: RegExp = /^\d{8}$/;
 
 
         if (SignUpuserbirth) {
-            setUserBirthDayText(SignUpuserbirth.value);
             if (BirthDayCheck.test(SignUpuserbirth.value)) {
 
                 // 생년, 월, 일 추출
@@ -200,6 +197,7 @@ function SignUp() {
                 if (user) {
                     await sendEmailVerification(user);
                     window.alert('이메일 인증메일을 보냈습니다.');
+                    props.showSignUpFunction('');
                 } else {
                     // 사용자가 인증되어 있지 않은 경우 처리
                     console.error('사용자가 인증되어 있지 않습니다.');
@@ -213,7 +211,19 @@ function SignUp() {
 
     //이전버튼 클릭시
     const showSignIn = (): void => {
-        console.log('showSignIn')
+        props.showSignUpFunction('');
+    }
+
+    //Tab막기
+    const visibility = ():void =>{
+        setTimeout(()=>{
+            if(props.SignIn_SignUp_class===''){
+                setNotSelect('VSB');
+            }
+        },500)
+        if(props.SignIn_SignUp_class==='signup'){
+            setNotSelect('');
+        }
     }
 
     const RootFunction = async () => {
@@ -225,8 +235,12 @@ function SignUp() {
         RootFunction()
     }, [EmailText])
 
+    useEffect(()=>{
+        visibility()
+    },[props.SignIn_SignUp_class])
+
     return (
-        <div id="SignUp" className="SignUp">
+        <div id="SignUp" className={`SignUp ${notSelect}`}>
             <h2>회원가입</h2>
             <form action="" method="post" name="">
                 <div>
