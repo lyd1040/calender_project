@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import '../../../../css/SignUp.css'
 import { createUserWithEmailAndPassword, sendEmailVerification, Auth, UserCredential, User } from 'firebase/auth';
 import { auth } from '../../../../firebase';
-import { db } from '../../../../firebase'
-import { ref, get, set } from 'firebase/database';
 
 type FunctionType = () => void;
 
@@ -193,7 +191,6 @@ function SignUp() {
                 console.log('birthdayValidation')
                 return false;
             }
-            console.log('success');
 
             try {
                 await createUserWithEmailAndPassword(auth, SignUpuserID.value, SignUpuserPW.value);
@@ -202,7 +199,7 @@ function SignUp() {
                 const user: User | null = auth.currentUser;
                 if (user) {
                     await sendEmailVerification(user);
-                    alert('이메일 인증메일을 보냈습니다.');
+                    window.alert('이메일 인증메일을 보냈습니다.');
                 } else {
                     // 사용자가 인증되어 있지 않은 경우 처리
                     console.error('사용자가 인증되어 있지 않습니다.');
