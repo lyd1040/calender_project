@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 type NavProps = {
   Mode: string;
   header_YMD: number[];
+  LoginState: boolean;
+  onChangeLoginState: (state: boolean) => void;
   onChangeMode: (id: number) => void; // 예시로 빈 함수 타입 설정
 };
 
@@ -14,10 +16,7 @@ type NavProps = {
 function Header(props: NavProps) {
 
   const [show_hide_date, set_show_hide_date] = useState<JSX.Element[]>([]); // 초기값을 빈 배열로 설정
-
-  useEffect(() => {
-    set_show_hide_date(header_YMD_print());
-  }, [props.header_YMD]);
+  const [NavLinkTag, setNavLinkTag] = useState<JSX.Element>(<></>);
 
   function header_YMD_print(): JSX.Element[] {
     const headerYMD_arr: JSX.Element[] = [<></>];
@@ -39,13 +38,25 @@ function Header(props: NavProps) {
 
     return headerYMD_arr
   }
+
+  const setting_navLinkTag = (): void => {
+    setNavLinkTag(<Nav LoginState={props.LoginState} onChangeLoginState={props.onChangeLoginState} onChangeMode={props.onChangeMode}></Nav>)
+  }
+
+  useEffect(() => {
+    set_show_hide_date(header_YMD_print());
+  }, [props.header_YMD]);
+
+  useEffect(() => {
+    setting_navLinkTag();
+  }, [props.LoginState]);
   return (
     <header>
-      <h1><a href={/read/ + '0'} onClick={event => { event.preventDefault(); props.onChangeMode(0) }}>Event Calender</a></h1>
+      <h1 id='logo' className='logo'><a href={/read/ + '0'} onClick={event => { event.preventDefault(); props.onChangeMode(0) }}>Event Calender</a></h1>
       <ul className='headerYMD'>
         {show_hide_date}
       </ul>
-      <Nav onChangeMode={props.onChangeMode}></Nav>
+      {NavLinkTag}
     </header>
   )
 }

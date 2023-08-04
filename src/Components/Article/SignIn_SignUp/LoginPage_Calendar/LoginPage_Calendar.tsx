@@ -133,9 +133,6 @@ function LoginPage_Calendar() {
                 <div id='LoginCalendar' className='LoginCalendar'>
                     {LoginCalendar}
                 </div>
-                <div id='show_ClockBtnWrap' className='show_ClockBtnWrap'>
-                    <button className='showClockBtn'>시계</button>
-                </div>
             </div>
 
 

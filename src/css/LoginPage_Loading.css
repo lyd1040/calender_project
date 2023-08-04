@@ -1,0 +1,54 @@
+:root {
+    --whiteSpace: 0;
+}
+
+.LoginPage_Loading_wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    backface-visibility: hidden;
+
+    background: #00000059;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.LoginPage_Loading_wrap>div {
+    position: relative;
+
+    transform: translateY(-50px);
+
+    width: 80%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+span.spans {
+    background: #fff;
+    animation: LoginPageLoadinganimate 0.6s infinite ease-in-out alternate;
+}
+
+.LoadingText {
+    transform: translateY(100px);
+
+    color: #fff;
+
+    font-size: 2em;
+}
+
+@keyframes LoginPageLoadinganimate {
+
+    0% {
+        transform: translateY(30px);
+    }
+
+    100% {
+        transform: translateY(-30px);
+    }
+}

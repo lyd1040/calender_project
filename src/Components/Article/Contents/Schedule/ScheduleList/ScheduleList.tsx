@@ -67,7 +67,7 @@ function ScheduleList(props: Schedule_list_props) {
         let paginbtnWrap: JSX.Element[] = [];
         for (let x = 0; x < paginbtnNumber; x++) {
             paginbtnWrap.push(
-                <a key={'pagingBtn' + x + `${x / x + 1}`} href="/" onClick={(event: React.MouseEvent<HTMLAnchorElement>) => { event.preventDefault(); addPlanList(x + 1) }}>
+                <a key={'pagingBtn' + x + x} href="/" onClick={(event: React.MouseEvent<HTMLAnchorElement>) => { event.preventDefault(); addPlanList(x + 1) }}>
                     {x + 1}
                 </a>
             );
@@ -90,10 +90,6 @@ function ScheduleList(props: Schedule_list_props) {
             <ul className="plan_list">
                 {PlanList}
             </ul>
-
-            {/* <p className="not_plan">
-            일정이 없습니다.
-        </p> */}
 
             <div className="Schedule_btnWrap">
                 <div className="pagingBtn_wrap">

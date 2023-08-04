@@ -33,7 +33,10 @@
     background: #2e2e2e80 url('../../public/imgs/EVENT.png') no-repeat;
     background-blend-mode: multiply;
     background-size: cover;
+}
 
+.SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_date_time_3dcard.active {
+    transform: perspective(10000px) rotateY(0turn);
 }
 
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_date_time_3dcard>div {
@@ -51,13 +54,18 @@
     width: 100%;
     height: 100%;
 
-    transform: translateY(-0%);
+    transform: translateY(-100%);
 
     transition: 0.5s;
 
 }
-.SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_comp_wrap .Sign_show_hide.signup{
-    transform: translateY(-100%);
+
+.SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_comp_wrap .Sign_show_hide.signup {
+    transform: translateY(-200%);
+}
+
+.SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_comp_wrap .Sign_show_hide.searchIdPw {
+    transform: translateY(-0%);
 }
 
 .SignUp .erroralram {

@@ -5,12 +5,13 @@ import { auth } from '../../../../firebase';
 
 type FunctionType = () => void;
 
-type SignUpType ={
-    showSignUpFunction(CHSG:string):void;
-    SignIn_SignUp_class:string;
+type SignUpType = {
+    onchangeLoadingMode: (state: boolean) => void
+    showSignUpFunction(CHSG: string): void;
+    SignIn_SignUp_class: string;
 }
-function SignUp(props:SignUpType) {
-    let [notSelect,setNotSelect] = useState<string>('');
+function SignUp(props: SignUpType) {
+    let [notSelect, setNotSelect] = useState<string>('');
 
     //input 태그 그리기
     const [SignUpTags, setSignUpTags] = useState<JSX.Element[]>([])
@@ -160,6 +161,7 @@ function SignUp(props:SignUpType) {
 
     //회원가입 클릭시
     const AllValidation = async (): Promise<void | boolean> => {
+        props.onchangeLoadingMode(true);
         let SignUpuserID: HTMLInputElement = document.querySelector('.SignUpuserID') as HTMLInputElement
         let SignUpuserPW: HTMLInputElement = document.querySelector('.SignUpuserPW') as HTMLInputElement
         let SignUpuserPWCheck: HTMLInputElement = document.querySelector('.SignUpuserPWCheck') as HTMLInputElement
@@ -169,23 +171,28 @@ function SignUp(props:SignUpType) {
 
         if (SignUpuserID && SignUpuserPW && SignUpuserPWCheck && SignUpusername && SignUpuserbirth) {
             if (emailValidation() === false) {
-                console.log('emailValidation')
+                console.log('emailValidation');
+                props.onchangeLoadingMode(false);
                 return false;
             }
             if (passwordValidation() === false) {
-                console.log('passwordValidation')
+                console.log('passwordValidation');
+                props.onchangeLoadingMode(false);
                 return false;
             }
             if (checkPwValidation() === false) {
-                console.log('checkPwValidation')
+                console.log('checkPwValidation');
+                props.onchangeLoadingMode(false);
                 return false;
             }
             if (checkUserName() === false) {
-                console.log('checkUserName')
+                console.log('checkUserName');
+                props.onchangeLoadingMode(false);
                 return false;
             }
             if (birthdayValidation() === false) {
-                console.log('birthdayValidation')
+                console.log('birthdayValidation');
+                props.onchangeLoadingMode(false);
                 return false;
             }
 
@@ -198,14 +205,19 @@ function SignUp(props:SignUpType) {
                     await sendEmailVerification(user);
                     window.alert('이메일 인증메일을 보냈습니다.');
                     props.showSignUpFunction('');
+                    props.onchangeLoadingMode(false);
                 } else {
                     // 사용자가 인증되어 있지 않은 경우 처리
+                    props.onchangeLoadingMode(false);
                     console.error('사용자가 인증되어 있지 않습니다.');
                 }
             } catch (error: any) {
+                props.onchangeLoadingMode(false);
                 console.error('회원가입 도중 오류 발생:', error.message);
             }
 
+        } else {
+            props.onchangeLoadingMode(false);
         }
     }
 
@@ -215,14 +227,13 @@ function SignUp(props:SignUpType) {
     }
 
     //Tab막기
-    const visibility = ():void =>{
-        setTimeout(()=>{
-            if(props.SignIn_SignUp_class===''){
-                setNotSelect('VSB');
-            }
-        },500)
-        if(props.SignIn_SignUp_class==='signup'){
+    const visibility = (): void => {
+        if (props.SignIn_SignUp_class === 'signup') {
             setNotSelect('');
+        } else {
+            setTimeout(() => {
+                setNotSelect('VSB');
+            }, 500)
         }
     }
 
@@ -235,9 +246,9 @@ function SignUp(props:SignUpType) {
         RootFunction()
     }, [EmailText])
 
-    useEffect(()=>{
+    useEffect(() => {
         visibility()
-    },[props.SignIn_SignUp_class])
+    }, [props.SignIn_SignUp_class])
 
     return (
         <div id="SignUp" className={`SignUp ${notSelect}`}>
