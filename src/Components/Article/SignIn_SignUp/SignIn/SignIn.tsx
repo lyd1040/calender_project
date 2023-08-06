@@ -103,7 +103,7 @@ function SignIn(props: SignInType) {
     }
 
 
-    //회원가입누를시 Tab 막기
+    //Tab 막기
     const visibility = () => {
         if (props.SignIn_SignUp_class === '') {
             setNotSelect('');

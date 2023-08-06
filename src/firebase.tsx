@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'; // Firestore 모듈 추가
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCMdVGADWibXsn1R4r91WGnUjM5NeNLTg",
@@ -15,10 +16,13 @@ const firebaseConfig = {
 // Firebase 초기화
 const app = initializeApp(firebaseConfig);
 
-// Firestore 초기화
+// Realtime Database 초기화
 const db = getDatabase(app);
+
+// Firestore 초기화
+const fbdb = getFirestore(app);
 
 // Firebase Authentication 초기화
 const auth = getAuth(app);
 
-export { db, auth }; // db와 auth를 외부에서 사용할 수 있도록 내보내기
+export { db, fbdb, auth }; // db와 auth를 외부에서 사용할 수 있도록 내보내기

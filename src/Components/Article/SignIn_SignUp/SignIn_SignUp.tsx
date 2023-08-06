@@ -36,9 +36,10 @@ function SignIn_SignUp(props: SignIn_SignUpType) {
                     <LoginPage_Loading />
                     <LoginPage_Calendar />
                 </div>
+                
                 <div id="SignIn_SignUp_comp_wrap" className="SignIn_SignUp_comp_wrap">
                     <div id="Sign_show_hide" className={`Sign_show_hide ${SignIn_SignUp_class}`}>
-                        <SearchIdPw SignIn_SignUp_class={SignIn_SignUp_class}></SearchIdPw>
+                        <SearchIdPw showSignUpFunction={showSignUpFunction} SignIn_SignUp_class={SignIn_SignUp_class}></SearchIdPw>
                         <SignIn onchangeLoadingMode={onchangeLoadingMode} onChangeLoginState={props.onChangeLoginState} showSignUpFunction={showSignUpFunction} SignIn_SignUp_class={SignIn_SignUp_class} />
                         <SignUp onchangeLoadingMode={onchangeLoadingMode} showSignUpFunction={showSignUpFunction} SignIn_SignUp_class={SignIn_SignUp_class} />
                     </div>

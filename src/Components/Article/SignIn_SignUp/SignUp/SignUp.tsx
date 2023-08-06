@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../../../../css/SignUp.css'
 import { createUserWithEmailAndPassword, sendEmailVerification, User } from 'firebase/auth';
-import { auth } from '../../../../firebase';
+import { auth, fbdb } from '../../../../firebase';
+import {collection, setDoc, doc} from 'firebase/firestore';
 
 type FunctionType = () => void;
 
@@ -197,12 +198,20 @@ function SignUp(props: SignUpType) {
             }
 
             try {
-                await createUserWithEmailAndPassword(auth, SignUpuserID.value, SignUpuserPW.value);
-
+                await createUserWithEmailAndPassword(auth, SignUpuserID.value, SignUpuserPW.value)
                 // 사용자가 인증되어 있는지 확인 후 이메일 검증을 보냅니다.
                 const user: User | null = auth.currentUser;
                 if (user) {
+                    let userUid:any = (user.uid).toString();
                     await sendEmailVerification(user);
+
+                    const UserInfo = doc(collection(fbdb, 'UserInfomation'), user.uid);
+                    await setDoc(UserInfo, {
+                        userBirth: SignUpuserbirth.value,
+                        userID: SignUpuserID.value,
+                        userName: SignUpusername.value
+                    });
+                     
                     window.alert('이메일 인증메일을 보냈습니다.');
                     props.showSignUpFunction('');
                     props.onchangeLoadingMode(false);
