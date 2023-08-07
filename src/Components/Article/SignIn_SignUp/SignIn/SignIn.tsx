@@ -52,8 +52,6 @@ function SignIn(props: SignInType) {
         props.onchangeLoadingMode(true);
         const InputElementTags: HTMLInputElement[] = document.querySelectorAll('.SignIn form .Login_input_wrap input') as unknown as HTMLInputElement[];
 
-        console.log(InputElementTags[0].value, InputElementTags[1].value);
-
         // 이메일과 비밀번호로 로그인을 시도합니다.
         try {// 로그인에 성공한 경우 원하는 동작을 수행합니다.
             await signInWithEmailAndPassword(auth, InputElementTags[0].value, InputElementTags[1].value);

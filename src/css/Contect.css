@@ -1,0 +1,184 @@
+.Contect {
+    width: 80%;
+    height: 80%;
+}
+
+.Contect form {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Contect form h2 {
+    width: 80%;
+    height: 10%;
+
+    font-size: 1.8em;
+
+    text-align: center;
+
+    padding-top: 15px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border: 1px solid;
+    border-bottom: 0;
+}
+
+.Contect form>div {
+    width: 80%;
+    border: 1px solid;
+}
+
+/* 이름 , 이메일 */
+.Contect form>div:nth-child(2) {
+    height: 10%;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.Contect form>div:nth-child(2)>div {
+    position: relative;
+
+    width: 30%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.Contect form>div:nth-child(2) label {
+    position: absolute;
+    left: 5px;
+    top: 25%;
+
+    pointer-events: none;
+
+    transition: 0.3s;
+}
+
+.Contect form>div:nth-child(2) label.active {
+    transform: translateY(-100%);
+    background: #fff;
+
+    font-size: 0.75em;
+}
+
+.Contect form>div:nth-child(2) input {
+    width: 100%;
+    padding: 5px;
+}
+
+/* 문의내용 */
+.Contect form>div:nth-child(3) {
+    height: 40%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.Contect form>div:nth-child(3) textarea {
+    width: 60%;
+    height: 90%;
+
+    resize: none;
+}
+
+/* 홈으로, 문의하기 버튼 */
+.Contect form>div:nth-child(4) {
+    width: 80%;
+    height: 20%;
+
+    border-top: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Contect form>div:nth-child(4)>div {
+    width: 60%;
+
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.Contect form>div:nth-child(4) button {
+
+    padding: 7px 20px;
+
+}
+
+
+@media screen and (max-width:750px) {
+    .Contect form>div:nth-child(2) {
+        height: 15%;
+
+        flex-direction: column;
+
+    }
+
+    .Contect form>div:nth-child(2) {
+        gap: 10px;
+    }
+
+    .Contect form>div:nth-child(2)>div {
+        width: 80%;
+    }
+
+    .Contect form>div:nth-child(2)>div label {
+        top: 50%;
+
+        transform: translateY(-50%);
+    }
+
+    .Contect form>div:nth-child(2) label.active {
+        transform: translateY(-170%);
+        background: #fff;
+
+        font-size: 0.6em;
+    }
+
+    .Contect form>div:nth-child(2)>div input {
+        padding: 5px;
+
+        border: 1px solid;
+        border-radius: 5px;
+    }
+
+    .Contect form>div:nth-child(3) {
+        height: 35%;
+        flex-direction: column;
+    }
+
+    .Contect form>div:nth-child(3) textarea {
+        width: 80%;
+    }
+
+    .Contect form>div:nth-child(4)>div {
+        gap: 10px;
+    }
+
+    .Contect form>div:nth-child(4) button {
+        width: 100%;
+
+        padding: 3px 9px;
+    }
+}

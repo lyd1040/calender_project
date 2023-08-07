@@ -57,9 +57,11 @@ function Nav(props: NavProps) {
         sessionStorage.removeItem('userUID');
         props.onChangeLoginState(false);
     }
+
     useEffect(() => {
         show_lis();
     }, [LoginText, props.LoginState])
+
     return (
         <div id='gnb_wrap' className='gnb_wrap'>
             <button className='show_gnb' onClick={() => { show_hide_gnb() }}><i className="fa-solid fa-bars"></i></button>

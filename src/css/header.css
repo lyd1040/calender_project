@@ -1,6 +1,8 @@
 header {
     position: relative;
-    border: 1px solid;
+
+    border-bottom: 1px solid #808080;
+
     height: 70px;
 
     display: flex;
@@ -14,11 +16,11 @@ header {
     z-index: 999;
 }
 
-h1 {
+header h1 {
     font-size: 1.8em;
 }
 
-.headerYMD {
+header .headerYMD {
     position: absolute;
     left: 50%;
 
@@ -30,13 +32,18 @@ h1 {
 }
 
 @media screen and (max-width:750px) {
-    .logo {
+    header {
+        padding: 0 5px;
+
+    }
+
+    header .logo {
         width: 70px;
         height: 100%;
         overflow: hidden;
     }
 
-    .logo a {
+    header .logo a {
         width: 100%;
         height: 100%;
         display: block;
@@ -61,7 +68,7 @@ h1 {
         }
     }
 
-    .headerYMD {
+    header .headerYMD {
         display: flex;
         justify-content: center;
         gap: 10px;

@@ -12,16 +12,12 @@ function App() {
   ])
   let [mode, setMode] = useState<string>('WELCOME');
 
-  // READ일 때 선택된 컨텐츠 번호
-  let [contents_number, setContentsNumber] = useState<number>(0);
-
   //모드 바꾸기
   const onChangeMode = (data: number, year?: number, month?: number, date?: number): void => {
     if (data === 0) {
       setMode('WELCOME');
     } else {
       setMode('READ');
-      setContentsNumber(data);
 
       if (year !== undefined && month !== undefined && date !== undefined) {
         set_header_YMD([year, month, date]);
@@ -62,8 +58,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header Mode={mode} onChangeMode={onChangeMode} header_YMD={header_YMD} onChangeLoginState={onChangeLoginState} LoginState={LoginState}></Header>
-        <Article Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode} onChangeMode2={onChangeMode} onChangeLoginState={onChangeLoginState}></Article>
+        <Header Mode={mode} onChangeMode={onChangeMode} onChangeMode2={onChangeMode} header_YMD={header_YMD} onChangeLoginState={onChangeLoginState} LoginState={LoginState}></Header>
+        <Article Mode={mode} title={contents_title} desc={contents_desc} onChangeMode={onChangeMode} header_YMD={header_YMD} onChangeMode2={onChangeMode} onChangeLoginState={onChangeLoginState}></Article>
       </div>
     </BrowserRouter>
   );

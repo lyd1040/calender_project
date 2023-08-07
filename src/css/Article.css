@@ -1,8 +1,6 @@
-article{
+article {
     position: relative;
     height: calc(100vh - 70px);
-
-    border: 1px solid;
 
     display: flex;
     flex-direction: column;

@@ -7,6 +7,7 @@ type ContnetsProps = {
     title: string;
     desc: string;
     Mode: string;
+    header_YMD: number[];
     onChangeMode2: (id: number) => void
     onChangeMode: (id: number, year?: number, month?: number, date_text?: number) => void;
 };
@@ -31,6 +32,25 @@ function Contents(props: ContnetsProps) {
         props.onChangeMode(id, year, month, date_text)
     }
 
+    // showHideSchedule 바꿔주는 함수
+    function changeSchedule() {
+        setShowHideSchedule(!showHideSchedule);
+    }
+
+
+    useEffect(() => {
+        setScheduleComponents(null);
+    }, [])
+
+    useEffect(() => {
+        console.log(props.header_YMD);
+        set_Schedule_date_test({
+            year: props.header_YMD[0],
+            month: props.header_YMD[1],
+            date_text: props.header_YMD[2]
+        })
+    }, [props.header_YMD])
+
     //바뀔시 스케쥴 화면에 출력
     useEffect(() => {
         if (showHideSchedule === true) {
@@ -41,14 +61,7 @@ function Contents(props: ContnetsProps) {
             setScheduleComponents(null);
         }
     }, [showHideSchedule])
-    useEffect(() => {
-        setScheduleComponents(null);
-    }, [])
 
-    // showHideSchedule 바꿔주는 함수
-    function changeSchedule() {
-        setShowHideSchedule(!showHideSchedule);
-    }
 
 
     return (
