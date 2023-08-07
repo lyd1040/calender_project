@@ -25,6 +25,20 @@ type Schedule_date_test_type = {
     date_text: number;
 }
 function Schedule(props: Class) {
+    const [Schedule_class, setSchedule_class] = useState<string | null>(null)
+    const [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
+    const [detailPlanListMode, setDetailPlanListMode] = useState<boolean>(false) // Detail 컴포넌트를 켜고 끌 수 있는 값
+    const [detailPlanListIndex, setdetailPlanListIndex] = useState<number>(NaN);
+    const [useUpdate_PlanList_Index, setUseUpdate_PlanList_Index] = useState<number>(NaN);
+    const [planList, setPlanList] = useState<planListType[]>(
+        [
+            { id: NaN, title: '', content: '', date: '', time: '' },
+        ]
+    )
+    const [planComponent, setplanComponent] = useState<JSX.Element | null>(<></>);
+    const [detailplanComponent, setdetailplanComponent] = useState<JSX.Element | null>(<></>);
+
+
     //모드 바꾸기(하위 컴포넌트에서 실행)
     const ChangeplanMode = (data: string): void => {
         setPlanListMode(data)
@@ -85,20 +99,6 @@ function Schedule(props: Class) {
         return Delete_list;
     }
 
-
-    let [Schedule_class, setSchedule_class] = useState<string | null>(null)
-    let [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
-    let [detailPlanListMode, setDetailPlanListMode] = useState<boolean>(false) // Detail 컴포넌트를 켜고 끌 수 있는 값
-    let [detailPlanListIndex, setdetailPlanListIndex] = useState<number>(NaN);
-    let [useUpdate_PlanList_Index, setUseUpdate_PlanList_Index] = useState<number>(NaN);
-    const [planList, setPlanList] = useState<planListType[]>(
-        [
-            { id: NaN, title: '', content: '', date: '', time: '' },
-        ]
-    )
-    const [planComponent, setplanComponent] = useState<JSX.Element | null>(<></>);
-    const [detailplanComponent, setdetailplanComponent] = useState<JSX.Element | null>(<></>);
-
     //일정목록을 추가, 업데이트 할 수 있는 이벤트 함수
     const onUpdatePlanList = (data: planListType[]): void => {
         setPlanList(data)
@@ -125,6 +125,7 @@ function Schedule(props: Class) {
 
     //Planlist를 날짜에 맞게 필터해서 출력시켜주는 함수
     const printList = (data: planListType[]):void =>{
+
         let select_YMD: string = Select_date_update();
         let filter_list: planListType[] =[];
 
@@ -140,7 +141,7 @@ function Schedule(props: Class) {
             }
         }
 
-        setPlanList(filter_list)
+        setPlanList(filter_list);
         setPlanListMode('READ');
     }
 
@@ -173,17 +174,7 @@ function Schedule(props: Class) {
         return (
             ChangeplanComponent()
         )
-    }, [])
-
-    //모드변경
-    useEffect(() => {
-        ChangeplanComponent()
-    }, [planListMode, planList, useUpdate_PlanList_Index])
-
-    useEffect(() => {
-        show_hide_Datail_plan(detailPlanListMode)
-    }, [detailPlanListMode, detailPlanListIndex])
-
+    }, []);
 
     //모드 상황에 따라 컴포넌트 바꾸기
     const ChangeplanComponent = (): void => {
@@ -203,6 +194,43 @@ function Schedule(props: Class) {
             setdetailplanComponent(<></>)
         }
     }
+
+    //모드변경
+    useEffect(() => {
+        ChangeplanComponent()
+    }, [planListMode, planList, useUpdate_PlanList_Index])
+
+    useEffect(() => {
+        show_hide_Datail_plan(detailPlanListMode)
+    }, [detailPlanListMode, detailPlanListIndex])
+
+    useEffect(()=>{
+        show_hide_Datail_plan(detailPlanListMode)
+    },[planList])
+
+    useEffect(()=>{
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+
+        if (save_UID !== null) {dataRef = ref(db, save_UID);}
+        else{dataRef = ref(db, 'test');}
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return data;
+                } else {
+                    console.log('firebase 경로 확인 필요');
+                }
+            })
+            .then((data:planListType[])=>{
+                printList(data);
+                setTimeout(() => { setSchedule_class('show'); }, 0);
+            })
+            .catch((error) => {
+                console.error('에러 내용: ', error);
+            });
+    },[props.Schedule_date_test]);
 
 
     return (

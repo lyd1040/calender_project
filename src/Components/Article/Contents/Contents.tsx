@@ -43,7 +43,6 @@ function Contents(props: ContnetsProps) {
     }, [])
 
     useEffect(() => {
-        console.log(props.header_YMD);
         set_Schedule_date_test({
             year: props.header_YMD[0],
             month: props.header_YMD[1],
@@ -60,7 +59,13 @@ function Contents(props: ContnetsProps) {
         } else {
             setScheduleComponents(null);
         }
-    }, [showHideSchedule])
+    }, [showHideSchedule, Schedule_date_test])
+
+    useEffect(()=>{
+        if (showHideSchedule === true) {
+            setScheduleComponents(<Schedule SHclass={showHideSchedule} Schedule_date_test={Schedule_date_test}></Schedule>)
+        }
+    },[props.header_YMD, Schedule_date_test])
 
 
 

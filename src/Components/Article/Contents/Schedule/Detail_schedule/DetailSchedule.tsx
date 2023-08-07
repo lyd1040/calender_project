@@ -25,16 +25,6 @@ function DetailSchedule(props: DetailScheduleProps) {
     const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
     const [DetaileTimeLine_list, setDetaileTimeLine_list] = useState<JSX.Element[]>([]);
 
-
-    useEffect(() => {
-        printDOM(props.planList[props.detailPlanListIndex]);
-        printTodayDom();
-        setTimeout(() => {
-            setDetailSchedule('DetailSchedule show')
-        }, 100)
-
-    }, [props.detailPlanListIndex, props.planList])
-
     const printDOM = (DomEle: printDOM): void => {
         let plan_title: string[] = ['일정 제목', '일정 내용', '일정 날짜', '일정 시간'];
         let plan_content: string[] = [DomEle.title, DomEle.content, DomEle.date, DomEle.time];
@@ -83,7 +73,6 @@ function DetailSchedule(props: DetailScheduleProps) {
             }
         }
 
-
         for (let x = 0; x < 24; x++) {
             TimeLine_list.push(
                 <div key={`TimeLine${x}`}>
@@ -97,6 +86,14 @@ function DetailSchedule(props: DetailScheduleProps) {
 
         setDetaileTimeLine_list(TimeLine_list)
     }
+
+    useEffect(() => {
+        printDOM(props.planList[props.detailPlanListIndex]);
+        printTodayDom();
+        setTimeout(() => {
+            setDetailSchedule('DetailSchedule show')
+        }, 100)
+    }, [props.detailPlanListIndex, props.planList])
 
     return (
         <div id="DetailSchedule" className={DetailSchedule_class}>
