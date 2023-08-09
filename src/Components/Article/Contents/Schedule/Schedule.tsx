@@ -28,7 +28,7 @@ function Schedule(props: Class) {
     const [Schedule_class, setSchedule_class] = useState<string | null>(null)
     const [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
     const [detailPlanListMode, setDetailPlanListMode] = useState<boolean>(false) // Detail 컴포넌트를 켜고 끌 수 있는 값
-    const [detailPlanListIndex, setdetailPlanListIndex] = useState<number>(NaN);
+    const [detailPlanListIndex, setdetailPlanListIndex] = useState<number |undefined>(NaN);
     const [useUpdate_PlanList_Index, setUseUpdate_PlanList_Index] = useState<number>(NaN);
     const [planList, setPlanList] = useState<planListType[]>(
         [
@@ -47,7 +47,7 @@ function Schedule(props: Class) {
         setUseUpdate_PlanList_Index(Update_Index)
     }
     //Detail 컴포넌트 show/hide
-    const show_hide_Datail_plan_OnOff = (onOff: boolean, dataIndex: number): void => {
+    const show_hide_Datail_plan_OnOff = (onOff: boolean, dataIndex?: number): void => {
         if (onOff === true) {
             setdetailPlanListIndex(dataIndex);
         }
@@ -207,6 +207,9 @@ function Schedule(props: Class) {
     useEffect(()=>{
         show_hide_Datail_plan(detailPlanListMode)
     },[planList])
+    useEffect(()=>{
+        show_hide_Datail_plan_OnOff(false);
+    },[props.Schedule_date_test])
 
     useEffect(()=>{
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름

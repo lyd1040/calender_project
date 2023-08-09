@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../../../../../css/DetailSchedule.css'
 type DetailScheduleProps = {
     planList: printDOM[];
-    detailPlanListIndex: number;
+    detailPlanListIndex: number | undefined;
     Schedule_date_test: Schedule_date_test_type;
 }
 
@@ -25,22 +25,24 @@ function DetailSchedule(props: DetailScheduleProps) {
     const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
     const [DetaileTimeLine_list, setDetaileTimeLine_list] = useState<JSX.Element[]>([]);
 
-    const printDOM = (DomEle: printDOM): void => {
-        let plan_title: string[] = ['일정 제목', '일정 내용', '일정 날짜', '일정 시간'];
-        let plan_content: string[] = [DomEle.title, DomEle.content, DomEle.date, DomEle.time];
+    const printDOM = (DomEle: printDOM | null): void => {
+        if(DomEle !==null){
+            let plan_title: string[] = ['일정 제목', '일정 내용', '일정 날짜', '일정 시간'];
+            let plan_content: string[] = [DomEle.title, DomEle.content, DomEle.date, DomEle.time];
 
-        let todayinfo_local: JSX.Element[] = [];
+            let todayinfo_local: JSX.Element[] = [];
 
-        for (let x = 0; x < 4; x++) {
-            todayinfo_local.push(
-                <li key={'todayplanlistlis' + x}>
-                    <h4>{plan_title[x]}</h4>
-                    <p>{plan_content[x]}</p>
-                </li>
-            )
+            for (let x = 0; x < 4; x++) {
+                todayinfo_local.push(
+                    <li key={'todayplanlistlis' + x}>
+                        <h4>{plan_title[x]}</h4>
+                        <p>{plan_content[x]}</p>
+                    </li>
+                )
+            }
+
+            setToday_infomaition(todayinfo_local);
         }
-
-        setToday_infomaition(todayinfo_local);
     }
 
     const printTodayDom = () => {
@@ -88,12 +90,15 @@ function DetailSchedule(props: DetailScheduleProps) {
     }
 
     useEffect(() => {
-        printDOM(props.planList[props.detailPlanListIndex]);
-        printTodayDom();
-        setTimeout(() => {
-            setDetailSchedule('DetailSchedule show')
-        }, 100)
+        if(props.detailPlanListIndex !== undefined){
+            printDOM(props.planList[props.detailPlanListIndex]);
+            printTodayDom();
+            setTimeout(() => {
+                setDetailSchedule('DetailSchedule show')
+            }, 100)
+        }
     }, [props.detailPlanListIndex, props.planList])
+
 
     return (
         <div id="DetailSchedule" className={DetailSchedule_class}>
