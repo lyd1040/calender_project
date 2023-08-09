@@ -190,8 +190,6 @@ function AddSchedule(props: AddSchedule_props) {
             <h3>일정추가</h3>
             <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="AddSchedule_center">
-
-
                 <form action="">
                     <div key={'AddSchedule_input_title'}><label htmlFor="">제목</label><input type="text" id="content_title" required /></div>
                     <div key={'AddSchedule_input_content'}><label htmlFor="">내용</label><textarea id="content_text" /></div>

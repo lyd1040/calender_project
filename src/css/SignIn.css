@@ -1,168 +1,129 @@
+@charset "UTF-8";
 .SignIn {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 1px solid;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
 }
-
 .SignIn.VSB {
-    visibility: hidden;
+  visibility: hidden;
 }
-
 .SignIn .SignIn_contents_wrap {
-    width: 100%;
-    max-width: 400px;
-    height: 80%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* 입력란 */
+  /* 버튼 모음 */
+}
+.SignIn .SignIn_contents_wrap h2 {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8em;
+  font-weight: 700;
+}
+.SignIn .SignIn_contents_wrap form {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.SignIn .SignIn_contents_wrap form .Login_input_wrap {
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.SignIn .SignIn_contents_wrap form .Login_input_wrap > div {
+  width: 80%;
+  position: relative;
+}
+.SignIn .SignIn_contents_wrap form .Login_input_wrap > div label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 0.5s;
+}
+.SignIn .SignIn_contents_wrap form .Login_input_wrap > div label.active {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(-5%, -190%);
+  background: #fff;
+  font-size: 0.8em;
+}
+.SignIn .SignIn_contents_wrap form .Login_input_wrap > div input {
+  width: 100%;
+  padding: 10px;
+}
+.SignIn .SignIn_contents_wrap form .LoginBtn {
+  padding: 6px 20px;
+  margin: auto;
+  border-radius: 3px;
+  border: 1px solid;
+  cursor: pointer;
+}
+.SignIn .SignIn_contents_wrap form .LoginBtn:hover {
+  background: rgb(35, 151, 245);
+  color: #fff;
+}
+.SignIn .SignIn_contents_wrap .LoginBtn_wrap {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.SignIn h2 {
-    width: 100%;
-    height: 20%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 1.8em;
-    font-weight: 700;
-}
-
-/* 입력란 */
-.SignIn form {
-    width: 100%;
-    height: 40%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.SignIn form .Login_input_wrap {
-    width: 100%;
-    height: 100%;
-
-    margin-top: 30px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.SignIn form .Login_input_wrap>div {
-    width: 80%;
+@media screen and (max-width: 750px) {
+  .SignIn .SignIn_contents_wrap h2 {
+    height: 30%;
+    transform: translateY(-10px);
+    font-size: 1.4em;
+  }
+  .SignIn .SignIn_contents_wrap form .Login_input_wrap {
+    margin-top: 0;
+  }
+  .SignIn .SignIn_contents_wrap form .Login_input_wrap > div {
+    width: auto;
     position: relative;
-}
-
-.SignIn form .Login_input_wrap>div label {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-
-    transform: translateY(-50%);
-
-    pointer-events: none;
-
-    transition: 0.5s;
-}
-
-.SignIn form .Login_input_wrap>div label.active {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-
-    transform: translate(-5%, -190%);
-
-    background: #fff;
-
-    font-size: 0.8em;
-}
-
-.SignIn form .Login_input_wrap input {
-    width: 100%;
-
-    padding: 10px;
-}
-
-.LoginBtn {
+  }
+  .SignIn .SignIn_contents_wrap form .Login_input_wrap input {
+    width: 200px;
+    padding: 5px;
+  }
+  .SignIn .SignIn_contents_wrap form > .LoginBtn {
+    width: 200px;
     padding: 6px 20px;
-    margin: auto;
+    margin: 15px auto;
     border-radius: 3px;
     border: 1px solid;
-
-    cursor: pointer;
-}
-
-.LoginBtn:hover {
-    background: rgb(35, 151, 245);
-    color: #fff;
-}
-
-/* 버튼 모음 */
-.LoginBtn_wrap {
-
-    width: 80%;
-
-    margin: auto;
-
+  }
+  .SignIn .SignIn_contents_wrap .LoginBtn_wrap {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
 }
 
-@media screen and (max-width:750px) {
-    .SignIn h2 {
-        height: 30%;
-        transform: translateY(-10px);
-
-        font-size: 1.4em;
-    }
-
-    .LoginBtn_wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-
-        margin-top: 10px;
-    }
-
-    .SignIn form .Login_input_wrap>div {
-        width: auto;
-        position: relative;
-    }
-
-    .SignIn form .Login_input_wrap {
-        margin-top: 0;
-    }
-
-    .SignIn form .Login_input_wrap input {
-        width: 200px;
-
-        padding: 5px;
-
-    }
-
-    .LoginBtn {
-        width: 200px;
-
-
-        padding: 6px 20px;
-        margin: 15px auto;
-        border-radius: 3px;
-        border: 1px solid;
-    }
-}
+/*# sourceMappingURL=SignIn.css.map */

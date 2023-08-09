@@ -1,0 +1,166 @@
+.DetailSchedule {
+    visibility: hidden;
+    opacity: 0;
+
+    transition: 0.5s;
+
+    &.show{
+        width: 70%;
+
+        border: 1px solid;
+        border-radius: 5px;
+    
+        visibility: visible;
+        opacity: 1;
+
+        h3{
+            width: 100%;
+            height: 45px;
+
+            border-bottom: 1px solid #808080;
+            padding: 10px;
+
+            text-align: center;
+
+            font-weight: 700;
+            font-size: 1.3em;
+        }
+    }
+
+    .DetailPlanWrap{
+        width: 100%;
+        height: calc(100% - 45px);
+    
+        padding: 10px;
+
+        /* 자세한 일정 */
+        .DetailPlan {
+            position: relative;
+            width: 100%;
+            height: 30%;
+        
+            padding-bottom: 20px;
+            border: 1px solid #2e2e2e;
+            margin-bottom: 10px;
+        
+            overflow-y: scroll;
+
+            ul {
+                height: 100%;
+            
+                margin: auto;
+            
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                li {
+                    width: 200px;
+                    height: 100%;
+                    margin: 10px;
+                    border: 1px solid;
+                
+                    text-align: center;
+                }
+            }
+        }
+
+        /* 시간 일정 */
+        .DetaileTimeLine {
+            position: relative;
+            top: 0;
+
+            height: 68%;
+
+            padding-top: 10px;
+            border: 1px solid #2e2e2e;
+
+            overflow-y: scroll;
+        
+            &>div{
+                margin-left: 30px;
+                border-bottom: 1px solid #d3d3d3;
+            
+                display: flex;
+
+                &:nth-child(1){
+                    border-top: 1px solid #d3d3d3;
+                }
+
+                &>p{
+                    position: relative;
+                    transform: translate(-25px, -8px);
+
+                    padding-bottom: 50px;
+
+                    text-align: center;
+
+                    font-size: 0.8em;
+
+                    &::before{
+                        position: absolute;
+                        content: '';
+                        top: -9px;
+                        left: -12px;
+
+                        width: 30px;
+                        height: 30px;
+
+                        border: 1px solid #d3d3d3;
+                        transform: rotate(45deg);
+                    }
+                }
+
+                .Dshow_wrap {
+                    transition: 0.5s;
+                    width: 100%;
+                
+                    display: flex;
+                    gap: 5px;
+
+                    .Dshow {
+                        width: 100%;
+                        height: 100%;
+                    
+                        background: #1496ec;
+                        border-radius: 7px;
+                    
+                        transition: 0.5s;
+                    
+                        opacity: 1;
+                    
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    
+                        color: #fff;
+                        font-size: 1.2em;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:750px) {
+    .DetailSchedule{
+        &.show {
+            width: 50%;
+            flex-direction: column;
+        }
+
+        &>div{
+            .Dshow_wrap{
+                .Dshow{
+                    font-size: 1.1em;
+                }
+            }
+        }
+    }
+}

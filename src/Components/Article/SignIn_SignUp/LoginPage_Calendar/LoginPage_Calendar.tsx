@@ -119,7 +119,6 @@ function LoginPage_Calendar() {
     }, [])
     return (
         <div id="LoginPage_Calendar_wrap" className='LoginPage_Calendar_wrap'>
-
             <div>
                 <div id='LoginTodayYM' className='LoginTodayYM'>
                     <div>
@@ -134,8 +133,6 @@ function LoginPage_Calendar() {
                     {LoginCalendar}
                 </div>
             </div>
-
-
         </div>
     )
 }

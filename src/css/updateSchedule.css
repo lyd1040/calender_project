@@ -1,101 +1,80 @@
-.UpdateSchedule{
-    position: absolute;
-    left: 100%;
-
-    transform: translateX(-100%);
-
-    width: 25%;
-    height: 100%;
-
-    border: 1px solid;
-    border-radius: 5px;
+@charset "UTF-8";
+.UpdateSchedule {
+  position: absolute;
+  left: 100%;
+  transform: translateX(-100%);
+  width: 25%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 5px;
 }
-.UpdateSchedule .cancleBtn{
-    position: absolute;
-    top:5px;
-    right: 5px;
-
-    width: 30px;
-    height: 30px;
-
-    background: 0;
-
-    border: 0;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    box-shadow: 0 0 2px #000;
+.UpdateSchedule h2 {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #808080;
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3em;
+}
+.UpdateSchedule .cancleBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  background: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px #000;
+}
+.UpdateSchedule .UpdateSchedule_center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* 일정 추가 내용 */
+}
+.UpdateSchedule .UpdateSchedule_center form {
+  position: relative;
+  width: 100%;
+  margin: 30px 0;
+}
+.UpdateSchedule .UpdateSchedule_center form > div {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+}
+.UpdateSchedule .Schedule_btnWrap {
+  /* 일정 수정버튼 */
+}
+.UpdateSchedule .Schedule_btnWrap > button {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+}
+.UpdateSchedule .Schedule_btnWrap > button:hover {
+  cursor: pointer;
+}
+.UpdateSchedule .Schedule_btnWrap .pagingBtn_wrap {
+  padding: 10px 0;
 }
 
-.UpdateSchedule .UpdateSchedule_center{
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.UpdateSchedule h3{
-    width: 100%;
-
-    border: 0;
-    border-bottom: 1px solid #808080;
-    padding: 10px;
-
-    text-align: center;
-
-    font-weight: 700;
-    font-size: 1.3em;
-}
-/* 일정 추가 내용 */
-.UpdateSchedule form{
+@media screen and (max-width: 750px) {
+  .UpdateSchedule {
     position: relative;
-
-    width: 100%;
-
-    margin: 30px 0;
-}
-.UpdateSchedule form>div{
-    margin: 30px 0;
-
-    display: flex;
-    align-items: center;
-}
-/* 일정 추가버튼 */
-
-.UpdateSchedule .Schedule_btnWrap>button{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-
-    padding: 7px;
-
-    display: flex;
-    justify-content: center;
-}
-.UpdateSchedule .Schedule_btnWrap>button:hover{
-    cursor: pointer;
+    left: 0;
+    transform: translateX(0);
+    width: 50%;
+  }
+  .UpdateSchedule h3 {
+    border-left: 0;
+    border-right: 0;
+  }
 }
 
-
-.UpdateSchedule .Schedule_btnWrap .pagingBtn_wrap{
-    padding: 10px 0;
-}
-
-
-
-@media screen and (max-width:750px) {
-    .UpdateSchedule{
-        position: relative;
-        left: 0;
-
-        transform: translateX(0);
-
-        width: 50%;
-    }
-    .UpdateSchedule h3{
-        border-left: 0;
-        border-right: 0;
-    }
-}
+/*# sourceMappingURL=updateSchedule.css.map */

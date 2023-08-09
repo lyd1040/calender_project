@@ -191,11 +191,9 @@ function UpdateSchedule(props: UpdateScheduleType) {
     }, [])
     return (
         <div id="UpdateSchedule" className="UpdateSchedule">
-            <h3>일정수정</h3>
+            <h2>일정수정</h2>
             <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="UpdateSchedule_center">
-
-
                 <form action="">
                     <div key={'UpdateSchedule_input_title'}><label htmlFor="">제목</label><input type="text" id="content_title" required /></div>
                     <div key={'UpdateSchedule_input_content'}><label htmlFor="">내용</label><textarea id="content_text" /></div>

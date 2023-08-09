@@ -1,0 +1,173 @@
+.SignIn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid;
+
+    &.VSB{
+        visibility: hidden;
+    }
+
+    .SignIn_contents_wrap{
+        width: 100%;
+        max-width: 400px;
+        height: 80%;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            width: 100%;
+            height: 20%;
+        
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        /* 입력란 */
+        form {
+            width: 100%;
+            height: 40%;
+        
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .Login_input_wrap {
+                width: 100%;
+                height: 100%;
+            
+                margin-top: 30px;
+            
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+
+                &>div{
+                    width: 80%;
+                    position: relative;
+
+                    label{
+                        position: absolute;
+                        top: 50%;
+                        left: 10px;
+                    
+                        transform: translateY(-50%);
+                    
+                        pointer-events: none;
+                    
+                        transition: 0.5s;
+
+                        &.active{
+                            position: absolute;
+                            top: 50%;
+                            left: 10px;
+                        
+                            transform: translate(-5%, -190%);
+                        
+                            background: #fff;
+                        
+                            font-size: 0.8em;
+                        }
+                    }
+
+                    input{
+                        width: 100%;
+
+                        padding: 10px;
+                    }
+                }
+            }
+
+            .LoginBtn {
+                padding: 6px 20px;
+                margin: auto;
+                border-radius: 3px;
+                border: 1px solid;
+            
+                cursor: pointer;
+
+                &:hover{
+                    background: rgb(35, 151, 245);
+                    color: #fff;
+                }
+            }
+        }
+
+        /* 버튼 모음 */
+        .LoginBtn_wrap {
+
+            width: 80%;
+
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    }
+}
+
+@media screen and (max-width:750px) {
+
+    .SignIn{
+        .SignIn_contents_wrap{
+            h2{
+                height: 30%;
+                transform: translateY(-10px);
+        
+                font-size: 1.4em;
+            }
+
+            form{
+                .Login_input_wrap{
+                    margin-top: 0;
+                    &>div{
+                        width: auto;
+                        position: relative;
+                    }
+
+                    input {
+                        width: 200px;
+                
+                        padding: 5px;
+                    }
+                }
+
+                &>.LoginBtn {
+                    width: 200px;
+            
+            
+                    padding: 6px 20px;
+                    margin: 15px auto;
+                    border-radius: 3px;
+                    border: 1px solid;
+                }
+            }
+
+            .LoginBtn_wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+        
+                margin-top: 10px;
+            }
+        }
+    }
+}

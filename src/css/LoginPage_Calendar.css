@@ -1,177 +1,105 @@
+@charset "UTF-8";
 .LoginPage_Calendar_wrap .LoginCalendar ul li.prev_next span {
-    color: #d3d3d380;
+  color: rgba(211, 211, 211, 0.5019607843);
 }
 
 .LoginPage_Calendar_wrap {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    width: 100%;
-    height: 100%;
-
-    backface-visibility: hidden;
-    transform: rotateY(180deg);
-
-    overflow: hidden;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.LoginPage_Calendar_wrap > div {
+  width: 100%;
+  height: 70%;
+}
+.LoginPage_Calendar_wrap > div .LoginTodayYM {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+.LoginPage_Calendar_wrap > div .LoginTodayYM > div {
+  display: flex;
+  gap: 20px;
+  font-size: 1.5em;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendarDays {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 50px;
+  color: #fff;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendarDays li {
+  padding: 7px;
+  font-size: 1.2em;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendar {
+  line-height: 50px;
+  padding: 20px;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendar ul {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4em;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendar ul li {
+  font-size: 0.8em;
+}
+.LoginPage_Calendar_wrap > div .LoginCalendar ul li span {
+  padding: 5px;
+  color: #fff;
 }
 
-.LoginPage_Calendar_wrap>div {
-    width: 100%;
-    height: 70%;
-
-}
-
-.LoginPage_Calendar_wrap .LoginTodayYM {
-    padding: 20px;
-
-    display: flex;
-    justify-content: space-between;
-
-    color: #fff;
-}
-
-.LoginPage_Calendar_wrap .LoginTodayYM>div {
-    display: flex;
-    gap: 20px;
-
-    font-size: 1.5em;
-}
-
-.LoginPage_Calendar_wrap .LoginCalendarDays {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 0 20px;
-    margin-top: 50px;
-
-    color: #fff;
-}
-
-
-
-.LoginPage_Calendar_wrap .LoginCalendarDays li {
-    padding: 7px;
-
-    font-size: 1.2em;
-}
-
-.LoginPage_Calendar_wrap .LoginCalendar {
-    line-height: 50px;
-
-    padding: 20px;
-}
-
-.LoginPage_Calendar_wrap .LoginCalendar ul {
-
-    display: flex;
-    justify-content: space-between;
-
-    font-size: 1.4em;
-}
-
-.LoginPage_Calendar_wrap .LoginCalendar ul li {
-    font-size: 0.8em;
-}
-
-.LoginPage_Calendar_wrap .LoginCalendar ul li span {
-
-    padding: 5px;
-
-    color: #fff;
-}
-
-.LoginPage_Calendar_wrap>div .show_ClockBtnWrap {
-    display: flex;
-    justify-content: center;
-}
-
-.LoginPage_Calendar_wrap>div .show_ClockBtnWrap .showClockBtn {
-    width: 50%;
-
-    border-radius: 5px;
-    border: 1px solid;
-    padding: 7px 20px;
-
-    font-size: 1em;
-
-    cursor: pointer;
-}
-
-@media screen and (max-width:750px) {
-    .LoginPage_Calendar_wrap {
-        display: block;
-    }
-
+@media screen and (max-width: 750px) {
+  .LoginPage_Calendar_wrap {
+    display: block;
+  }
+  .LoginPage_Calendar_wrap > div {
     /* 년도, 월 */
-    .LoginPage_Calendar_wrap .LoginTodayYM {
-        display: flex;
-
-        padding: 0;
-        padding-left: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        font-size: 0.8em;
-
-        border: 1px solid;
-
-        justify-content: start;
-        align-items: center;
-    }
-
     /* 요일 */
-    .LoginPage_Calendar_wrap .LoginCalendarDays {
-        margin-top: 10px;
-
-
-        font-size: 1em;
-    }
-
-    .LoginPage_Calendar_wrap .LoginCalendarDays li {
-        padding: 4px;
-
-        font-size: 1em;
-    }
-
     /* 달력 */
-    .LoginPage_Calendar_wrap .LoginCalendar {
-        padding-top: 5px;
-        line-height: 4vh;
-    }
-
-    .LoginPage_Calendar_wrap .LoginCalendar ul {
-
-
-        font-size: 1.2em;
-    }
-
-    .LoginPage_Calendar_wrap .LoginCalendar ul li span {
-        padding: 3px 4px;
-
-        border-radius: 50%;
-
-        font-size: 0.9em;
-    }
-
-    /* 시계보는 버튼 */
-    .LoginPage_Calendar_wrap>div .show_ClockBtnWrap {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        width: 30%;
-    }
-
-    .LoginPage_Calendar_wrap>div .show_ClockBtnWrap .showClockBtn {
-        width: 100%;
-
-        font-size: 0.8em;
-        padding: 10px;
-    }
+  }
+  .LoginPage_Calendar_wrap > div .LoginTodayYM {
+    display: flex;
+    padding: 0;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.8em;
+    border: 1px solid;
+    justify-content: start;
+    align-items: center;
+  }
+  .LoginPage_Calendar_wrap > div .LoginCalendarDays {
+    margin-top: 10px;
+    font-size: 1em;
+  }
+  .LoginPage_Calendar_wrap > div .LoginCalendarDays li {
+    padding: 4px;
+    font-size: 1em;
+  }
+  .LoginPage_Calendar_wrap > div .LoginCalendar {
+    padding-top: 5px;
+    line-height: 4vh;
+  }
+  .LoginPage_Calendar_wrap > div .LoginCalendar ul {
+    font-size: 1.2em;
+  }
+  .LoginPage_Calendar_wrap > div .LoginCalendar ul li span {
+    padding: 3px 4px;
+    border-radius: 50%;
+    font-size: 0.9em;
+  }
 }
+
+/*# sourceMappingURL=LoginPage_Calendar.css.map */
