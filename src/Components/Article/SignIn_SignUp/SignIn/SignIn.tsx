@@ -30,7 +30,6 @@ function SignIn(props: SignInType) {
                 <div key={`SignTagInputLabelWrap${x}`}>
                     <label htmlFor={SignInInputID[x]} className={`${SignInInputID[x]}label${x}`}>{SignInlabelText[x]}</label>
                     <input id={SignInInputID[x]} className={SignInInputID[x]}
-                        key={`${SignInInputID[x]}inputTag${x}`}
                         onFocus={(event) => {
                             const SignInFocusTagLabel: HTMLElement = document.querySelector(`.${SignInInputID[x]}label${x}`) as HTMLElement;
                             SignInFocusTagLabel.classList.add('active');

@@ -85,6 +85,7 @@ function Schedule(props: Class) {
                 if (save_UID !== null) {usersRef = ref(db, save_UID);}
                 else{usersRef = ref(db, 'test');}
                 
+                setDetailPlanListMode(false);
                 await remove(usersRef);
                 await set(usersRef,Delete_list);
                 printList(Delete_list);
