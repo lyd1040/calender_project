@@ -39,17 +39,20 @@
   top: 50%;
   left: 0;
   transition: 0.5s;
-  transform: translateY(-50%);
+  transform: translate(10px, -50%);
   pointer-events: none;
 }
 .SignUp form > div > div label.active {
-  transform: translate(10%, -190%);
+  transform: translate(15px, -190%);
   background: #fff;
   font-size: 0.8em;
 }
 .SignUp form > div > div input {
   width: 100%;
   padding: 10px;
+  border-bottom: 1px dashed;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 .SignUp form > div .erroralram {
   text-align: center;
@@ -61,11 +64,16 @@
   justify-content: space-between;
 }
 .SignUp form > div .SignUpBtnWrap button {
-  border: 1px solid;
   margin-top: 30px;
   padding: 7px 21px;
   border-radius: 3px;
   cursor: pointer;
+  background: #00dfa2;
+  transition: 0.2s;
+}
+.SignUp form > div .SignUpBtnWrap button:hover {
+  color: #fff;
+  background: #149f79;
 }
 
 @media screen and (max-width: 750px) {
@@ -101,8 +109,9 @@
   }
   .SignUp form > div > div input {
     width: 100%;
-    border: 1px solid;
-    padding: 3px;
+    border-radius: 5px;
+    border-bottom: 0;
+    padding: 5px;
   }
 }
 

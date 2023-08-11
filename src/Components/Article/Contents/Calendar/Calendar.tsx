@@ -87,7 +87,7 @@ function Calendar(props: ContnetsProps) {
 
             if (idx < 2) {
                 new_YMD_list.push(
-                    <div id={`${year_month_date_text}wrap`} key={'year_month_date_text' + idx}>
+                    <div id={`${year_month_date_text}wrap`} className={`${year_month_date_text}wrap`} key={'year_month_date_text' + idx}>
                         <button type='button' className={`${year_month_date_text}Prev prev`} onClick={prev_click_evt}><i className="fa-solid fa-chevron-left"></i></button>
                         <span>{data}{ko_text}</span>
                         <button type='button' className={`${year_month_date_text}Next next`} onClick={next_click_evt}><i className="fa-solid fa-chevron-right"></i></button>
@@ -199,6 +199,7 @@ function Calendar(props: ContnetsProps) {
         const frist_week_first_day: number = new Date(year, month, 1).getDay();
         //현재 날짜의 마지막 일
         const last_week_last_date: number = new Date(year, month + 1, 0).getDate();
+        let Aclass: string = '';
 
         let date_text: number = Number(localStorage.getItem('date_text')); //날짜
         let month_box_length = Number(localStorage.getItem('month_box_length'));
@@ -206,10 +207,17 @@ function Calendar(props: ContnetsProps) {
         //날짜 텍스트 그리기
         if (tr_idx === 0) {
             for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
+                if ((x + 1) % 7 === 0) {
+                    Aclass = 'saturday';
+                } else if (x % 7 === 0) {
+                    Aclass = 'sunday';
+                } else {
+                    Aclass = '';
+                }
                 if (x >= frist_week_first_day) {
                     date_td.push(
                         <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                            <a href="/" onClick={event => { event.preventDefault(); }}>{date_text++}</a>
+                            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
                 } else {
@@ -218,18 +226,32 @@ function Calendar(props: ContnetsProps) {
             }
         } else if (tr_idx <= tr_list_idx - 2) {
             for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
+                if ((x + 1) % 7 === 0) {
+                    Aclass = 'saturday';
+                } else if (x % 7 === 0) {
+                    Aclass = 'sunday';
+                } else {
+                    Aclass = '';
+                }
                 date_td.push(
                     <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                        <a href="/" onClick={event => { event.preventDefault(); }}>{date_text++}</a>
+                        <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                     </td>
                 );
             }
         } else {
             for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
+                if ((x + 1) % 7 === 0) {
+                    Aclass = 'saturday';
+                } else if (x % 7 === 0) {
+                    Aclass = 'sunday';
+                } else {
+                    Aclass = '';
+                }
                 if (date_text <= last_week_last_date) {
                     date_td.push(
                         <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                            <a href="/" onClick={event => { event.preventDefault(); }}>{date_text++}</a>
+                            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
                 } else {

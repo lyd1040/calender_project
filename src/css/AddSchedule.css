@@ -5,14 +5,17 @@
   transform: translateX(-100%);
   width: 25%;
   height: 100%;
-  border: 1px solid;
   border-radius: 5px;
+  background: #fff;
+  overflow: hidden;
   /* 일정 추가버튼 */
 }
 .AddSchedule h3 {
   width: 100%;
   border: 0;
   border-bottom: 1px solid #808080;
+  background: #0097ff;
+  color: #fff;
   padding: 10px;
   text-align: center;
   font-weight: 700;
@@ -24,11 +27,14 @@
   right: 5px;
   width: 30px;
   height: 30px;
-  background: 0;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 0 2px #000;
+  background: #fff;
+}
+.AddSchedule .cancleBtn:hover {
+  background: #f2eddb;
 }
 .AddSchedule .AddSchedule_center {
   width: 100%;
@@ -42,20 +48,56 @@
   width: 100%;
   margin: 30px 0;
 }
-.AddSchedule .AddSchedule_center form div {
+.AddSchedule .AddSchedule_center form > div {
   margin: 30px 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+}
+.AddSchedule .AddSchedule_center form > div textarea {
+  resize: none;
+  max-width: 150px;
+  width: 100%;
+  margin: auto;
+}
+.AddSchedule .AddSchedule_center form > div > div {
+  display: flex;
+}
+.AddSchedule .AddSchedule_center form > div label {
+  width: 50px;
+  text-align: center;
+}
+.AddSchedule .AddSchedule_center form > div input {
+  max-width: 150px;
+  width: 100%;
+  margin: auto;
+}
+.AddSchedule .AddSchedule_center form > div .StartEndDateWrap,
+.AddSchedule .AddSchedule_center form > div .StartEndTimeWrap {
+  width: 50%;
+  min-width: 150px;
+}
+.AddSchedule .AddSchedule_center form > div .StartEndDateWrap label,
+.AddSchedule .AddSchedule_center form > div .StartEndTimeWrap label {
+  width: 30%;
+}
+.AddSchedule .AddSchedule_center form > div .StartEndDateWrap input,
+.AddSchedule .AddSchedule_center form > div .StartEndTimeWrap input {
+  width: 65%;
 }
 .AddSchedule .Schedule_btnWrap button {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 7px;
+  padding: 10px;
+  border: 0;
+  background: #00dfa2;
+  color: #fff;
   display: flex;
   justify-content: center;
 }
 .AddSchedule .Schedule_btnWrap button:hover {
+  background: #149f79;
   cursor: pointer;
 }
 

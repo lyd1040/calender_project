@@ -6,8 +6,8 @@
 }
 .DetailSchedule.show {
   width: 70%;
-  border: 1px solid;
   border-radius: 5px;
+  overflow: hidden;
   visibility: visible;
   opacity: 1;
 }
@@ -15,6 +15,8 @@
   width: 100%;
   height: 45px;
   border-bottom: 1px solid #808080;
+  background: #0097ff;
+  color: #fff;
   padding: 10px;
   text-align: center;
   font-weight: 700;
@@ -24,6 +26,7 @@
   width: 100%;
   height: calc(100% - 45px);
   padding: 10px;
+  background: #fff;
   /* 자세한 일정 */
   /* 시간 일정 */
 }
@@ -32,7 +35,6 @@
   width: 100%;
   height: 30%;
   padding-bottom: 20px;
-  border: 1px solid #2e2e2e;
   margin-bottom: 10px;
   overflow-y: scroll;
 }
@@ -47,15 +49,28 @@
   width: 200px;
   height: 100%;
   margin: 10px;
-  border: 1px solid;
+  border: 1px solid #808080;
+  border-radius: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.DetailSchedule .DetailPlanWrap .DetailPlan ul li h4 {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DetailSchedule .DetailPlanWrap .DetailPlan ul li p {
+  height: 50%;
 }
 .DetailSchedule .DetailPlanWrap .DetaileTimeLine {
   position: relative;
   top: 0;
   height: 68%;
   padding-top: 10px;
-  border: 1px solid #2e2e2e;
+  border: 1px solid #bdbdbd;
   overflow-y: scroll;
 }
 .DetailSchedule .DetailPlanWrap .DetaileTimeLine > div {
@@ -92,7 +107,7 @@
 .DetailSchedule .DetailPlanWrap .DetaileTimeLine > div .Dshow_wrap .Dshow {
   width: 100%;
   height: 100%;
-  background: #1496ec;
+  background: #149f79;
   border-radius: 7px;
   transition: 0.5s;
   opacity: 1;
@@ -112,8 +127,12 @@
     width: 50%;
     flex-direction: column;
   }
-  .DetailSchedule > div .Dshow_wrap .Dshow {
-    font-size: 1.1em;
+  .DetailSchedule .DetailPlanWrap .DetailPlan ul li p {
+    font-size: 0.8em;
+    height: 50%;
+  }
+  .DetailSchedule .DetailPlanWrap .DetaileTimeLine > div .Dshow_wrap .Dshow {
+    font-size: 0.8em;
   }
 }
 

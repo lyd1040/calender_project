@@ -1,4 +1,4 @@
-.plan_list_wrap{
+.plan_list_wrap {
     position: absolute;
     left: 100%;
 
@@ -7,50 +7,85 @@
     width: 25%;
     height: 100%;
 
-    border: 1px solid;
     border-radius: 5px;
+    overflow: hidden;
 
-    h3{
+    h3 {
         width: 100%;
 
         border-bottom: 1px solid #808080;
+
+        background: #0097ff;
+        color: #fff;
+
         padding: 10px;
-    
+
         text-align: center;
-    
+
         font-weight: 700;
         font-size: 1.3em;
     }
 
-    .plan_list{
+    .plan_list {
         position: relative;
-        
+
         height: calc(100% - 77px - 40px);
-        
+
+        background: #fff;
+
         border-bottom: 0;
-    
+
         overflow-y: scroll;
         /* 스크롤바 없애는거 추가해야함 */
 
-        li{
+        li {
             padding: 7px;
             margin: 10px 0;
-        
+
             display: flex;
             justify-content: space-between;
-        
+
             font-size: 1.2em;
-            
-            &:nth-child(1){
+
+            &>a {
+                display: flex;
+                align-items: center;
+            }
+
+            &:nth-child(1) {
                 margin-top: 10px;
             }
-            &:nth-last-child(1){
+
+            &:nth-last-child(1) {
                 margin-bottom: 0;
+            }
+
+            div {
+                display: flex;
+
+                button {
+                    width: 30px;
+                    height: 30px;
+
+                    margin: 5px;
+                    border-radius: 50%;
+
+                    border: 1px solid;
+
+                    background: 0;
+
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #00dfa2;
+                        color: #fff;
+                    }
+                }
             }
         }
 
         /* 일정 없을때 */
-        .not_plan{
+        .not_plan {
             text-align: center;
             color: #808080;
 
@@ -59,60 +94,65 @@
     }
 
     /* 일정 추가버튼 */
-    .Schedule_btnWrap{
+    .Schedule_btnWrap {
         position: absolute;
         top: 100%;
         transform: translateY(-100%);
-    
+
         width: 100%;
-    
+
         border-top: 0;
-    
+
         display: flex;
         justify-content: center;
-    
+
         background: #fff;
-    
+
         border-top: 0;
         border-bottom: 1px solid #808080;
-    
+
         font-size: 1.2em;
 
-        .pagingBtn_wrap{
+        .pagingBtn_wrap {
             position: relative;
-        
+
             padding: 10px 0;
 
-            a{
+            a {
                 margin: 0 5px;
             }
         }
 
-        .Schedule_btn{
+        .Schedule_btn {
             position: absolute;
             bottom: 0;
-        
-            transform: translateY(-100%);
-        
-            width: 100%;
-        
-            padding: 7px;
-            border: 1px solid #808080;
-            border-left: 0;
-            border-right: 0;
-        
+
+            transform: translateY(-115%);
+
+            width: calc(100% - 2px);
+
+            padding: 10px;
+            border: 0;
+
+            background: #00dfa2;
+            color: #fff;
+
             display: flex;
             justify-content: center;
-        
+
             cursor: pointer;
-        
+
             font-size: 0.8em;
+
+            &:hover {
+                background: #149f79;
+            }
         }
     }
 }
 
 @media screen and (max-width:750px) {
-    .plan_list_wrap{
+    .plan_list_wrap {
         width: 50%;
 
         position: relative;
@@ -122,12 +162,16 @@
 
         overflow: hidden;
 
-        .plan_list{
+        .plan_list {
             border: 0;
+
+            li>a {
+                font-size: 0.8em;
+            }
         }
-        
+
         /* 일정 추가버튼 */
-        .Schedule_btnWrap{
+        .Schedule_btnWrap {
             border: 0;
         }
     }

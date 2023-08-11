@@ -1,6 +1,7 @@
 import Nav from '../Components/Header/Nav/Nav';
 import '../css/header.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -92,7 +93,7 @@ function Header(props: NavProps) {
   }, [props.LoginState]);
   return (
     <header>
-      <h1 id='logo' className='logo'><a href={/read/ + '0'} onClick={event => { event.preventDefault(); props.onChangeMode(0) }}>Event Calender</a></h1>
+      <h1 id='logo' className='logo'><Link to='/'>Event Calendar</Link></h1>
       <div className='headerYMD'>
         {show_hide_date}
       </div>

@@ -32,12 +32,12 @@ function UpdateSchedule(props: UpdateScheduleType) {
         const endDate: HTMLInputElement | null = document.getElementById('endDate') as HTMLInputElement;
         const startTime: HTMLInputElement | null = document.getElementById('startTime') as HTMLInputElement;
         const endTime: HTMLInputElement | null = document.getElementById('endTime') as HTMLInputElement;
-        
+
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;
 
-        if (save_UID !== null) {dataRef = ref(db, save_UID);}
-        else{dataRef = ref(db, 'test');}
+        if (save_UID !== null) { dataRef = ref(db, save_UID); }
+        else { dataRef = ref(db, 'test'); }
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -73,8 +73,8 @@ function UpdateSchedule(props: UpdateScheduleType) {
     const firebaseUpdateList = (data: planListType[]) => {
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;
-        if(save_UID !== null){dataRef=save_UID}
-        else{dataRef='test'};
+        if (save_UID !== null) { dataRef = save_UID }
+        else { dataRef = 'test' };
         try {
             const updates: any = {};
 
@@ -92,20 +92,20 @@ function UpdateSchedule(props: UpdateScheduleType) {
 
     const returnlist = (data: planListType[]) => {
         let select_YMD: string = Select_date_update();
-        let filter_list: planListType[] =[];
+        let filter_list: planListType[] = [];
 
         let selectYMD_Date = new Date(select_YMD);
 
-        for(let x=0; x<data.length; x++){
+        for (let x = 0; x < data.length; x++) {
             if (
-                (new Date(data[x].date.split(' ~ ')[0]).getTime() <= selectYMD_Date.getTime()) 
-                && 
+                (new Date(data[x].date.split(' ~ ')[0]).getTime() <= selectYMD_Date.getTime())
+                &&
                 (new Date(data[x].date.split(' ~ ')[1]).getTime() >= selectYMD_Date.getTime())
-                ){
-                    filter_list.push(data[x]);
+            ) {
+                filter_list.push(data[x]);
             }
         }
-        
+
         props.onUpdatePlanList(filter_list)
     }
 
@@ -170,8 +170,8 @@ function UpdateSchedule(props: UpdateScheduleType) {
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;
 
-        if (save_UID !== null) {dataRef = ref(db, save_UID);}
-        else{dataRef = ref(db, 'test');}
+        if (save_UID !== null) { dataRef = ref(db, save_UID); }
+        else { dataRef = ref(db, 'test'); }
         get(dataRef)
             .then((snapshot) => {
                 if (snapshot.exists()) {
@@ -195,12 +195,30 @@ function UpdateSchedule(props: UpdateScheduleType) {
             <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="UpdateSchedule_center">
                 <form action="">
-                    <div key={'UpdateSchedule_input_title'}><label htmlFor="">제목</label><input type="text" id="content_title" required /></div>
-                    <div key={'UpdateSchedule_input_content'}><label htmlFor="">내용</label><textarea id="content_text" /></div>
-                    <div key={'UpdateSchedule_input_date'}><label htmlFor="">날짜</label><input type="date" id="startDate" onChange={() => { onchangedate() }} />
-                        <label htmlFor="">~</label><input type="date" id="endDate" onChange={() => { onchangedate() }} /></div>
-                    <div key={'UpdateSchedule_input_time'}><label htmlFor="">시간</label><input type="time" id="startTime" onChange={() => { onchangedate() }} />
-                        <label htmlFor="">~</label><input type="time" id="endTime" onChange={() => { onchangedate() }} /></div>
+                    <div key={'UpdateSchedule_input_title'}><label htmlFor="content_title">제목</label><input type="text" id="content_title" required /></div>
+                    <div key={'UpdateSchedule_input_content'}><label htmlFor="content_text">내용</label><textarea id="content_text" /></div>
+
+                    <div key={'UpdateSchedule_input_date'}>
+                        <div>
+                            <label htmlFor="startDate">날짜</label>
+                            <input type="date" id="startDate" onChange={() => { onchangedate() }} />
+                        </div>
+                        <div>
+                            <label htmlFor="endDate">~</label>
+                            <input type="date" id="endDate" onChange={() => { onchangedate() }} />
+                        </div>
+                    </div>
+
+                    <div key={'UpdateSchedule_input_time'}>
+                        <div>
+                            <label htmlFor="">시간</label>
+                            <input type="time" id="startTime" onChange={() => { onchangedate() }} />
+                        </div>
+                        <div>
+                            <label htmlFor="endTime">~</label>
+                            <input type="time" id="endTime" onChange={() => { onchangedate() }} />
+                        </div>
+                    </div>
                 </form>
             </div>
             <div className="Schedule_btnWrap">

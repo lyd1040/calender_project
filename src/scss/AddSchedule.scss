@@ -1,4 +1,4 @@
-.AddSchedule{
+.AddSchedule {
     position: absolute;
     left: 100%;
 
@@ -7,41 +7,51 @@
     width: 25%;
     height: 100%;
 
-    border: 1px solid;
     border-radius: 5px;
 
-    h3{
+    background: #fff;
+
+    overflow: hidden;
+
+    h3 {
         width: 100%;
-    
+
         border: 0;
         border-bottom: 1px solid #808080;
+
+        background: #0097ff;
+        color: #fff;
+
         padding: 10px;
-    
+
         text-align: center;
-    
+
         font-weight: 700;
         font-size: 1.3em;
     }
 
-    .cancleBtn{
+    .cancleBtn {
         position: absolute;
-        top:5px;
+        top: 5px;
         right: 5px;
-    
+
         width: 30px;
         height: 30px;
-    
-        background: 0;
-    
         border: 0;
         border-radius: 50%;
-    
+
         cursor: pointer;
-    
+
         box-shadow: 0 0 2px #000;
+
+        background: #fff;
+
+        &:hover {
+            background: #f2eddb;
+        }
     }
 
-    .AddSchedule_center{
+    .AddSchedule_center {
         width: 100%;
 
         display: flex;
@@ -49,36 +59,79 @@
         flex-direction: column;
 
         /* 일정 추가 내용 */
-        form{
+        form {
             position: relative;
-        
+
             width: 100%;
-        
+
             margin: 30px 0;
 
-            div{
+            &>div {
                 margin: 30px 0;
-            
+
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
+
+                textarea {
+                    resize: none;
+                    max-width: 150px;
+                    width: 100%;
+                    margin: auto;
+                }
+
+                &>div {
+                    display: flex;
+                }
+
+                label {
+                    width: 50px;
+
+                    text-align: center;
+                }
+
+                input {
+                    max-width: 150px;
+                    width: 100%;
+                    margin: auto
+                }
+
+                .StartEndDateWrap,
+                .StartEndTimeWrap {
+                    width: 50%;
+                    min-width: 150px;
+
+                    label {
+                        width: 30%;
+                    }
+
+                    input {
+                        width: 65%;
+                    }
+                }
             }
         }
     }
 
     /* 일정 추가버튼 */
-    .Schedule_btnWrap{
-        button{
+    .Schedule_btnWrap {
+        button {
             position: absolute;
             bottom: 0;
             width: 100%;
-        
-            padding: 7px;
-        
+
+            padding: 10px;
+            border: 0;
+
+            background: #00dfa2;
+            color: #fff;
+
             display: flex;
             justify-content: center;
 
 
-            &:hover{
+            &:hover {
+                background: #149f79;
                 cursor: pointer;
             }
         }
@@ -86,14 +139,14 @@
 }
 
 
-.AddSchedule .Schedule_btnWrap .pagingBtn_wrap{
+.AddSchedule .Schedule_btnWrap .pagingBtn_wrap {
     padding: 10px 0;
 }
 
 
 
 @media screen and (max-width:750px) {
-    .AddSchedule{
+    .AddSchedule {
         position: relative;
         left: 0;
 
@@ -101,7 +154,7 @@
 
         width: 50%;
 
-        h3{
+        h3 {
             border-left: 0;
             border-right: 0;
         }

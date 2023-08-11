@@ -14,7 +14,7 @@
   transform-style: preserve-3d;
   transform: perspective(5000px);
   /* 달력, 시계 묶음 */
-  /* 로그인 회원가입 묶음 */
+  /* 로그인 회원가입 아이디 비밀번호찾기 묶음 */
 }
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_date_time_3dcard {
   position: relative;

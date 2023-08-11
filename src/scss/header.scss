@@ -11,23 +11,31 @@ header {
 
     padding: 0 30px;
 
-    background: #fff;
+    background: #0097ff;
 
     z-index: 999;
 
-    h1{
+    h1 {
         font-size: 1.8em;
+
+        a {
+            color: #fff;
+        }
     }
 
-    .headerYMD{
+    .headerYMD {
         position: absolute;
         left: 50%;
-    
+
         transform: translateX(-50%);
-    
+
         display: flex;
         justify-content: center;
         gap: 30px;
+
+        a {
+            color: #f2eddb;
+        }
     }
 }
 
@@ -35,23 +43,23 @@ header {
     header {
         padding: 0 5px;
 
-        .logo{
+        .logo {
             width: 70px;
             height: 100%;
             overflow: hidden;
 
-            a{
+            a {
                 width: 100%;
                 height: 100%;
                 display: block;
-        
-                background: url(../../public/imgs/calendar_logo.gif) no-repeat;
-        
+
+                background: url(/public/imgs/calendar_logo.png) no-repeat;
+
                 text-indent: -999999999px;
-        
+
                 animation: Logoanimate 1s ease-in-out;
                 animation-iteration-count: 1;
-        
+
                 transition: 0.5s;
             }
         }

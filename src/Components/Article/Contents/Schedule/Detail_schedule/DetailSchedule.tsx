@@ -26,19 +26,34 @@ function DetailSchedule(props: DetailScheduleProps) {
     const [DetaileTimeLine_list, setDetaileTimeLine_list] = useState<JSX.Element[]>([]);
 
     const printDOM = (DomEle: printDOM | null): void => {
-        if(DomEle !==null){
+        if (DomEle !== null) {
             let plan_title: string[] = ['일정 제목', '일정 내용', '일정 날짜', '일정 시간'];
             let plan_content: string[] = [DomEle.title, DomEle.content, DomEle.date, DomEle.time];
 
             let todayinfo_local: JSX.Element[] = [];
 
+            console.log(DomEle.date.split(' '));
+
             for (let x = 0; x < 4; x++) {
-                todayinfo_local.push(
-                    <li key={'todayplanlistlis' + x}>
-                        <h4>{plan_title[x]}</h4>
-                        <p>{plan_content[x]}</p>
-                    </li>
-                )
+                if (x !== 2) {
+                    todayinfo_local.push(
+                        <li key={'todayplanlistlis' + x}>
+                            <h4>{plan_title[x]}</h4>
+                            <p>{plan_content[x]}</p>
+                        </li>
+                    )
+                } else {
+                    todayinfo_local.push(
+                        <li key={'todayplanlistlis' + x}>
+                            <h4>{plan_title[x]}</h4>
+                            <p>
+                                {plan_content[x].split(' ')[0]}
+                                {plan_content[x].split(' ')[1]}<br />
+                                {plan_content[x].split(' ')[2]}
+                            </p>
+                        </li>
+                    )
+                }
             }
 
             setToday_infomaition(todayinfo_local);
@@ -90,7 +105,7 @@ function DetailSchedule(props: DetailScheduleProps) {
     }
 
     useEffect(() => {
-        if(props.detailPlanListIndex !== undefined){
+        if (props.detailPlanListIndex !== undefined) {
             printDOM(props.planList[props.detailPlanListIndex]);
             printTodayDom();
             setTimeout(() => {

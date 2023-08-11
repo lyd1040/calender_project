@@ -1,20 +1,21 @@
-.gnb_wrap{
+.gnb_wrap {
     button.show_gnb {
         width: 50px;
         height: 50px;
-    
+
         background: 0;
-    
+
         border: 0;
-    
+
         cursor: pointer;
 
-        i{
+        i {
+            color: #fff;
             font-size: 1.8em;
         }
 
-        &:hover{
-            i{
+        &:hover {
+            i {
                 color: rgb(238, 109, 109);
             }
         }
@@ -24,46 +25,45 @@
         position: absolute;
         top: 70px;
         left: 0;
-    
+
         width: 100%;
         height: 100px;
-    
+
         overflow: hidden;
-    
+
         pointer-events: none;
-    
-        ul{
+
+        ul {
             height: 100%;
-    
+
             transform: translateY(-100px);
-        
+
             display: flex;
             justify-content: center;
             align-items: center;
-        
+
             border-bottom: 1px solid #d3d3d3;
-        
+
             gap: 20px;
-        
+
             backdrop-filter: blur(5px);
-        
+
             transition: 0.3s ease-in-out;
-        
+
             pointer-events: all;
-    
-    
-            &.show{
+
+
+            &.show {
                 transform: translateY(0);
             }
-    
-            li{
-                a.active{
+
+            li {
+                a.active {
                     position: relative;
-    
+
                     font-weight: 700;
                 }
             }
         }
     }
 }
-

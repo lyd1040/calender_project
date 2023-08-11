@@ -6,6 +6,7 @@
   cursor: pointer;
 }
 .gnb_wrap button.show_gnb i {
+  color: #fff;
   font-size: 1.8em;
 }
 .gnb_wrap button.show_gnb:hover i {
