@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../../../../../css/DetailSchedule.css'
 type DetailScheduleProps = {
     planList: printDOM[];
+    settingWidthClass(stat:boolean):void;
     detailPlanListIndex: number | undefined;
     Schedule_date_test: Schedule_date_test_type;
 }
@@ -104,6 +105,16 @@ function DetailSchedule(props: DetailScheduleProps) {
         setDetaileTimeLine_list(TimeLine_list)
     }
 
+    const settingWidthClass = (event: React.UIEvent<HTMLDivElement>) =>{
+        const scrollY = event.currentTarget.scrollTop;
+
+        if(scrollY===0){
+            props.settingWidthClass(false);
+        }else{
+            props.settingWidthClass(true);
+        }
+    }
+
     useEffect(() => {
         if (props.detailPlanListIndex !== undefined) {
             printDOM(props.planList[props.detailPlanListIndex]);
@@ -125,7 +136,7 @@ function DetailSchedule(props: DetailScheduleProps) {
                     </ul>
                 </div>
 
-                <div id="DetaileTimeLine" className="DetaileTimeLine">
+                <div id="DetaileTimeLine" className="DetaileTimeLine" onScroll={settingWidthClass}>
                     {DetaileTimeLine_list}
                 </div>
             </div>

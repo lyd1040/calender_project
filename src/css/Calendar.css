@@ -22,11 +22,6 @@
   right: 5%;
   opacity: 1;
 }
-.Calendar.hide .show_calendar:hover {
-  border: 0;
-  background: #00dfa2;
-  color: #ffffff;
-}
 .Calendar .year_month_date {
   display: flex;
   justify-content: center;
@@ -57,7 +52,7 @@
 }
 .Calendar .year_month_date .yearwrap button:hover,
 .Calendar .year_month_date .monthwrap button:hover {
-  background: #00dfa2;
+  background: #149f79;
 }
 .Calendar .year_month_date .yearwrap span,
 .Calendar .year_month_date .monthwrap span {
@@ -121,14 +116,18 @@
   right: 0;
   width: 35px;
   height: 35px;
-  border: 1px solid;
   border-radius: 50%;
+  background: #00dfa2;
+  color: #fff;
   transform: translate(100%, -50%);
+  transition: 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.5s;
   opacity: 0;
+}
+.Calendar .show_calendar:hover {
+  background: #149f79;
 }
 
 @media screen and (max-width: 750px) {

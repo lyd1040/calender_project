@@ -25,6 +25,7 @@ type Schedule_date_test_type = {
     date_text: number;
 }
 function Schedule(props: Class) {
+    const [ScheduleWidthClass,setScheduleWidthClass] = useState<boolean>(false)
     const [Schedule_class, setSchedule_class] = useState<string | null>(null)
     const [planListMode, setPlanListMode] = useState<string>('CREATE') // 컴포넌트 변경에 필요한 모드
     const [detailPlanListMode, setDetailPlanListMode] = useState<boolean>(false) // Detail 컴포넌트를 켜고 끌 수 있는 값
@@ -145,7 +146,9 @@ function Schedule(props: Class) {
         setPlanList(filter_list);
         setPlanListMode('READ');
     }
-
+    const settingWidthClass = (stat:boolean) =>{
+        setScheduleWidthClass(stat);
+    }
     //초기 마운트시
     //*필요 초기 렌더링시 파이어베이스에서 데이터 끌고와서 setPlanList에 저장해야함
     useEffect(() => {
@@ -190,7 +193,7 @@ function Schedule(props: Class) {
     //DetailSchedule 추가
     const show_hide_Datail_plan = (OnOff: boolean) => {
         if (OnOff) {
-            setdetailplanComponent(<DetailSchedule detailPlanListIndex={detailPlanListIndex} Schedule_date_test={props.Schedule_date_test} planList={planList}></DetailSchedule>);
+            setdetailplanComponent(<DetailSchedule settingWidthClass={settingWidthClass} detailPlanListIndex={detailPlanListIndex} Schedule_date_test={props.Schedule_date_test} planList={planList}></DetailSchedule>);
         } else {
             setdetailplanComponent(<></>)
         }

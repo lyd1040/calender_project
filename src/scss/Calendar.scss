@@ -21,13 +21,6 @@
             right: 5%;
 
             opacity: 1;
-
-            &:hover {
-                border: 0;
-
-                background: $MainColorGreen;
-                color: $SubColorWhite;
-            }
         }
     }
 
@@ -63,7 +56,7 @@
                 }
 
                 &:hover {
-                    background: $MainColorGreen;
+                    background: $HoverGreenColor;
                 }
             }
 
@@ -158,16 +151,22 @@
 
         @include WH(35px, 35px);
 
-        border: 1px solid;
         border-radius: 50%;
 
+        background: $MainColorGreen;
+        color: #fff;
+
         transform: translate(100%, -50%);
+        transition: 0.3s;
 
         @include disFlexJustifyAlign();
 
-        transition: 0.5s;
-
         opacity: 0;
+
+        &:hover{
+            
+            background: $HoverGreenColor;
+        }
     }
 
 }
