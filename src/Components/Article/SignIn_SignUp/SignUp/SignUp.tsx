@@ -36,6 +36,7 @@ function SignUp(props: SignUpType) {
                                     SelectLabel.classList.remove('active');
                                 }
                             })
+                            passwordCondition(label_name[x]);
                         }}
                         onKeyUp={() => {
                             if (validationfilter[x] !== null) { validationfilter[x]?.(); }
@@ -72,7 +73,9 @@ function SignUp(props: SignUpType) {
             if (emailValidation.test(SignUpuserID.value)) {
                 //이메일 성공
                 return true;
-            } else { return false; }
+            } else {
+                return false; 
+            }
         }
     }
 
@@ -86,6 +89,19 @@ function SignUp(props: SignUpType) {
                 //비밀번호 성공
                 return true;
             } else { return false; }
+        }
+    }
+
+    //비밀번호 포커스시
+    const passwordCondition = (focusfilter:string):void =>{
+        const Condition:HTMLElement = document.querySelector('#SignUp .condition') as HTMLElement;
+
+        if(focusfilter === '비밀번호'){
+            Condition.innerHTML="영문자, 숫자, 특수문자가 하나 이상 포함되어야합니다."
+        }else if(focusfilter === '생년월일'){
+            Condition.innerHTML="생년월일 입력방법: ex)20001231"
+        }else{
+            Condition.innerHTML="";
         }
     }
 
@@ -168,31 +184,40 @@ function SignUp(props: SignUpType) {
         let SignUpuserPWCheck: HTMLInputElement = document.querySelector('.SignUpuserPWCheck') as HTMLInputElement
         let SignUpusername: HTMLInputElement = document.querySelector('.SignUpusername') as HTMLInputElement
         let SignUpuserbirth: HTMLInputElement = document.querySelector('.SignUpuserbirth') as HTMLInputElement
-
+        let SignUpTags: HTMLInputElement[] = document.querySelectorAll('#SignUp form div div input') as unknown as HTMLInputElement[]
+        let label_name: string[] = ['이메일', '비밀번호', '비밀번호 확인', '이름', '생년월일'];
 
         if (SignUpuserID && SignUpuserPW && SignUpuserPWCheck && SignUpusername && SignUpuserbirth) {
+            
+            for(let x=0; x<SignUpTags.length; x++){
+                if(SignUpTags[x].value===''){
+                    alert(label_name[x] +'입력란이 비어있습니다.');
+                    props.onchangeLoadingMode(false);
+                    return false;
+                }
+            }
             if (emailValidation() === false) {
-                console.log('emailValidation');
+                alert('중복된 이메일입니다.');
                 props.onchangeLoadingMode(false);
                 return false;
             }
             if (passwordValidation() === false) {
-                console.log('passwordValidation');
+                alert('영문자, 숫자, 특수문자가 하나 이상 포함되어야합니다.');
                 props.onchangeLoadingMode(false);
                 return false;
             }
             if (checkPwValidation() === false) {
-                console.log('checkPwValidation');
+                alert('입력된 비밀번호와 다릅니다.')
                 props.onchangeLoadingMode(false);
                 return false;
             }
             if (checkUserName() === false) {
-                console.log('checkUserName');
+                alert('이름은 한글만 입력되며 2글자~10글자 이내로 입력해주세요');
                 props.onchangeLoadingMode(false);
                 return false;
             }
             if (birthdayValidation() === false) {
-                console.log('birthdayValidation');
+                alert('생년월일이 잘못되었습니다. ex)20201231');
                 props.onchangeLoadingMode(false);
                 return false;
             }
@@ -272,7 +297,9 @@ function SignUp(props: SignUpType) {
 
                 </div>
             </form>
+            
 
+            <p className="condition"></p>
         </div>
     )
 }

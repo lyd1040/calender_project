@@ -126,10 +126,10 @@ function LoginPage_Calendar() {
                     </div>
 
                 </div>
-                <ul className='LoginCalendarDays' id='LoginCalendarDays'>
-                    {LoginDays}
-                </ul>
                 <div id='LoginCalendar' className='LoginCalendar'>
+                    <ul className='LoginCalendarDays' id='LoginCalendarDays'>
+                        {LoginDays}
+                    </ul>
                     {LoginCalendar}
                 </div>
             </div>

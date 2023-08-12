@@ -1,3 +1,4 @@
+@import './VarMixin';
 .DetailSchedule {
     visibility: hidden;
     opacity: 0;
@@ -15,13 +16,12 @@
         opacity: 1;
 
         h3 {
-            width: 100%;
-            height: 45px;
+            @include WH(100%,45px);
 
-            border-bottom: 1px solid #808080;
+            border-bottom: 1px solid $PointColorGray;
 
-            background: #0097ff;
-            color: #fff;
+            background: $MainColorBlue;
+            color: $SubColorWhite;
 
             padding: 10px;
 
@@ -33,18 +33,16 @@
     }
 
     .DetailPlanWrap {
-        width: 100%;
-        height: calc(100% - 45px);
+        @include WH(100%, calc(100% - 45px));
 
         padding: 10px;
 
-        background: #fff;
+        background: $SubColorWhite;
 
         /* 자세한 일정 */
         .DetailPlan {
             position: relative;
-            width: 100%;
-            height: 30%;
+            @include WH(100%, 30%);
 
             padding-bottom: 20px;
             margin-bottom: 10px;
@@ -61,10 +59,9 @@
                 justify-content: center;
 
                 li {
-                    width: 200px;
-                    height: 100%;
+                    @include WH(200px, 100%);
                     margin: 10px;
-                    border: 1px solid #808080;
+                    border: 1px solid $PointColorGray;
                     border-radius: 20px;
 
                     text-align: center;
@@ -75,9 +72,7 @@
 
                     h4 {
                         height: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        @include disFlexJustifyAlign();
                     }
 
                     p {
@@ -101,12 +96,12 @@
 
             &>div {
                 margin-left: 30px;
-                border-bottom: 1px solid #d3d3d3;
+                border-bottom: 1px solid $PointColorLightGray;
 
                 display: flex;
 
                 &:nth-child(1) {
-                    border-top: 1px solid #d3d3d3;
+                    border-top: 1px solid $PointColorLightGray;
                 }
 
                 &>p {
@@ -125,10 +120,9 @@
                         top: -9px;
                         left: -12px;
 
-                        width: 30px;
-                        height: 30px;
+                        @include WH(30px, 30px);
 
-                        border: 1px solid #d3d3d3;
+                        border: 1px solid $PointColorLightGray;
                         transform: rotate(45deg);
                     }
                 }
@@ -141,25 +135,22 @@
                     gap: 5px;
 
                     .Dshow {
-                        width: 100%;
-                        height: 100%;
+                        @include WH(100%, 100%);
 
-                        background: #149f79;
+                        background: $HoverGreenColor;
                         border-radius: 7px;
 
                         transition: 0.5s;
 
                         opacity: 1;
 
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                        @include disFlexJustifyAlign();
 
                         text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: nowrap;
 
-                        color: #fff;
+                        color: $SubColorWhite;
                         font-size: 1.2em;
                         font-weight: 700;
                     }

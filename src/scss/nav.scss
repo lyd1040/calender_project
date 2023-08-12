@@ -1,3 +1,5 @@
+@import './VarMixin';
+
 .gnb_wrap {
     button.show_gnb {
         width: 50px;
@@ -10,13 +12,13 @@
         cursor: pointer;
 
         i {
-            color: #fff;
+            color: $SubColorWhite;
             font-size: 1.8em;
         }
 
         &:hover {
             i {
-                color: rgb(238, 109, 109);
+                color: $HoverGreenColor;
             }
         }
     }
@@ -34,15 +36,14 @@
         pointer-events: none;
 
         ul {
+            @include disFlexJustifyAlign();
+
+
             height: 100%;
 
             transform: translateY(-100px);
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            border-bottom: 1px solid #d3d3d3;
+            border-bottom: 1px solid $PointColorLightGray;
 
             gap: 20px;
 
@@ -58,12 +59,34 @@
             }
 
             li {
-                a.active {
-                    position: relative;
+                position: relative;
+                margin: 10px;
 
-                    font-weight: 700;
+                font-size: 1.5em;
+                
+                a{
+                    color: $SubColorWhite;
+                    padding: 10px;
+                    background: $MainColorGreen;
+                    border-radius: 50%;
+                    &.active{
+                        background: $HoverGreenColor;
+
+                        font-weight: 700;
+                    }
+                }
+
+                &.NavCalendar:hover::before{
+                    @include PrintClassName('Calendar');
+                }
+                &.NavSignIn:hover::before{
+                    @include PrintClassName('SignIn');
+                }
+                &.NavContect:hover::before{
+                    @include PrintClassName('Contect');
                 }
             }
         }
     }
 }
+

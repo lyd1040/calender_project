@@ -2,29 +2,30 @@
 .Contect {
   width: 80%;
   height: 80%;
+  background: #ffffff;
 }
 .Contect form {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .Contect form h2 {
   width: 80%;
-  height: 10%;
+  height: 20%;
   font-size: 1.8em;
-  text-align: center;
   padding-top: 15px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  border: 1px solid;
   border-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .Contect form > div {
   width: 80%;
-  border: 1px solid;
   /* 이름 , 이메일 */
   /* 문의내용 */
   /* 홈으로, 문의하기 버튼 */
@@ -32,9 +33,9 @@
 .Contect form > div:nth-child(2) {
   height: 10%;
   display: flex;
-  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 10px;
   border-top: 0;
   border-bottom: 0;
@@ -54,12 +55,13 @@
 }
 .Contect form > div:nth-child(2) > div label.active {
   transform: translateY(-100%);
-  background: #fff;
+  background: #ffffff;
   font-size: 0.75em;
 }
 .Contect form > div:nth-child(2) > div input {
   width: 100%;
   padding: 5px;
+  border-bottom: 2px solid #d3d3d3;
 }
 .Contect form > div:nth-child(3) {
   height: 40%;
@@ -71,7 +73,7 @@
 }
 .Contect form > div:nth-child(3) textarea {
   width: 60%;
-  height: 90%;
+  height: 85%;
   resize: none;
 }
 .Contect form > div:nth-child(4) {
@@ -92,42 +94,54 @@
 }
 .Contect form > div:nth-child(4) > div button {
   padding: 7px 20px;
+  border-radius: 3px;
+  background: #00dfa2;
+  cursor: pointer;
+}
+.Contect form > div:nth-child(4) > div button:hover {
+  background: #149f79;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 750px) {
-  .Contect form > div:nth-child(2) {
+  .Contect form h2 {
     height: 15%;
-    flex-direction: column;
-    gap: 10px;
+    font-size: 1.4em;
   }
-  .Contect form > div:nth-child(2) > div {
+  .Contect form div:nth-child(2) {
+    height: 20%;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .Contect form div:nth-child(2) > div {
     width: 80%;
   }
-  .Contect form > div:nth-child(2) > div label {
+  .Contect form div:nth-child(2) > div label {
+    width: auto;
     top: 50%;
     transform: translateY(-50%);
+    transition: 0.3s ease-out;
   }
-  .Contect form > div:nth-child(2) > div label.active {
-    transform: translateY(-170%);
-    background: #fff;
+  .Contect form div:nth-child(2) > div label.active {
+    width: 10px;
+    transform: translate(-200%, -50%);
+    background: #ffffff;
     font-size: 0.6em;
   }
-  .Contect form > div:nth-child(2) > div input {
+  .Contect form div:nth-child(2) > div input {
     padding: 5px;
-    border: 1px solid;
-    border-radius: 5px;
   }
-  .Contect form > div:nth-child(3) {
-    height: 35%;
+  .Contect form div:nth-child(3) {
+    height: 40%;
     flex-direction: column;
   }
-  .Contect form > div:nth-child(3) textarea {
+  .Contect form div:nth-child(3) textarea {
     width: 80%;
   }
-  .Contect form > div:nth-child(4) > div {
+  .Contect form div:nth-child(4) > div {
     gap: 10px;
   }
-  .Contect form > div:nth-child(4) > div button {
+  .Contect form div:nth-child(4) > div button {
     width: 100%;
     padding: 3px 9px;
   }

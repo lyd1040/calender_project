@@ -13,10 +13,8 @@
 .SearchIdPw .SearchIdPw_contents_wrap {
   width: 100%;
   height: 100%;
-  border: 1px solid;
   /* 아이디 비밀번호 찾기 필터 버튼 */
   /* input태그 모음 */
-  /* 이전 확인 버튼 */
 }
 .SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap {
   width: 100%;
@@ -31,7 +29,8 @@
   height: 100%;
   max-width: 200px;
   font-size: 0.9em;
-  padding: 20px 0;
+  padding: 0;
+  padding-bottom: 10px;
 }
 .SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap h2 a {
   display: block;
@@ -39,31 +38,40 @@
   height: 100%;
   font-size: 1.2em;
   font-weight: 700;
-  border: 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #000;
+  color: #000000;
+  background: #00dfa2;
 }
 .SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap h2 a:hover {
-  background: #e09090;
-  color: #fff;
+  background: rgba(0, 223, 162, 0.5019607843);
+  color: #000000;
 }
-.SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap h2 a:active {
-  background: #da3232;
-  color: #fff;
+.SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap h2 a.active {
+  background: #149f79;
+  color: #ffffff;
 }
 .SearchIdPw .SearchIdPw_contents_wrap form {
-  height: 40%;
-  padding: 20px 5px;
+  height: 70%;
+  padding: 0;
+  padding-bottom: 10px;
   margin: 20px 0;
   display: flex;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  /* 이전 확인 버튼 */
 }
 .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap {
   width: 80%;
+  height: 70%;
   max-width: 400px;
-  margin: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap > div {
   width: 100%;
@@ -78,28 +86,37 @@
 .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap > div input {
   width: 70%;
   padding: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 1px dashed #808080;
 }
-.SearchIdPw .SearchIdPw_contents_wrap .CheckPrevBtn_wrap {
-  width: 100%;
+.SearchIdPw .SearchIdPw_contents_wrap form .CheckPrevBtn_wrap {
+  width: 80%;
+  height: 20%;
   max-width: 400px;
-  margin: 30px auto;
+  margin: 0px auto;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.SearchIdPw .SearchIdPw_contents_wrap .CheckPrevBtn_wrap a {
+.SearchIdPw .SearchIdPw_contents_wrap form .CheckPrevBtn_wrap a {
   display: block;
   padding: 7px 20px;
-  border: 1px solid;
+  border-radius: 3px;
+  background: #00dfa2;
+  color: #000000;
+  transition: 0.2s;
+}
+.SearchIdPw .SearchIdPw_contents_wrap form .CheckPrevBtn_wrap a:hover {
+  background: #149f79;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 750px) {
-  .SearchIdPw {
-    overflow-y: scroll;
-    /* input태그 모음 */
-    /* 이전 확인 버튼 */
-  }
   .SearchIdPw .SearchIdPw_contents_wrap {
     /* 아이디 비밀번호 찾기 필터 버튼 */
+    /* input태그 모음 */
   }
   .SearchIdPw .SearchIdPw_contents_wrap .SearchBtn_wrap {
     padding: 0;
@@ -108,35 +125,26 @@
     max-width: 50%;
     text-align: center;
     font-size: 0.9em;
-    padding: 20px 0;
-  }
-  .SearchIdPw form {
-    height: 60%;
     padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
   }
-  .SearchIdPw form .SearchIdPw_input_wrap {
-    width: 100%;
-    padding: 10px;
+  .SearchIdPw .SearchIdPw_contents_wrap form {
+    overflow-y: scroll;
+    /* 이전 확인 버튼 */
   }
-  .SearchIdPw form .SearchIdPw_input_wrap > div {
-    width: 100%;
-    display: flex;
-    margin: 15px 0;
+  .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap {
+    height: auto;
+    display: unset;
   }
-  .SearchIdPw form .SearchIdPw_input_wrap > div label {
+  .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap > div {
+    margin: 10px 0;
+  }
+  .SearchIdPw .SearchIdPw_contents_wrap form .SearchIdPw_input_wrap > div label {
     font-size: 0.9em;
   }
-  .SearchIdPw form .SearchIdPw_input_wrap > div input {
-    padding: 5px;
+  .SearchIdPw .SearchIdPw_contents_wrap form .CheckPrevBtn_wrap {
+    height: auto;
   }
-  .SearchIdPw .CheckPrevBtn_wrap {
-    margin: 10px auto;
-    padding: 0 10px;
-  }
-  .SearchIdPw .CheckPrevBtn_wrap a {
+  .SearchIdPw .SearchIdPw_contents_wrap form .CheckPrevBtn_wrap a {
     border-radius: 5px;
   }
 }

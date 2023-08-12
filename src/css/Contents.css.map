@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../scss/Contents.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EAEA","file":"Contents.css"}
+{"version":3,"sourceRoot":"","sources":["../scss/Contents.scss","../scss/_VarMixin.scss"],"names":[],"mappings":"AACA;ECmCI,ODlCY;ECmCZ,QDnCiB;EAEjB","file":"Contents.css"}

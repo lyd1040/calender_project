@@ -1,4 +1,4 @@
-
+@import './VarMixin';
 .LoginPage_Loading_wrap {
     position: relative;
     width: 100%;
@@ -8,9 +8,7 @@
 
     background: #00000059;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include disFlexJustifyAlign();
     flex-direction: column;
 
     &>div{
@@ -25,7 +23,7 @@
         align-items: center;
 
         span.spans {
-            background: #fff;
+            background: $SubColorWhite;
             animation: LoginPageLoadinganimate 0.6s infinite ease-in-out alternate;
         }
     }
@@ -33,7 +31,7 @@
     .LoadingText {
         transform: translateY(100px);
     
-        color: #fff;
+        color: $SubColorWhite;
     
         font-size: 2em;
     }
@@ -47,5 +45,16 @@
 
     100% {
         transform: translateY(-30px);
+    }
+}
+
+@media screen and (max-width:750px) {
+    .LoginPage_Loading_wrap{
+            &>div{
+            transform: translateY(-30px);
+        }
+        .LoadingText {
+            transform: translateY(60px);
+        }
     }
 }

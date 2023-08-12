@@ -1,0 +1,39 @@
+$MainColorBlue:#0097ff;
+$MainColorGreen:#00dfa2;
+$HoverGreenColor:#149f79;
+$MainColorSal:#f2eddb;
+$PointColorLightGray:#d3d3d3;
+$PointColorGray:#808080;
+$SubColorBlack:#000000;
+$SubColorWhite:#ffffff;
+
+@mixin PrintClassName($classname){
+    position: absolute;
+    top:150%;
+    left:50%;
+
+    transform: translateX(-50%);
+
+    content:$classname;
+
+    background: #00000080;
+    color: #fff;
+
+    letter-spacing: 2px;
+
+    padding: 3px 5px;
+    border-radius: 50px;
+
+    font-size: 0.6em;
+}
+
+@mixin disFlexJustifyAlign(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin WH($width,$height){
+    width:$width;
+    height:$height;
+}

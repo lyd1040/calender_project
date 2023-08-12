@@ -3,9 +3,9 @@
   width: 70%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap {
   width: 90%;
@@ -36,6 +36,7 @@
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_comp_wrap {
   width: 60%;
   overflow: hidden;
+  background: #fff;
 }
 .SignIn_SignUp_wrap .SignIn_SignUp_date_time_card_wrap .SignIn_SignUp_comp_wrap .Sign_show_hide {
   width: 100%;

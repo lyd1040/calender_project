@@ -1,13 +1,12 @@
+@import './VarMixin';
 article {
     position: relative;
     height: calc(100vh - 70px);
 
-    display: flex;
+    @include disFlexJustifyAlign();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
-    background: #f2eddb;
+    background: $MainColorSal;
 
     overflow: hidden;
 }

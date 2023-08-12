@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../scss/Schedule.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EACA;EAEA;EAEA;EACA;EAEA;EAEA;EACA;EACA;;AAEA;EACI;EAEA;;;AAGR;EACI;IACI;IACA;IAEA;IAEA;IAEA;IACA;IAEA;IAEA;;EAEA;IACI;IACA","file":"Schedule.css"}
+{"version":3,"sourceRoot":"","sources":["../scss/Schedule.scss","../scss/_VarMixin.scss"],"names":[],"mappings":"AAEA;EACI;EACA;EACA;EAEA;EC6BA,OD3BY;EC4BZ,QD5BiB;EAEjB;EAEA;EACA;EACA;;AAEA;EACI;EAEA;;;AAGR;EACI;IACI;IACA;IAEA;IAEA;ICMJ,ODJgB;ICKhB,QDLsB;IAElB;IAEA;;EAEA;IACI;IACA","file":"Schedule.css"}

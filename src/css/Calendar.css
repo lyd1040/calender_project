@@ -24,8 +24,8 @@
 }
 .Calendar.hide .show_calendar:hover {
   border: 0;
-  background: #00DFA2;
-  color: #fff;
+  background: #00dfa2;
+  color: #ffffff;
 }
 .Calendar .year_month_date {
   display: flex;
@@ -40,7 +40,7 @@
 }
 .Calendar .year_month_date .yearwrap button,
 .Calendar .year_month_date .monthwrap button {
-  background: rgba(0, 223, 162, 0.5019607843);
+  background: rgba(20, 159, 121, 0.5019607843);
   border: 0;
   cursor: pointer;
   width: 30px;
@@ -52,12 +52,12 @@
 .Calendar .year_month_date .yearwrap button.prev i, .Calendar .year_month_date .yearwrap button.next i,
 .Calendar .year_month_date .monthwrap button.prev i,
 .Calendar .year_month_date .monthwrap button.next i {
-  color: #fff;
+  color: #ffffff;
   pointer-events: none;
 }
 .Calendar .year_month_date .yearwrap button:hover,
 .Calendar .year_month_date .monthwrap button:hover {
-  background: #00DFA2;
+  background: #00dfa2;
 }
 .Calendar .year_month_date .yearwrap span,
 .Calendar .year_month_date .monthwrap span {
@@ -80,10 +80,10 @@
 .Calendar table thead th {
   padding: 15px 5px;
   margin-bottom: 10px;
-  color: #fff;
+  color: #ffffff;
 }
 .Calendar table tbody {
-  background: #fff;
+  background: #ffffff;
 }
 .Calendar table tbody tr td {
   border: 1px solid #d3d3d3;
@@ -97,7 +97,7 @@
 }
 .Calendar table tbody tr td a {
   position: relative;
-  color: #000;
+  color: #000000;
 }
 .Calendar table tbody tr td a.saturday {
   color: #0000ff;
@@ -155,7 +155,7 @@
   }
   .Calendar .year_month_date .yearwrap button:hover,
   .Calendar .year_month_date .monthwrap button:hover {
-    background: #00DFA2;
+    background: #00dfa2;
   }
   .Calendar .year_month_date .yearwrap span,
   .Calendar .year_month_date .monthwrap span {

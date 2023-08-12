@@ -18,12 +18,12 @@
   align-items: center;
 }
 .LoginPage_Loading_wrap > div span.spans {
-  background: #fff;
+  background: #ffffff;
   animation: LoginPageLoadinganimate 0.6s infinite ease-in-out alternate;
 }
 .LoginPage_Loading_wrap .LoadingText {
   transform: translateY(100px);
-  color: #fff;
+  color: #ffffff;
   font-size: 2em;
 }
 
@@ -33,6 +33,14 @@
   }
   100% {
     transform: translateY(-30px);
+  }
+}
+@media screen and (max-width: 750px) {
+  .LoginPage_Loading_wrap > div {
+    transform: translateY(-30px);
+  }
+  .LoginPage_Loading_wrap .LoadingText {
+    transform: translateY(60px);
   }
 }
 

@@ -6,11 +6,11 @@
   cursor: pointer;
 }
 .gnb_wrap button.show_gnb i {
-  color: #fff;
+  color: #ffffff;
   font-size: 1.8em;
 }
 .gnb_wrap button.show_gnb:hover i {
-  color: rgb(238, 109, 109);
+  color: #149f79;
 }
 .gnb_wrap nav {
   position: absolute;
@@ -22,11 +22,11 @@
   pointer-events: none;
 }
 .gnb_wrap nav ul {
-  height: 100%;
-  transform: translateY(-100px);
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  transform: translateY(-100px);
   border-bottom: 1px solid #d3d3d3;
   gap: 20px;
   backdrop-filter: blur(5px);
@@ -36,9 +36,59 @@
 .gnb_wrap nav ul.show {
   transform: translateY(0);
 }
-.gnb_wrap nav ul li a.active {
+.gnb_wrap nav ul li {
   position: relative;
+  margin: 10px;
+  font-size: 1.5em;
+}
+.gnb_wrap nav ul li a {
+  color: #ffffff;
+  padding: 10px;
+  background: #00dfa2;
+  border-radius: 50%;
+}
+.gnb_wrap nav ul li a.active {
+  background: #149f79;
   font-weight: 700;
+}
+.gnb_wrap nav ul li.NavCalendar:hover::before {
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "Calendar";
+  background: rgba(0, 0, 0, 0.5019607843);
+  color: #fff;
+  letter-spacing: 2px;
+  padding: 3px 5px;
+  border-radius: 50px;
+  font-size: 0.6em;
+}
+.gnb_wrap nav ul li.NavSignIn:hover::before {
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "SignIn";
+  background: rgba(0, 0, 0, 0.5019607843);
+  color: #fff;
+  letter-spacing: 2px;
+  padding: 3px 5px;
+  border-radius: 50px;
+  font-size: 0.6em;
+}
+.gnb_wrap nav ul li.NavContect:hover::before {
+  position: absolute;
+  top: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "Contect";
+  background: rgba(0, 0, 0, 0.5019607843);
+  color: #fff;
+  letter-spacing: 2px;
+  padding: 3px 5px;
+  border-radius: 50px;
+  font-size: 0.6em;
 }
 
 /*# sourceMappingURL=nav.css.map */

@@ -6,7 +6,7 @@
   width: 25%;
   height: 100%;
   border-radius: 5px;
-  background: #fff;
+  background: #ffffff;
   overflow: hidden;
   /* 일정 추가버튼 */
 }
@@ -15,7 +15,7 @@
   border: 0;
   border-bottom: 1px solid #808080;
   background: #0097ff;
-  color: #fff;
+  color: #ffffff;
   padding: 10px;
   text-align: center;
   font-weight: 700;
@@ -30,8 +30,8 @@
   border: 0;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 2px #000;
-  background: #fff;
+  box-shadow: 0 0 2px #000000;
+  background: #ffffff;
 }
 .AddSchedule .cancleBtn:hover {
   background: #f2eddb;
@@ -92,7 +92,7 @@
   padding: 10px;
   border: 0;
   background: #00dfa2;
-  color: #fff;
+  color: #ffffff;
   display: flex;
   justify-content: center;
 }

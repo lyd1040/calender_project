@@ -1,7 +1,6 @@
+@import './VarMixin';
 .SignUp {
     height: 100%;
-
-    border: 1px solid;
 
     &.VSB {
         visibility: hidden;
@@ -10,9 +9,7 @@
     h2 {
         height: 20%;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include disFlexJustifyAlign();
 
         font-weight: 700;
         font-size: 1.8em;
@@ -21,13 +18,10 @@
     form {
         height: 65%;
 
-        margin-top: 30px;
-
-        overflow-y: scroll;
+        margin-top: 15px;
 
         &>div {
-            width: 70%;
-            height: 100%;
+            @include WH(70%, 100%);
 
             margin: auto;
 
@@ -57,7 +51,7 @@
                     &.active {
                         transform: translate(15px, -190%);
 
-                        background: #fff;
+                        background: $SubColorWhite;
 
                         font-size: 0.8em;
                     }
@@ -68,7 +62,7 @@
 
                     padding: 10px;
 
-                    border-bottom: 1px dashed;
+                    border-bottom: 2px dotted $PointColorGray;
                     border-top-right-radius: 10px;
                     border-top-left-radius: 10px;
                 }
@@ -86,24 +80,34 @@
                 display: flex;
                 justify-content: space-between;
 
+                margin-top: 30px;
+
                 button {
-                    margin-top: 30px;
+                    
                     padding: 7px 21px;
                     border-radius: 3px;
 
                     cursor: pointer;
 
-                    background: #00dfa2;
+                    background: $MainColorGreen;
 
                     transition: 0.2s;
 
                     &:hover {
-                        color: #fff;
-                        background: #149f79;
+                        color: $SubColorWhite;
+                        background: $HoverGreenColor;
                     }
                 }
             }
         }
+    }
+
+    .condition{
+        width: 100%;
+        margin-top: 5px;
+        text-align: center;
+
+        color: #ff0000;
     }
 }
 
@@ -113,8 +117,11 @@
         width: 100%;
 
         form {
+            overflow-y: scroll;
             &>div {
                 width: 100%;
+                
+                padding: 20px;
 
                 &>div {
                     position: relative;
@@ -153,12 +160,17 @@
                     input {
                         width: 100%;
 
-                        border-radius: 5px;
-                        border-bottom: 0;
                         padding: 5px;
                     }
                 }
+
+                .SignUpBtnWrap {
+                    margin-top: 20px;
+                }
             }
+        }
+        .condition{            
+            font-size: 0.8em;
         }
     }
 }

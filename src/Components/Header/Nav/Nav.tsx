@@ -31,19 +31,20 @@ function Nav(props: NavProps) {
         } else {
             setLoginText("Login");
         }
-        const gnb_name: string[] = ['Calendar', 'Login', 'Contect'];
+        const gnb_name: JSX.Element[] = [<i className="fa-solid fa-calendar-days"></i>, <i className="fa-solid fa-user"></i>, <i className="fa-solid fa-address-book"></i>];
         const gnb_path: string[] = ['/', 'SignIn_SignUp', 'Contect'];
+        const gnb_className: string[] = ['NavCalendar','NavSignIn','NavContect'];
 
         for (let x = 0; x < gnb_name.length; x++) {
-            if ((gnb_name[x] === 'Login' && sessionStorage.getItem('userUID') === null) || gnb_name[x] !== 'Login') {
+            if ((x === 1 && sessionStorage.getItem('userUID') === null) || x !== 1) {
                 gnb_lis_save_list.push(
-                    <li key={`gnb_name${x}`}>
+                    <li key={`gnb_name${x}`} className={gnb_className[x]}>
                         <NavLink to={gnb_path[x]}>{gnb_name[x]}</NavLink>
                     </li>
                 )
             } else {
                 gnb_lis_save_list.push(
-                    <li key={`gnb_name${x}`}>
+                    <li key={`gnb_name${x}`} className={gnb_className[x]}>
                         <a href='#' className='LogoutBtn' onClick={() => { Logout() }}>Logout</a>
                     </li>
                 )

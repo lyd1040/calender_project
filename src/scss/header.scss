@@ -1,3 +1,4 @@
+@import './VarMixin';
 header {
     position: relative;
 
@@ -11,7 +12,7 @@ header {
 
     padding: 0 30px;
 
-    background: #0097ff;
+    background: $MainColorBlue;
 
     z-index: 999;
 
@@ -19,7 +20,7 @@ header {
         font-size: 1.8em;
 
         a {
-            color: #fff;
+            color: $SubColorWhite;
         }
     }
 
@@ -34,7 +35,7 @@ header {
         gap: 30px;
 
         a {
-            color: #f2eddb;
+            color: $MainColorSal;
         }
     }
 }
@@ -44,13 +45,11 @@ header {
         padding: 0 5px;
 
         .logo {
-            width: 70px;
-            height: 100%;
+            @include WH(70px, 100%);
             overflow: hidden;
 
             a {
-                width: 100%;
-                height: 100%;
+                @include WH(100%, 100%);
                 display: block;
 
                 background: url(/public/imgs/calendar_logo.png) no-repeat;

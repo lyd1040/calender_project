@@ -1,6 +1,5 @@
 .SignUp {
   height: 100%;
-  border: 1px solid;
 }
 .SignUp.VSB {
   visibility: hidden;
@@ -15,8 +14,7 @@
 }
 .SignUp form {
   height: 65%;
-  margin-top: 30px;
-  overflow-y: scroll;
+  margin-top: 15px;
 }
 .SignUp form > div {
   width: 70%;
@@ -44,13 +42,13 @@
 }
 .SignUp form > div > div label.active {
   transform: translate(15px, -190%);
-  background: #fff;
+  background: #ffffff;
   font-size: 0.8em;
 }
 .SignUp form > div > div input {
   width: 100%;
   padding: 10px;
-  border-bottom: 1px dashed;
+  border-bottom: 2px dotted #808080;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
@@ -62,9 +60,9 @@
 .SignUp form > div .SignUpBtnWrap {
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
 }
 .SignUp form > div .SignUpBtnWrap button {
-  margin-top: 30px;
   padding: 7px 21px;
   border-radius: 3px;
   cursor: pointer;
@@ -72,16 +70,26 @@
   transition: 0.2s;
 }
 .SignUp form > div .SignUpBtnWrap button:hover {
-  color: #fff;
+  color: #ffffff;
   background: #149f79;
+}
+.SignUp .condition {
+  width: 100%;
+  margin-top: 5px;
+  text-align: center;
+  color: #ff0000;
 }
 
 @media screen and (max-width: 750px) {
   .SignUp {
     width: 100%;
   }
+  .SignUp form {
+    overflow-y: scroll;
+  }
   .SignUp form > div {
     width: 100%;
+    padding: 20px;
   }
   .SignUp form > div > div {
     position: relative;
@@ -109,9 +117,13 @@
   }
   .SignUp form > div > div input {
     width: 100%;
-    border-radius: 5px;
-    border-bottom: 0;
     padding: 5px;
+  }
+  .SignUp form > div .SignUpBtnWrap {
+    margin-top: 20px;
+  }
+  .SignUp .condition {
+    font-size: 0.8em;
   }
 }
 

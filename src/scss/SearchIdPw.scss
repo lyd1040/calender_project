@@ -1,64 +1,55 @@
+@import './VarMixin';
+
 .SearchIdPw {
     position: relative;
-    width: 100%;
-    height: 100%;
+    @include WH(100%, 100%);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include disFlexJustifyAlign();
 
     &.VSB{
         visibility: hidden;
     }
 
     .SearchIdPw_contents_wrap{
-        width: 100%;
-        height: 100%;
-        border: 1px solid;
+        @include WH(100%, 100%);
 
         /* 아이디 비밀번호 찾기 필터 버튼 */
         .SearchBtn_wrap{
-            width: 100%;
-            height: 20%;
+            @include WH(100%, 20%);
         
             padding: 30px;
         
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            @include disFlexJustifyAlign();
 
             h2{
-                width: 50%;
-                height: 100%;
+                @include WH(50%, 100%);
                 max-width: 200px;
             
                 font-size: 0.9em;
-                padding: 20px 0;
+                padding: 0;
+                padding-bottom: 10px;
 
                 a{
                     display: block;
-                    width: 100%;
-                    height: 100%;
+
+                    @include WH(100%, 100%);
                 
                     font-size: 1.2em;
                     font-weight: 700;
                 
-                    border: 1px solid;
+                    @include disFlexJustifyAlign();
                 
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                
-                    color: #000;
+                    color: $SubColorBlack;
+                    background: $MainColorGreen;
 
 
                     &:hover{
-                        background: #e09090;
-                        color: #fff;
+                        background: #00dfa280;
+                        color: $SubColorBlack;
                     }
-                    &:active{
-                        background: #da3232;
-                        color: #fff;
+                    &.active{
+                        background: $HoverGreenColor;
+                        color: $SubColorWhite;
                     }
                 }
             }
@@ -66,19 +57,25 @@
 
         /* input태그 모음 */
         form{
-            height: 40%;
+            height: 70%;
         
-            padding: 20px 5px;
+            padding: 0;
+            padding-bottom: 10px;
             margin: 20px 0;
         
-            display: flex;
-            align-items: center;
+            @include disFlexJustifyAlign();
+            flex-direction: column;
 
             .SearchIdPw_input_wrap{
-                width: 80%;
+                @include WH(80%, 70%);
                 max-width: 400px;
             
-                margin: auto;
+                margin: 0;
+                padding: 0;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
 
                 &>div{
                     width: 100%;
@@ -97,26 +94,40 @@
                         width: 70%;
 
                         padding: 10px;
+                        border-top-right-radius: 10px;
+                        border-top-left-radius: 10px;
+                        border-bottom: 1px dashed #808080;
                     }
                 }
             }
-        }
 
-        /* 이전 확인 버튼 */
-        .CheckPrevBtn_wrap{
-            width: 100%;
-            max-width: 400px;
-        
-            margin: 30px auto;
-        
-            display: flex;
-            justify-content: space-between;
-
-            a{
-                display: block;
+            /* 이전 확인 버튼 */
+            .CheckPrevBtn_wrap{
+                @include WH(80%, 20%);
+                max-width: 400px;
             
-                padding: 7px 20px;
-                border: 1px solid;
+                margin: 0px auto;
+                margin-top: 30px;
+            
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                a{
+                    display: block;
+                
+                    padding: 7px 20px;
+                    border-radius: 3px;
+                    background: $MainColorGreen;
+                    color: $SubColorBlack;
+
+                    transition: 0.2s;
+
+                    &:hover{
+                        background: $HoverGreenColor;
+                        color: $SubColorWhite;
+                    }
+                }
             }
         }
     }
@@ -125,8 +136,6 @@
 
 @media screen and (max-width:750px) {
     .SearchIdPw{
-        overflow-y: scroll;
-
         .SearchIdPw_contents_wrap{
             /* 아이디 비밀번호 찾기 필터 버튼 */
             .SearchBtn_wrap{
@@ -138,50 +147,36 @@
                     text-align: center;
                 
                     font-size: 0.9em;
-                    padding: 20px 0;
+                    padding: 0;
                 }
             }
-        }
 
-        /* input태그 모음 */
-        form{
-            height: 60%;
-            padding: 0;
-            margin: 0;
-    
-            display: flex;
-            align-items: center;
+            /* input태그 모음 */
+            form{
 
-            .SearchIdPw_input_wrap{
-                width: 100%;
-            
-                padding: 10px;
+                overflow-y: scroll;
+
+                .SearchIdPw_input_wrap{
+                    height: auto;
                 
-                &>div{
-                    width: 100%;
-                
-                    display: flex;
-                
-                    margin: 15px 0;
-
-                    label{
-                        font-size: 0.9em;
-                    }
-
-                    input{
-                        padding: 5px;
+                    display: unset;
+                    
+                    &>div{
+                        margin: 10px 0;
+                        label{
+                            font-size: 0.9em;
+                        }
                     }
                 }
-            }
-        }
 
-        /* 이전 확인 버튼 */
-        .CheckPrevBtn_wrap{
-            margin: 10px auto;
-            padding: 0 10px;
+                /* 이전 확인 버튼 */
+                .CheckPrevBtn_wrap{
+                    height: auto;
 
-            a{
-                border-radius: 5px;
+                    a{
+                        border-radius: 5px;
+                    }
+                }
             }
         }
     }

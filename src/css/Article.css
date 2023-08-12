@@ -2,9 +2,9 @@ article {
   position: relative;
   height: calc(100vh - 70px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background: #f2eddb;
   overflow: hidden;
 }

@@ -107,6 +107,16 @@ function SearchIdPw(props: SearchIdPwType) {
         }
     }
 
+    //아이디찾기, 비밀번호 찾기 태그 클릭했을때 active 클래스 추가
+    const onClickedAddClass = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>{
+        const searchBtns:HTMLAnchorElement[] = document.querySelectorAll('#SearchIdPw #SearchBtn_wrap a') as unknown as HTMLAnchorElement[];
+        const targetElement = event.target as HTMLElement;
+        for(let x=0; x<searchBtns.length; x++){
+            searchBtns[x].classList.remove('active');
+        }
+        targetElement.classList.add('active');
+    }
+
 
     //Tab 막기
     const visibility = () => {
@@ -131,19 +141,20 @@ function SearchIdPw(props: SearchIdPwType) {
         <div id="SearchIdPw" className={`SearchIdPw ${notSelect}`}>
             <div id="SearchIdPw_contents_wrap" className="SearchIdPw_contents_wrap">
                 <div id="SearchBtn_wrap" className="SearchBtn_wrap">
-                    <h2><a href="/" onClick={(event) =>{event.preventDefault(); ChangeSearchContentsMode('FilterIDSearch');}}>아이디 찾기</a></h2>
-                    <h2><a href="/" onClick={(event) =>{event.preventDefault(); ChangeSearchContentsMode('FilterPWSearch');}}>비밀번호 찾기</a></h2>
+                    <h2><a href="/" className="active" onClick={(event) =>{event.preventDefault(); ChangeSearchContentsMode('FilterIDSearch'); onClickedAddClass(event);}}>아이디 찾기</a></h2>
+                    <h2><a href="/" onClick={(event) =>{event.preventDefault(); ChangeSearchContentsMode('FilterPWSearch'); onClickedAddClass(event);}}>비밀번호 찾기</a></h2>
                 </div>
                 
                 <form action="" method="post">
                     <div id="SearchIdPw_input_wrap" className={`SearchIdPw_input_wrap ${SearchFilterIDPW}`}>
                         {SearchContents}
                     </div>
+                    <div id="CheckPrevBtn_wrap" className="CheckPrevBtn_wrap">
+                        <a href="/" onClick={(event) => { event.preventDefault(); props.showSignUpFunction('') }}>이전</a>
+                        <a href="/" onClick={(event) => { event.preventDefault();  SearchIDPWCheckFunction();}}>확인</a>
+                    </div>
                 </form>
-                <div id="CheckPrevBtn_wrap" className="CheckPrevBtn_wrap">
-                    <a href="" onClick={(event) => { event.preventDefault(); props.showSignUpFunction('') }}>이전</a>
-                    <a href="" onClick={(event) => { event.preventDefault();  SearchIDPWCheckFunction();}}>확인</a>
-                </div>
+                
             </div>
         </div>
     )

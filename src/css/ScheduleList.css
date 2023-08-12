@@ -13,7 +13,7 @@
   width: 100%;
   border-bottom: 1px solid #808080;
   background: #0097ff;
-  color: #fff;
+  color: #ffffff;
   padding: 10px;
   text-align: center;
   font-weight: 700;
@@ -22,7 +22,7 @@
 .plan_list_wrap .plan_list {
   position: relative;
   height: calc(100% - 77px - 40px);
-  background: #fff;
+  background: #ffffff;
   border-bottom: 0;
   overflow-y: scroll;
   /* 스크롤바 없애는거 추가해야함 */
@@ -59,7 +59,7 @@
 }
 .plan_list_wrap .plan_list li div button:hover {
   background: #00dfa2;
-  color: #fff;
+  color: #ffffff;
 }
 .plan_list_wrap .plan_list .not_plan {
   text-align: center;
@@ -74,7 +74,7 @@
   border-top: 0;
   display: flex;
   justify-content: center;
-  background: #fff;
+  background: #ffffff;
   border-top: 0;
   border-bottom: 1px solid #808080;
   font-size: 1.2em;
@@ -94,14 +94,14 @@
   padding: 10px;
   border: 0;
   background: #00dfa2;
-  color: #fff;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   cursor: pointer;
   font-size: 0.8em;
 }
 .plan_list_wrap .Schedule_btnWrap .Schedule_btn:hover {
-  background: #149f79;
+  background: HoverGreenColor;
 }
 
 @media screen and (max-width: 750px) {
