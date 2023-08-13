@@ -1,20 +1,20 @@
 {
-  "short_name": "React App",
+  "short_name": "Calendar",
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/png"
+      "src": "./imgs/calendar_64x64.png",
+      "type": "png",
+      "sizes": "64x64"
     },
     {
-      "src": "./imgs/calendar_logo.gif",
-      "type": "image/gif",
+      "src": "./imgs/calendar_192x192.png",
+      "type": "png",
       "sizes": "192x192"
     },
     {
-      "src": "./imgs/calendar_logo.gif",
-      "type": "image/gif",
+      "src": "./imgs/calendar_512x512.png",
+      "type": "png",
       "sizes": "512x512"
     }
   ],
