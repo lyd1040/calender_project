@@ -20,6 +20,7 @@ function BackgroundAni(props:BackgroundAniType){
 
     const LottieDataSetting = async () => {
         const lottie_container:HTMLDivElement = document.getElementById('lottie-container') as HTMLDivElement;
+        if(EventPath!==''){
             try {
                 const response = await fetch(EventPath);
                 const animationData = await response.json();
@@ -36,6 +37,7 @@ function BackgroundAni(props:BackgroundAniType){
             } catch (error) {
                 console.error('Failed to fetch animation data', error);
             }
+        }
     };
 
     const ChangeLottieAnimation = () =>{

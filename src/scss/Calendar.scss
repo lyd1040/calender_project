@@ -63,8 +63,12 @@
             span {
                 font-size: 1.2em;
 
-                display: flex;
-                align-items: center;
+                width: 30%;
+
+                background: #ffffffbb;
+                border-radius: 50px;
+
+                @include disFlexJustifyAlign();
             }
 
         }
@@ -206,7 +210,7 @@
                 }
 
                 span {
-                    font-size: 1em;
+                    font-size: 0.9em;
                 }
 
             }

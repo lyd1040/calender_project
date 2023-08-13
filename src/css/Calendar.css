@@ -57,7 +57,11 @@
 .Calendar .year_month_date .yearwrap span,
 .Calendar .year_month_date .monthwrap span {
   font-size: 1.2em;
+  width: 30%;
+  background: rgba(255, 255, 255, 0.7333333333);
+  border-radius: 50px;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 .Calendar table {

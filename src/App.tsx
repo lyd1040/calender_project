@@ -50,7 +50,7 @@ function App() {
 
   useEffect(()=>{
     setHeaderFooterElement();
-  },[header_YMD])
+  },[header_YMD,LoginState])
 
   useEffect(() => {
     set_header_YMD([header_YMD[0], header_YMD[1], header_YMD[2]])
