@@ -70,7 +70,7 @@
   overflow: hidden;
 }
 .Calendar table thead {
-  background: rgba(0, 121, 255, 0.7333333333);
+  background: #0097ff;
 }
 .Calendar table thead th {
   padding: 15px 5px;

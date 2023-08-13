@@ -44,6 +44,11 @@
 .gnb_wrap nav ul li a {
   color: #ffffff;
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
   background: #00dfa2;
   border-radius: 50%;
 }
@@ -53,7 +58,7 @@
 }
 .gnb_wrap nav ul li.NavCalendar:hover::before {
   position: absolute;
-  top: 150%;
+  top: 110%;
   left: 50%;
   transform: translateX(-50%);
   content: "Calendar";
@@ -66,7 +71,7 @@
 }
 .gnb_wrap nav ul li.NavSignIn:hover::before {
   position: absolute;
-  top: 150%;
+  top: 110%;
   left: 50%;
   transform: translateX(-50%);
   content: "SignIn";
@@ -77,9 +82,22 @@
   border-radius: 50px;
   font-size: 0.6em;
 }
+.gnb_wrap nav ul li.NavSignOut:hover::before {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  content: "SignOut";
+  background: rgba(0, 0, 0, 0.5019607843);
+  color: #fff;
+  letter-spacing: 2px;
+  padding: 3px 5px;
+  border-radius: 50px;
+  font-size: 0.6em;
+}
 .gnb_wrap nav ul li.NavContect:hover::before {
   position: absolute;
-  top: 150%;
+  top: 110%;
   left: 50%;
   transform: translateX(-50%);
   content: "Contect";

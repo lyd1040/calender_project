@@ -5,8 +5,6 @@ import Schedule from './Schedule/Schedule';
 import BackgroundAni from "./BackgroundAni/BackgroundAni";
 
 type ContnetsProps = {
-    title: string;
-    desc: string;
     Mode: string;
     header_YMD: number[];
     onChangeMode2: (id: number) => void
@@ -27,19 +25,26 @@ function Contents(props: ContnetsProps) {
         month: NaN,
         date_text: NaN,
     })
-
+    const [BackgroundElement, setBackgroundElement] = useState<JSX.Element>()
+/* 
     const onChangeMode = (id: number, year: number, month: number, date_text: number): void => {
         set_Schedule_date_test({ year: year, month: month, date_text: date_text });
         props.onChangeMode(id, year, month, date_text)
     }
+ */
+
+    const bgChangeFromCalendar=(year: number, month: number, date_text: number)=>{
+        set_Schedule_date_test({ year: year, month: month, date_text: date_text });
+    }
 
     // showHideSchedule 바꿔주는 함수
-    function changeSchedule() {
+    const changeSchedule = () => {
         setShowHideSchedule(!showHideSchedule);
     }
 
 
     useEffect(() => {
+        setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD}  Schedule_date_test={Schedule_date_test}></BackgroundAni>);
         setScheduleComponents(null);
     }, [])
 
@@ -65,15 +70,14 @@ function Contents(props: ContnetsProps) {
     useEffect(()=>{
         if (showHideSchedule === true) {
             setScheduleComponents(<Schedule SHclass={showHideSchedule} Schedule_date_test={Schedule_date_test}></Schedule>)
+            setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD} Schedule_date_test={Schedule_date_test}></BackgroundAni>);
         }
-    },[props.header_YMD, Schedule_date_test])
-
-
+    },[Schedule_date_test])
 
     return (
         <section className="Contents" id="Contents">
-            <BackgroundAni></BackgroundAni>
-            <Calendar onChangeMode={onChangeMode} onChangeMode2={props.onChangeMode2} title={props.title} desc={props.desc} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
+            {BackgroundElement}
+            <Calendar onChangeMode={props.onChangeMode} bgChangeFromCalendar={bgChangeFromCalendar} onChangeMode2={props.onChangeMode2} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
             {Schedule_Components}
         </section>
     )

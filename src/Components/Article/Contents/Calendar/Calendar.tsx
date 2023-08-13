@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import '../../../../css/Calendar.css'
 
 type ContnetsProps = {
-    title: string;
-    desc: string;
     Mode: string;
+    bgChangeFromCalendar: (year: number, month: number, date_text: number) => void;
     onChangeMode2: (id: number) => void
     changeSchedule: () => void
     onChangeMode: (id: number, year: number, month: number, date_text: number) => void; // 예시로 빈 함수 타입 설정
@@ -20,7 +19,7 @@ function Calendar(props: ContnetsProps) {
         if (element) {
             element.classList.add('hide');
         }
-        props.onChangeMode(NaN, year, month + 1, date_text);
+        props.onChangeMode(1, year, month + 1, date_text);
     }
     const show_calendar = (): void => {
         const element: HTMLElement | null = document.getElementById('Calendar');
@@ -58,23 +57,9 @@ function Calendar(props: ContnetsProps) {
     //년도, 월, 일 저장변수
     let [print_year_month_date, set_print_year_month_date] = useState<JSX.Element[]>();
 
-    // 최초 렌더링 시에만 함수를 호출하여 초기값 설정후 출력
-    useEffect(() => {
-        set_print_year_month_date(year_month_date_printer(year_month_date_text));
-        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
-
-    }, []);
-
-    //업데이트
-    useEffect(() => {
-        set_print_year_month_date(year_month_date_printer(year_month_date_text));
-        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
-        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-    }, [year_month_date_text]);
-
     /* 계산 함수들 (element 생성 함수 포함)*/
     //년도, 월, 일 그리기
-    function year_month_date_printer(text_list: number[]): JSX.Element[] {
+    const year_month_date_printer = (text_list: number[]): JSX.Element[] => {
         let data: number = 0
         let ko_text: string = '';
         let year_month_date_text: string = '';
@@ -99,7 +84,7 @@ function Calendar(props: ContnetsProps) {
         return new_YMD_list;
     }
     //년도, 월, 일 이전화살표 클릭 이벤트 핸들러
-    function prev_click_evt(event: React.MouseEvent<HTMLButtonElement>): void {
+    const prev_click_evt = (event: React.MouseEvent<HTMLButtonElement>): void => {
         const target = event.target as HTMLElement;
 
         if (target.classList.contains('yearPrev')) {
@@ -136,7 +121,7 @@ function Calendar(props: ContnetsProps) {
     }
 
     //년도, 월, 일 이전화살표 클릭 이벤트 핸들러
-    function next_click_evt(event: React.MouseEvent<HTMLButtonElement>): void {
+    const next_click_evt =(event: React.MouseEvent<HTMLButtonElement>): void => {
         const target = event.target as HTMLElement;
         if (target.classList.contains('yearNext')) {
             set_year_month_date_text([
@@ -172,7 +157,7 @@ function Calendar(props: ContnetsProps) {
     }
 
     //날짜 테이블 생성 및 날짜 그리기
-    function date_print(year: number, month: number): JSX.Element[] {
+    const date_print = (year: number, month: number): JSX.Element[] => {
         localStorage.setItem('date_text', '1'); // 날짜 세기위한 카운트
         localStorage.setItem('month_box_length', '1');
 
@@ -186,14 +171,14 @@ function Calendar(props: ContnetsProps) {
         return date_tr;
     }
     //해당 월이 몇주인지 계산(필요한 데이터: 연도, 월, 요일(인덱스))
-    function date_separation(year: number, month: number): number {
+    const date_separation =(year: number, month: number): number => {
         let week_calc = new Date(year, month, 1);
         let month_last_date = new Date(year, month + 1, 0);
         return Math.ceil((week_calc.getDay() + month_last_date.getDate()) / 7);
     }
 
     //td생성
-    function create_td(tr_idx: number, tr_list_idx: number, year: number, month: number): JSX.Element[] {
+    const create_td = (tr_idx: number, tr_list_idx: number, year: number, month: number): JSX.Element[] => {
         const date_td: JSX.Element[] = [];
         //현재 날짜의 1일의 요일 인덱스 ex(2023-07-01) => 토요일(index=6)
         const frist_week_first_day: number = new Date(year, month, 1).getDay();
@@ -216,7 +201,7 @@ function Calendar(props: ContnetsProps) {
                 }
                 if (x >= frist_week_first_day) {
                     date_td.push(
-                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                             <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
@@ -234,7 +219,7 @@ function Calendar(props: ContnetsProps) {
                     Aclass = '';
                 }
                 date_td.push(
-                    <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                    <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                         <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                     </td>
                 );
@@ -250,7 +235,7 @@ function Calendar(props: ContnetsProps) {
                 }
                 if (date_text <= last_week_last_date) {
                     date_td.push(
-                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                             <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
@@ -271,6 +256,20 @@ function Calendar(props: ContnetsProps) {
         }
         return date_td;
     }
+
+
+    // 최초 렌더링 시에만 함수를 호출하여 초기값 설정후 출력
+    useEffect(() => {
+        set_print_year_month_date(year_month_date_printer(year_month_date_text));
+        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
+    }, []);
+
+    //업데이트
+    useEffect(() => {
+        set_print_year_month_date(year_month_date_printer(year_month_date_text));
+        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
+        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    }, [year_month_date_text]);
 
     return (
         <div id="Calendar" className='Calendar'>

@@ -44,8 +44,8 @@ function Nav(props: NavProps) {
                 )
             } else {
                 gnb_lis_save_list.push(
-                    <li key={`gnb_name${x}`} className={gnb_className[x]}>
-                        <a href='#' className='LogoutBtn' onClick={() => { Logout() }}>Logout</a>
+                    <li key={`gnb_name${x}`} className="NavSignOut">
+                        <a href='#' className='LogoutBtn' onClick={() => { Logout() }}><i className="fa-solid fa-user-slash"></i></a>
                     </li>
                 )
             }

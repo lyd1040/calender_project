@@ -65,8 +65,13 @@
                 font-size: 1.5em;
                 
                 a{
+
                     color: $SubColorWhite;
                     padding: 10px;
+
+                    @include disFlexJustifyAlign();
+                    @include WH(45px, 45px);
+
                     background: $MainColorGreen;
                     border-radius: 50%;
                     &.active{
@@ -81,6 +86,9 @@
                 }
                 &.NavSignIn:hover::before{
                     @include PrintClassName('SignIn');
+                }
+                &.NavSignOut:hover::before{
+                    @include PrintClassName('SignOut');
                 }
                 &.NavContect:hover::before{
                     @include PrintClassName('Contect');

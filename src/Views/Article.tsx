@@ -6,8 +6,6 @@ import NotFound from '../Components/NotFound';
 import { Routes, Route } from 'react-router-dom';
 
 type ContnetsProps = {
-    title: string;
-    desc: string;
     Mode: string;
     header_YMD: number[];
     onChangeLoginState: (state: boolean) => void;
@@ -20,7 +18,7 @@ function Article(props: ContnetsProps) {
         <article>
             <Routes>
                 {/* 중복 라우터를 사용할때 '*'을 꼭 입력해야함 path="경로/*" *의 의미는 현재 경로 하위에 경로가 더 있다는 걸 알려주는 것 */}
-                <Route path='/' element={<Contents onChangeMode={props.onChangeMode} header_YMD={props.header_YMD} onChangeMode2={props.onChangeMode2} title={props.title} desc={props.desc} Mode={props.Mode} />} />
+                <Route path='/' element={<Contents onChangeMode={props.onChangeMode} header_YMD={props.header_YMD} onChangeMode2={props.onChangeMode2} Mode={props.Mode} />} />
                 <Route path='SignIn_SignUp' element={<SignIn_SignUp onChangeLoginState={props.onChangeLoginState} />} />
                 <Route path='Contect' element={<Contect />} />
                 <Route path='*' element={<NotFound />} />

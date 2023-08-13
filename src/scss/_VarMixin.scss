@@ -9,7 +9,7 @@ $SubColorWhite:#ffffff;
 
 @mixin PrintClassName($classname){
     position: absolute;
-    top:150%;
+    top:110%;
     left:50%;
 
     transform: translateX(-50%);
@@ -31,7 +31,7 @@ $SubColorWhite:#ffffff;
     position: absolute;
     bottom: 0;
     
-    width: calc(100% - 2px);
+    width: calc(100%);
 
     padding: 10px;
     border: 0;

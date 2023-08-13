@@ -91,7 +91,7 @@
 .plan_list_wrap .Schedule_btnWrap .Schedule_btn {
   position: absolute;
   bottom: 0;
-  width: calc(100% - 2px);
+  width: 100%;
   padding: 10px;
   border: 0;
   background: #00dfa2;
@@ -99,7 +99,7 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
-  transform: translateY(-115%);
+  transform: translateY(-105%);
   font-size: 0.8em;
 }
 .plan_list_wrap .Schedule_btnWrap .Schedule_btn:hover {

@@ -5,10 +5,20 @@
   pointer-events: none;
   width: 100%;
   height: calc(100% - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .BackgroundAni .lottie-container {
   width: 100%;
   height: 100%;
+}
+
+@media screen and (max-width: 750px) {
+  .BackgroundAni .lottie-container {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /*# sourceMappingURL=BackgroundAni.css.map */

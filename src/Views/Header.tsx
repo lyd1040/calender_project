@@ -17,22 +17,21 @@ type NavProps = {
 
 function Header(props: NavProps) {
   const [DateInputText, setDateInputText] = useState<string>('');
-  const [DateInputElement, setDateInputElement] = useState<JSX.Element>(<></>)
   const [updateState, setupdateState] = useState<boolean>(false);
   const [show_hide_date, set_show_hide_date] = useState<JSX.Element[]>([]); // 초기값을 빈 배열로 설정
   const [NavLinkTag, setNavLinkTag] = useState<JSX.Element>(<></>);
 
   //Year, Month, Date 설정하는 input 그리기
   const setting_input_value = () => {
-    let Month: string = '';
-    let Date: string = '';
+    let Month: string = `${props.header_YMD[1]}`;
+    let Date: string = `${props.header_YMD[2]}`;
     if (props.header_YMD[1] < 10) {
-      Month = '0' + props.header_YMD[1].toString();
+      Month = `0${props.header_YMD[1]}`;
     }
     if (props.header_YMD[2] < 10) {
-      Date = '0' + props.header_YMD[2].toString();
+      Date = `0${props.header_YMD[2]}`;
     }
-    setDateInputText(`${props.header_YMD[0]}-${Month}-${Date}`)
+    setDateInputText(`${props.header_YMD[0]}-${Month}-${Date}`);
   }
 
   //선택한 날짜 출력하는 곳 그리기
@@ -78,14 +77,17 @@ function Header(props: NavProps) {
   const onChangeMode2 = () => {
     let DateEle: HTMLInputElement = document.querySelector('.settingYMDText') as HTMLInputElement;
     let YMDArr: string[] = DateEle.value.split('-');
-    props.onChangeMode2(1, Number(YMDArr[0]), Number(YMDArr[1]), Number(YMDArr[2]))
 
+    props.onChangeMode2(1, Number(YMDArr[0]), Number(YMDArr[1]), Number(YMDArr[2]))
   }
 
+  useEffect(()=>{
+    setting_input_value();
+  },[props.header_YMD])
 
   //
   useEffect(() => {
-    header_YMD_print()
+    header_YMD_print();
   }, [props.header_YMD, updateState, DateInputText]);
 
   useEffect(() => {
