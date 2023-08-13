@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import '../../../../../css/DetailSchedule.css'
 type DetailScheduleProps = {
     planList: printDOM[];
+    ScheduleWidthClass: boolean;
+    show_hide_Datail_plan_OnOff(OnOff:boolean):void;
     settingWidthClass(stat:boolean):void;
     detailPlanListIndex: number | undefined;
     Schedule_date_test: Schedule_date_test_type;
@@ -22,6 +24,7 @@ type Schedule_date_test_type = {
 }
 
 function DetailSchedule(props: DetailScheduleProps) {
+    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
     const [DetailSchedule_class, setDetailSchedule] = useState<string>('DetailSchedule'); //클래스 입히기
     const [today_infomaition, setToday_infomaition] = useState<JSX.Element[]>([]);
     const [DetaileTimeLine_list, setDetaileTimeLine_list] = useState<JSX.Element[]>([]);
@@ -32,8 +35,6 @@ function DetailSchedule(props: DetailScheduleProps) {
             let plan_content: string[] = [DomEle.title, DomEle.content, DomEle.date, DomEle.time];
 
             let todayinfo_local: JSX.Element[] = [];
-
-            console.log(DomEle.date.split(' '));
 
             for (let x = 0; x < 4; x++) {
                 if (x !== 2) {
@@ -105,6 +106,7 @@ function DetailSchedule(props: DetailScheduleProps) {
         setDetaileTimeLine_list(TimeLine_list)
     }
 
+    // 브라우저 길이 750px 이하일떄 길이에 관한 클래스 추가 제거 여부
     const settingWidthClass = (event: React.UIEvent<HTMLDivElement>) =>{
         const scrollY = event.currentTarget.scrollTop;
 
@@ -125,9 +127,17 @@ function DetailSchedule(props: DetailScheduleProps) {
         }
     }, [props.detailPlanListIndex, props.planList])
 
+    useEffect(()=>{
+        if(props.ScheduleWidthClass===true){
+            setMediaWidthClass('MediaWidth');
+        }else{
+            setMediaWidthClass('');
+        }
+    },[props.ScheduleWidthClass])
+
 
     return (
-        <div id="DetailSchedule" className={DetailSchedule_class}>
+        <div id="DetailSchedule" className={`${DetailSchedule_class} ${MediaWidthClass}`}>
             <h3>자세한 일정</h3>
             <div id="DetailPlanWrap" className="DetailPlanWrap">
                 <div id="DetailPlan" className="DetailPlan">
@@ -140,6 +150,7 @@ function DetailSchedule(props: DetailScheduleProps) {
                     {DetaileTimeLine_list}
                 </div>
             </div>
+            <button type="button" className="DetailClose" onClick={()=>{props.show_hide_Datail_plan_OnOff(false);}}><i className="fa-solid fa-x"></i></button>
         </div>
     )
 }

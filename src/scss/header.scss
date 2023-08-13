@@ -37,6 +37,21 @@ header {
         a {
             color: $MainColorSal;
         }
+
+        button{
+            padding: 5px;
+            border-radius: 5px;
+            
+            background: $MainColorGreen;
+            color: $SubColorBlack;
+
+            cursor: pointer;
+
+            &:hover{
+                background: $HoverGreenColor;
+                color: $SubColorWhite;
+            }
+        }
     }
 }
 

@@ -11,19 +11,8 @@
     overflow: hidden;
 
     h3 {
-        width: 100%;
-
-        border-bottom: 1px solid $PointColorGray;
-
-        background: $MainColorBlue;
-        color: $SubColorWhite;
-
-        padding: 10px;
-
-        text-align: center;
-
-        font-weight: 700;
-        font-size: 1.3em;
+        @include WH(100%, 45px);
+        @include ScheduleTitle();
     }
 
     .plan_list {
@@ -123,29 +112,11 @@
         }
 
         .Schedule_btn {
-            position: absolute;
-            bottom: 0;
+            @include ScheduleAddUpdate();
 
             transform: translateY(-115%);
 
-            width: calc(100% - 2px);
-
-            padding: 10px;
-            border: 0;
-
-            background: $MainColorGreen;
-            color: $SubColorWhite;
-
-            display: flex;
-            justify-content: center;
-
-            cursor: pointer;
-
             font-size: 0.8em;
-
-            &:hover {
-                background: HoverGreenColor;
-            }
         }
     }
 }
@@ -158,8 +129,12 @@
         left: 0;
 
         transform: translateX(0);
+        transition: 0.5s;
 
-        overflow: hidden;
+
+        &.MediaWidth{
+            width: 0;
+        }
 
         .plan_list {
             border: 0;

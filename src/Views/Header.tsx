@@ -32,7 +32,6 @@ function Header(props: NavProps) {
     if (props.header_YMD[2] < 10) {
       Date = '0' + props.header_YMD[2].toString();
     }
-    console.log(props.header_YMD[0], Month, Date);
     setDateInputText(`${props.header_YMD[0]}-${Month}-${Date}`)
   }
 
@@ -55,11 +54,13 @@ function Header(props: NavProps) {
           )
         }
       } else {
-        console.log(DateInputText);
         if (DateInputText === '') {
           setting_input_value();
         }
-        headerYMD_arr.push(<input className='settingYMDText' type='date' onChange={(event) => { setDateInputText(event.target.value) }} value={DateInputText}></input>, <button type='button' onClick={() => { setupdateState(false); onChangeMode2(); }}>확인</button>);
+        headerYMD_arr.push(
+            <input className='settingYMDText' type='date' onChange={(event) => { setDateInputText(event.target.value) }} value={DateInputText}></input>,
+            <button type='button' onClick={() => { setupdateState(false); onChangeMode2(); }}>확인</button>
+          );
       }
 
     }
@@ -77,7 +78,6 @@ function Header(props: NavProps) {
   const onChangeMode2 = () => {
     let DateEle: HTMLInputElement = document.querySelector('.settingYMDText') as HTMLInputElement;
     let YMDArr: string[] = DateEle.value.split('-');
-    console.log(YMDArr);
     props.onChangeMode2(1, Number(YMDArr[0]), Number(YMDArr[1]), Number(YMDArr[2]))
 
   }

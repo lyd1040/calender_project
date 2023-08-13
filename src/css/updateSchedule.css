@@ -11,6 +11,7 @@
 }
 .UpdateSchedule h2 {
   width: 100%;
+  height: 45px;
   border: 0;
   border-bottom: 1px solid #808080;
   background: #0097ff;
@@ -22,18 +23,20 @@
 }
 .UpdateSchedule .cancleBtn {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 22.5px;
+  right: 0;
+  transform: translate(-10px, -50%);
   width: 30px;
   height: 30px;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 2px #000000;
-  background: #ffffff;
+  background: #00dfa2;
+  font-size: 0.8em;
 }
 .UpdateSchedule .cancleBtn:hover {
-  background: #f2eddb;
+  background: #149f79;
+  color: #ffffff;
 }
 .UpdateSchedule .UpdateSchedule_center {
   width: 100%;
@@ -69,6 +72,8 @@
 .UpdateSchedule .UpdateSchedule_center form > div input {
   max-width: 150px;
   width: 100%;
+  border: 1px solid #808080;
+  border-radius: 2px;
   margin: auto;
 }
 .UpdateSchedule .UpdateSchedule_center form > div .StartEndDateWrap,
@@ -90,29 +95,35 @@
 .UpdateSchedule .Schedule_btnWrap > button {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - 2px);
   padding: 10px;
   border: 0;
   background: #00dfa2;
   color: #ffffff;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 .UpdateSchedule .Schedule_btnWrap > button:hover {
   background: #149f79;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {
   .UpdateSchedule {
     position: relative;
     left: 0;
+    transition: 0.5s;
     transform: translateX(0);
     width: 50%;
   }
-  .UpdateSchedule h3 {
-    border-left: 0;
-    border-right: 0;
+  .UpdateSchedule.MediaWidth {
+    width: 0;
+  }
+  .UpdateSchedule h2 {
+    text-align: start;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
   }
 }
 

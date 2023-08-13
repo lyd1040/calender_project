@@ -26,6 +26,17 @@ header .headerYMD {
 header .headerYMD a {
   color: #f2eddb;
 }
+header .headerYMD button {
+  padding: 5px;
+  border-radius: 5px;
+  background: #00dfa2;
+  color: #000000;
+  cursor: pointer;
+}
+header .headerYMD button:hover {
+  background: #149f79;
+  color: #ffffff;
+}
 
 @media screen and (max-width: 750px) {
   header {

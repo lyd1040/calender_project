@@ -3,6 +3,8 @@
     position: absolute;
     left: 100%;
 
+    
+
     transform: translateX(-100%);
 
     @include WH(25%,100%);
@@ -14,40 +16,12 @@
     overflow: hidden;
 
     h3 {
-        width: 100%;
-
-        border: 0;
-        border-bottom: 1px solid $PointColorGray;
-
-        background: $MainColorBlue;
-        color: $SubColorWhite;
-
-        padding: 10px;
-
-        text-align: center;
-
-        font-weight: 700;
-        font-size: 1.3em;
+        @include WH(100%,45px);
+        @include ScheduleTitle();
     }
 
     .cancleBtn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-
-        @include WH(30px,30px);
-        border: 0;
-        border-radius: 50%;
-
-        cursor: pointer;
-
-        box-shadow: 0 0 2px $SubColorBlack;
-
-        background: $SubColorWhite;
-
-        &:hover {
-            background: $MainColorSal;
-        }
+        @include cancleBtn();
     }
 
     .AddSchedule_center {
@@ -92,6 +66,9 @@
                 input {
                     max-width: 150px;
                     width: 100%;
+
+                    border: 1px solid #808080;
+                    border-radius: 2px;
                     margin: auto
                 }
 
@@ -115,24 +92,7 @@
     /* 일정 추가버튼 */
     .Schedule_btnWrap {
         button {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-
-            padding: 10px;
-            border: 0;
-
-            background: $MainColorGreen;
-            color: $SubColorWhite;
-
-            display: flex;
-            justify-content: center;
-
-
-            &:hover {
-                background: $HoverGreenColor;
-                cursor: pointer;
-            }
+            @include ScheduleAddUpdate();
         }
     }
 }
@@ -151,11 +111,16 @@
 
         transform: translateX(0);
 
+        transition: 0.5s;
+
         width: 50%;
 
+        &.MediaWidth{
+            width: 0;
+        }
+
         h3 {
-            border-left: 0;
-            border-right: 0;
+            @include ScheduleWidth750Title();
         }
     }
 }

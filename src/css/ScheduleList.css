@@ -11,6 +11,8 @@
 }
 .plan_list_wrap h3 {
   width: 100%;
+  height: 45px;
+  border: 0;
   border-bottom: 1px solid #808080;
   background: #0097ff;
   color: #ffffff;
@@ -89,7 +91,6 @@
 .plan_list_wrap .Schedule_btnWrap .Schedule_btn {
   position: absolute;
   bottom: 0;
-  transform: translateY(-115%);
   width: calc(100% - 2px);
   padding: 10px;
   border: 0;
@@ -98,10 +99,11 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
+  transform: translateY(-115%);
   font-size: 0.8em;
 }
 .plan_list_wrap .Schedule_btnWrap .Schedule_btn:hover {
-  background: HoverGreenColor;
+  background: #149f79;
 }
 
 @media screen and (max-width: 750px) {
@@ -110,8 +112,11 @@
     position: relative;
     left: 0;
     transform: translateX(0);
-    overflow: hidden;
+    transition: 0.5s;
     /* 일정 추가버튼 */
+  }
+  .plan_list_wrap.MediaWidth {
+    width: 0;
   }
   .plan_list_wrap .plan_list {
     border: 0;

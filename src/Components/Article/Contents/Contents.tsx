@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../../css/Contents.css';
 import Calendar from './Calendar/Calendar';
 import Schedule from './Schedule/Schedule';
+import BackgroundAni from "./BackgroundAni/BackgroundAni";
 
 type ContnetsProps = {
     title: string;
@@ -71,6 +72,7 @@ function Contents(props: ContnetsProps) {
 
     return (
         <section className="Contents" id="Contents">
+            <BackgroundAni></BackgroundAni>
             <Calendar onChangeMode={onChangeMode} onChangeMode2={props.onChangeMode2} title={props.title} desc={props.desc} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
             {Schedule_Components}
         </section>

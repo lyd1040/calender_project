@@ -1,0 +1,16 @@
+@import './VarMixin';
+
+.BackgroundAni{
+    position: fixed;
+    top: 70px;
+    left: 0;
+
+    pointer-events: none;
+    
+    @include WH(100%,calc(100% - 70px));
+
+    .lottie-container{
+        width: 100%;
+        height: 100%;
+    }
+}

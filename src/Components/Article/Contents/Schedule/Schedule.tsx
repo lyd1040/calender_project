@@ -149,6 +149,27 @@ function Schedule(props: Class) {
     const settingWidthClass = (stat:boolean) =>{
         setScheduleWidthClass(stat);
     }
+
+    
+    //모드 상황에 따라 컴포넌트 바꾸기
+    const ChangeplanComponent = (): void => {
+        if (planListMode === 'READ') {
+            setplanComponent(<ScheduleList ScheduleWidthClass={ScheduleWidthClass} save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
+        } else if (planListMode === 'UPDATE') {
+            setplanComponent(<UpdateSchedule ScheduleWidthClass={ScheduleWidthClass} Schedule_date_test={props.Schedule_date_test} useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></UpdateSchedule>)
+        } else {
+            setplanComponent(<AddSchedule ScheduleWidthClass={ScheduleWidthClass} Schedule_date_test={props.Schedule_date_test} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></AddSchedule>)
+        }
+    }
+    //DetailSchedule 추가
+    const show_hide_Datail_plan = (OnOff: boolean) => {
+        if (OnOff) {
+            setdetailplanComponent(<DetailSchedule show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff} ScheduleWidthClass={ScheduleWidthClass} settingWidthClass={settingWidthClass} detailPlanListIndex={detailPlanListIndex} Schedule_date_test={props.Schedule_date_test} planList={planList}></DetailSchedule>);
+        } else {
+            setdetailplanComponent(<></>)
+        }
+    }
+
     //초기 마운트시
     //*필요 초기 렌더링시 파이어베이스에서 데이터 끌고와서 setPlanList에 저장해야함
     useEffect(() => {
@@ -180,41 +201,28 @@ function Schedule(props: Class) {
         )
     }, []);
 
-    //모드 상황에 따라 컴포넌트 바꾸기
-    const ChangeplanComponent = (): void => {
-        if (planListMode === 'READ') {
-            setplanComponent(<ScheduleList save_Update_Index={save_Update_Index} onDeleteList={onDeleteList} ChangeplanMode={ChangeplanMode} planList={planList} show_hide_Datail_plan_OnOff={show_hide_Datail_plan_OnOff}></ScheduleList>)
-        } else if (planListMode === 'UPDATE') {
-            setplanComponent(<UpdateSchedule Schedule_date_test={props.Schedule_date_test} useUpdate_PlanList_Index={useUpdate_PlanList_Index} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></UpdateSchedule>)
-        } else {
-            setplanComponent(<AddSchedule Schedule_date_test={props.Schedule_date_test} ChangeplanMode={ChangeplanMode} onUpdatePlanList={onUpdatePlanList} planList={planList}></AddSchedule>)
-        }
-    }
-    //DetailSchedule 추가
-    const show_hide_Datail_plan = (OnOff: boolean) => {
-        if (OnOff) {
-            setdetailplanComponent(<DetailSchedule settingWidthClass={settingWidthClass} detailPlanListIndex={detailPlanListIndex} Schedule_date_test={props.Schedule_date_test} planList={planList}></DetailSchedule>);
-        } else {
-            setdetailplanComponent(<></>)
-        }
-    }
-
     //모드변경
     useEffect(() => {
-        ChangeplanComponent()
+        ChangeplanComponent();
     }, [planListMode, planList, useUpdate_PlanList_Index])
 
     useEffect(() => {
-        show_hide_Datail_plan(detailPlanListMode)
+        show_hide_Datail_plan(detailPlanListMode);
     }, [detailPlanListMode, detailPlanListIndex])
 
     useEffect(()=>{
-        show_hide_Datail_plan(detailPlanListMode)
+        show_hide_Datail_plan(detailPlanListMode);
     },[planList])
     useEffect(()=>{
+        setScheduleWidthClass(false);
         show_hide_Datail_plan_OnOff(false);
     },[props.Schedule_date_test])
 
+    useEffect(()=>{
+        ChangeplanComponent();
+        show_hide_Datail_plan(detailPlanListMode);
+    },[ScheduleWidthClass])
+        
     useEffect(()=>{
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;

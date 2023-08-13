@@ -27,6 +27,50 @@ $SubColorWhite:#ffffff;
     font-size: 0.6em;
 }
 
+@mixin ScheduleAddUpdate(){
+    position: absolute;
+    bottom: 0;
+    
+    width: calc(100% - 2px);
+
+    padding: 10px;
+    border: 0;
+
+    background: $MainColorGreen;
+    color: $SubColorWhite;
+
+    display: flex;
+    justify-content: center;
+
+    cursor: pointer;
+
+    &:hover {
+        background: $HoverGreenColor;
+    }
+}
+
+@mixin ScheduleTitle(){
+    border: 0;
+    border-bottom: 1px solid $PointColorGray;
+
+    background: $MainColorBlue;
+    color: $SubColorWhite;
+
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: 700;
+    font-size: 1.3em;
+}
+@mixin ScheduleWidth750Title(){
+    text-align: start;
+    font-size: 1em;
+
+    display: flex;
+    align-items: center;
+}
+
 @mixin disFlexJustifyAlign(){
     display: flex;
     justify-content: center;
@@ -36,4 +80,27 @@ $SubColorWhite:#ffffff;
 @mixin WH($width,$height){
     width:$width;
     height:$height;
+}
+
+@mixin cancleBtn(){
+    position: absolute;
+    top: 22.5px;
+    right: 0;
+
+    transform: translate(-10px, -50%);
+
+    @include WH(30px,30px);
+
+    border: 0;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    background: $MainColorGreen;
+    font-size: 0.8em;
+
+    &:hover{
+        background: $HoverGreenColor;
+        color: $SubColorWhite;
+    }
 }

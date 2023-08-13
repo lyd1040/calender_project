@@ -6,6 +6,7 @@ type Schedule_list_props = {
     ChangeplanMode(mode: string): void;
     onDeleteList(deleteIndex: number): void;
     planList: planListType[];
+    ScheduleWidthClass:boolean;
     save_Update_Index(Update_Index: number): void;
 }
 type planListType = {
@@ -18,6 +19,7 @@ type planListType = {
 
 function ScheduleList(props: Schedule_list_props) {
 
+    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
     const [PlanList, setPlanList] = useState<JSX.Element[]>([]);
     const [pagingBtn_List, setpagingBtn_List] = useState<JSX.Element[]>([]);
 
@@ -83,8 +85,16 @@ function ScheduleList(props: Schedule_list_props) {
         settingPagingBtn();
     }, [PlanList, props.planList])
 
+    useEffect(()=>{
+        if(props.ScheduleWidthClass===true){
+            setMediaWidthClass('MediaWidth');
+        }else{
+            setMediaWidthClass('');
+        }
+    },[props.ScheduleWidthClass])
+
     return (
-        <div className="plan_list_wrap">
+        <div className={`plan_list_wrap ${MediaWidthClass}`}>
             <h3>일정목록</h3>
 
             <ul className="plan_list">

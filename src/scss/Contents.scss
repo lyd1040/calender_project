@@ -1,5 +1,6 @@
 @import './VarMixin';
 .Contents{
+    position: relative;
     @include WH(100%,100%);
 
     display: flex;

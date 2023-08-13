@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import { db } from '../../../../../firebase';
 import { ref, get, set } from 'firebase/database';
 import '../../../../../css/AddSchedule.css'
@@ -11,6 +11,7 @@ type planListType = {
     time: string
 }
 type AddSchedule_props = {
+    ScheduleWidthClass: boolean;
     onUpdatePlanList(data: planListType[]): void;
     ChangeplanMode(mode: string): void;
     planList: planListType[];
@@ -23,6 +24,7 @@ type Schedule_date_test_type = {
     date_text: number;
 }
 function AddSchedule(props: AddSchedule_props) {
+    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
 
     const onAddPlanList = (): void | boolean => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
@@ -185,8 +187,16 @@ function AddSchedule(props: AddSchedule_props) {
         endTime.value = `23:59`;
     }, [])
 
+    useEffect(()=>{
+        if(props.ScheduleWidthClass===true){
+            setMediaWidthClass('MediaWidth');
+        }else{
+            setMediaWidthClass('');
+        }
+    },[props.ScheduleWidthClass])
+
     return (
-        <div id="AddSchedule" className="AddSchedule">
+        <div id="AddSchedule" className={`AddSchedule ${MediaWidthClass}`}>
             <h3>일정추가</h3>
             <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="AddSchedule_center">

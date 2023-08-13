@@ -197,7 +197,7 @@ function SignUp(props: SignUpType) {
                 }
             }
             if (emailValidation() === false) {
-                alert('중복된 이메일입니다.');
+                alert('이메일을 다시 입력해주세요.');
                 props.onchangeLoadingMode(false);
                 return false;
             }

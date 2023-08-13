@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import '../../../../../css/updateSchedule.css'
 import { db } from '../../../../../firebase';
 import { ref, get, update } from 'firebase/database';
@@ -6,6 +6,7 @@ import { ref, get, update } from 'firebase/database';
 type UpdateScheduleType = {
     onUpdatePlanList(data: planListType[]): void; //Update Component에서는 Update로 활용할것
     ChangeplanMode(mode: string): void;
+    ScheduleWidthClass:boolean;
     planList: planListType[];
     useUpdate_PlanList_Index: number;
     Schedule_date_test: Schedule_date_test_type;
@@ -25,6 +26,8 @@ type Schedule_date_test_type = {
 }
 
 function UpdateSchedule(props: UpdateScheduleType) {
+    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
+
     const onUpdatePlanList = (): void | boolean => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
         const content_text: HTMLInputElement | null = document.getElementById('content_text') as HTMLInputElement;
@@ -189,8 +192,17 @@ function UpdateSchedule(props: UpdateScheduleType) {
                 endTime.value = data[props.useUpdate_PlanList_Index - 1].time.split(' ~ ')[1];
             })
     }, [])
+
+    useEffect(()=>{
+        if(props.ScheduleWidthClass===true){
+            setMediaWidthClass('MediaWidth');
+        }else{
+            setMediaWidthClass('');
+        }
+    },[props.ScheduleWidthClass])
+
     return (
-        <div id="UpdateSchedule" className="UpdateSchedule">
+        <div id="UpdateSchedule" className={`UpdateSchedule ${MediaWidthClass}`}>
             <h2>일정수정</h2>
             <button className="cancleBtn" onClick={() => { props.ChangeplanMode('READ'); }}><i className="fa-solid fa-x"></i></button>
             <div className="UpdateSchedule_center">

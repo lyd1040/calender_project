@@ -1,5 +1,6 @@
 @import './VarMixin';
 .DetailSchedule {
+    position: relative;
     visibility: hidden;
     opacity: 0;
 
@@ -17,18 +18,7 @@
 
         h3 {
             @include WH(100%,45px);
-
-            border-bottom: 1px solid $PointColorGray;
-
-            background: $MainColorBlue;
-            color: $SubColorWhite;
-
-            padding: 10px;
-
-            text-align: center;
-
-            font-weight: 700;
-            font-size: 1.3em;
+            @include ScheduleTitle();
         }
     }
 
@@ -158,6 +148,10 @@
             }
         }
     }
+    
+    .DetailClose{
+        @include cancleBtn();
+    }
 }
 
 
@@ -166,6 +160,14 @@
         &.show {
             width: 50%;
             flex-direction: column;
+
+            h3{
+                @include ScheduleWidth750Title();
+            }
+
+            &.MediaWidth{
+                width: 100%;
+            }
         }
 
 
