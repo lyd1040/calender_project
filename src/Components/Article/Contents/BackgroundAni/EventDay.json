@@ -1,14 +1,14 @@
 [
     {
-        "EventName":"Children_Day",
-        "EventMD":"5-5"
+        "EventName": "Children_Day",
+        "EventMD": "5-5"
     },
     {
-        "EventName":"Halloween",
-        "EventMD":"10-31"
+        "EventName": "Halloween",
+        "EventMD": "10-31"
     },
     {
-        "EventName":"Cristmas",
-        "EventMD":"12-25"
+        "EventName": "Cristmas",
+        "EventMD": "12-25"
     }
 ]

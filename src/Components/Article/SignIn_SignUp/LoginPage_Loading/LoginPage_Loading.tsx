@@ -1,41 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import '../../../../css/LoginPage_Loading.css'
+import lottie, { AnimationItem } from 'lottie-web';
 
 function LoginPage_Loading() {
-    const [LoadingPoints, setLoadingPoints] = useState<JSX.Element[]>([]);
-    let [AddClass, setAddClass] = useState<number>(0);
-    const Loading = () => {
-        let spanlength = 5;
-        let Points: JSX.Element[] = [];
+    const [anim, setAnim] = useState<AnimationItem | null>(null);
+    const Loading = async (): Promise<void> => {
 
-        const spanStylearr: React.CSSProperties[] = []
-        for (let x = 0; x < spanlength; x++) {
-            spanStylearr.push({
-                width: '20px',
-                height: '20px',
-                borderRadius: '50%',
-                border: '1px solid #fff',
-                animationDelay: `calc(${x} * 1s)`,
-            })
-        }
+        let Points: HTMLDivElement = document.getElementById('LoginLoading') as HTMLDivElement;
 
-        for (let x = 0; x < spanlength; x++) {
-            Points.push(
-                <span key={'LoadingAnimation' + x} className='spans' style={spanStylearr[x]}></span>
-            )
+        try {
+            console.log('a');
+            const response = await fetch('lottieanimations/Loading.json');
+            const animationData = await response.json();
+            setAnim(lottie.loadAnimation({
+                container: Points,
+                animationData: animationData,
+                loop: true,
+                autoplay: true,
+                renderer: 'svg', // 선택한 렌더러 (svg, canvas, html 등)
+                rendererSettings: {
+                    preserveAspectRatio: 'xMidYMid slice',
+                },
+            }));
+        } catch (error) {
+            console.error('Failed to fetch animation data', error);
         }
-        setLoadingPoints(Points)
     }
 
     useEffect(() => {
         Loading();
+
+        return () => {
+            if (anim) {
+                anim.destroy();
+            }
+        };
     }, [])
     return (
         <div id="LoginPage_Loading_wrap" className='LoginPage_Loading_wrap'>
-            <div>
-                {LoadingPoints}
-            </div>
-            <p className='LoadingText'>Loading...</p>
+            <div id="LoginLoading" className='LoginLoading' />
         </div>
     )
 }

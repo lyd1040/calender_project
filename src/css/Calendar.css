@@ -162,7 +162,7 @@
   }
   .Calendar .year_month_date .yearwrap span,
   .Calendar .year_month_date .monthwrap span {
-    font-size: 1em;
+    font-size: 0.9em;
   }
   .Calendar table {
     width: 100%;

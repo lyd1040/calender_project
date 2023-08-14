@@ -12,8 +12,8 @@ function App() {
     NaN //date
   ])
   const [mode, setMode] = useState<string>('WELCOME');
-  const [HeaderElement,setHeaderElement] = useState<JSX.Element>();
-  const [FooterElement,setFooterElement] = useState<JSX.Element>();
+  const [HeaderElement, setHeaderElement] = useState<JSX.Element>();
+  const [FooterElement, setFooterElement] = useState<JSX.Element>();
 
   //모드 바꾸기
   const onChangeMode = (data: number, year?: number, month?: number, date?: number): void => {
@@ -34,23 +34,23 @@ function App() {
     setLoginState(state);
   }
 
-  const setHeaderFooterElement = () =>{
+  const setHeaderFooterElement = () => {
     setHeaderElement(<Header Mode={mode} onChangeMode={onChangeMode} onChangeMode2={onChangeMode} header_YMD={header_YMD} onChangeLoginState={onChangeLoginState} LoginState={LoginState}></Header>)
     setFooterElement(<Article Mode={mode} onChangeMode={onChangeMode} header_YMD={header_YMD} onChangeMode2={onChangeMode} onChangeLoginState={onChangeLoginState}></Article>)
   }
 
   //초기 렌더시 한번만 실행
   useEffect(() => {
-/* 
-    let nowDate = new Date();
-    set_header_YMD([nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate()])
-*/
+    /* 
+        let nowDate = new Date();
+        set_header_YMD([nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate()])
+    */
     setHeaderFooterElement();
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     setHeaderFooterElement();
-  },[header_YMD,LoginState])
+  }, [header_YMD, LoginState])
 
   useEffect(() => {
     set_header_YMD([header_YMD[0], header_YMD[1], header_YMD[2]])

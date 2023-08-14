@@ -26,14 +26,14 @@ function Contents(props: ContnetsProps) {
         date_text: NaN,
     })
     const [BackgroundElement, setBackgroundElement] = useState<JSX.Element>()
-/* 
-    const onChangeMode = (id: number, year: number, month: number, date_text: number): void => {
-        set_Schedule_date_test({ year: year, month: month, date_text: date_text });
-        props.onChangeMode(id, year, month, date_text)
-    }
- */
+    /* 
+        const onChangeMode = (id: number, year: number, month: number, date_text: number): void => {
+            set_Schedule_date_test({ year: year, month: month, date_text: date_text });
+            props.onChangeMode(id, year, month, date_text)
+        }
+     */
 
-    const bgChangeFromCalendar=(year: number, month: number, date_text: number)=>{
+    const bgChangeFromCalendar = (year: number, month: number, date_text: number) => {
         set_Schedule_date_test({ year: year, month: month, date_text: date_text });
     }
 
@@ -44,7 +44,7 @@ function Contents(props: ContnetsProps) {
 
 
     useEffect(() => {
-        setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD}  Schedule_date_test={Schedule_date_test}></BackgroundAni>);
+        setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD} Schedule_date_test={Schedule_date_test}></BackgroundAni>);
         setScheduleComponents(null);
     }, [])
 
@@ -67,12 +67,12 @@ function Contents(props: ContnetsProps) {
         }
     }, [showHideSchedule, Schedule_date_test])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (showHideSchedule === true) {
             setScheduleComponents(<Schedule SHclass={showHideSchedule} Schedule_date_test={Schedule_date_test}></Schedule>)
             setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD} Schedule_date_test={Schedule_date_test}></BackgroundAni>);
         }
-    },[Schedule_date_test])
+    }, [Schedule_date_test])
 
     return (
         <section className="Contents" id="Contents">
