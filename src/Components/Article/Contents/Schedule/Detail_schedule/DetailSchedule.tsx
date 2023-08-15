@@ -150,7 +150,13 @@ function DetailSchedule(props: DetailScheduleProps) {
                     {DetaileTimeLine_list}
                 </div>
             </div>
-            <button type="button" className="DetailClose" onClick={()=>{props.show_hide_Datail_plan_OnOff(false); props.settingWidthClass(false);}}><i className="fa-solid fa-x"></i></button>
+            <button type="button" className="DetailClose" onClick={()=>{
+                setDetailSchedule('DetailSchedule');
+                setTimeout(()=>{
+                    props.show_hide_Datail_plan_OnOff(false); 
+                    props.settingWidthClass(false);
+                },300);
+            }}><i className="fa-solid fa-x"></i></button>
         </div>
     )
 }

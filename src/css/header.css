@@ -1,3 +1,4 @@
+@charset "UTF-8";
 header {
   position: relative;
   border-bottom: 1px solid #808080;
@@ -23,8 +24,26 @@ header .headerYMD {
   justify-content: center;
   gap: 30px;
 }
+header .headerYMD input {
+  background: #0097ff;
+  color: #fff;
+}
+header .headerYMD input[type=date] {
+  /* Chrome 및 Safari (WebKit 엔진 기반) */
+  /* Firefox */
+  /* Edge 및 Internet Explorer */
+}
+header .headerYMD input[type=date]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+header .headerYMD input[type=date]::-moz-calendar-picker-indicator {
+  filter: invert(1);
+}
+header .headerYMD input[type=date]::-ms-clear {
+  filter: invert(1);
+}
 header .headerYMD a {
-  color: #f2eddb;
+  color: #fff;
 }
 header .headerYMD button {
   padding: 5px;

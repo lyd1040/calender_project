@@ -1,13 +1,15 @@
 @import './VarMixin';
 .DetailSchedule {
+    width: 70%;
+
     position: relative;
     visibility: hidden;
     opacity: 0;
 
-    transition: 0.5s;
+    transition: 0.3s;
 
     &.show {
-        width: 70%;
+        
 
         border-radius: 5px;
 
@@ -15,11 +17,11 @@
 
         visibility: visible;
         opacity: 1;
+    }
 
-        h3 {
-            @include WH(100%,45px);
-            @include ScheduleTitle();
-        }
+    h3{
+        @include ScheduleTitle();
+        @include WH(100%,45px);
     }
 
     .DetailPlanWrap {
@@ -157,20 +159,19 @@
 
 @media screen and (max-width:750px) {
     .DetailSchedule {
+        width: 50%;
+        flex-direction: column;
         &.show {
-            width: 50%;
-            flex-direction: column;
-
-            h3{
-                @include ScheduleWidth750Title();
-            }
+            
 
             &.MediaWidth{
                 width: 100%;
             }
         }
 
-
+        h3{
+            @include ScheduleWidth750Title();
+        }
 
         .DetailPlanWrap {
             .DetailPlan ul li p {

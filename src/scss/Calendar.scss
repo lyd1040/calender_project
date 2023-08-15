@@ -180,6 +180,9 @@
     .Calendar {
         &.hide {
             transform: translate(0, 100%);
+            .year_month_date {
+                margin-top: 70px;
+            }
 
             .show_calendar {
                 position: absolute;
@@ -221,7 +224,7 @@
         }
 
         .show_calendar {
-            top: -20%;
+            top: -95px;
             left: 50%;
 
             transform: translateX(-50%) rotate(-90deg);

@@ -34,8 +34,28 @@ header {
         justify-content: center;
         gap: 30px;
 
-        a {
-            color: $MainColorSal;
+        input{
+            background: $MainColorBlue;
+            color: #fff;
+            &[type="date"]{
+                /* Chrome 및 Safari (WebKit 엔진 기반) */
+                &::-webkit-calendar-picker-indicator{
+                    filter: invert(1);
+                }
+                /* Firefox */
+                &::-moz-calendar-picker-indicator{
+                    filter: invert(1);
+                }
+                /* Edge 및 Internet Explorer */
+                &::-ms-clear{
+                    filter: invert(1);
+                }
+
+            }
+        }
+
+        a{
+            color: #fff;
         }
 
         button{
