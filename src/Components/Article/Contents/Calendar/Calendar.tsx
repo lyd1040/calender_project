@@ -180,6 +180,10 @@ function Calendar(props: ContnetsProps) {
     //td생성
     const create_td = (tr_idx: number, tr_list_idx: number, year: number, month: number): JSX.Element[] => {
         const date_td: JSX.Element[] = [];
+        const DateToday: Date = new Date();
+        const TodayYear: number = DateToday.getFullYear();
+        const TodayMonth: number = DateToday.getMonth() + 1;
+        const TodayDate: number = DateToday.getDate();
         //현재 날짜의 1일의 요일 인덱스 ex(2023-07-01) => 토요일(index=6)
         const frist_week_first_day: number = new Date(year, month, 1).getDay();
         //현재 날짜의 마지막 일
@@ -189,6 +193,7 @@ function Calendar(props: ContnetsProps) {
         let date_text: number = Number(localStorage.getItem('date_text')); //날짜
         let month_box_length = Number(localStorage.getItem('month_box_length'));
 
+        let AddClassToday = '';
         //날짜 텍스트 그리기
         if (tr_idx === 0) {
             for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
@@ -199,9 +204,12 @@ function Calendar(props: ContnetsProps) {
                 } else {
                     Aclass = '';
                 }
+                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
+                else { AddClassToday = ''; }
+
                 if (x >= frist_week_first_day) {
                     date_td.push(
-                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                        <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                             <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
@@ -218,8 +226,12 @@ function Calendar(props: ContnetsProps) {
                 } else {
                     Aclass = '';
                 }
+
+                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
+                else { AddClassToday = ''; }
+
                 date_td.push(
-                    <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                    <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                         <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                     </td>
                 );
@@ -233,9 +245,13 @@ function Calendar(props: ContnetsProps) {
                 } else {
                     Aclass = '';
                 }
+
+                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
+                else { AddClassToday = ''; }
+
                 if (date_text <= last_week_last_date) {
                     date_td.push(
-                        <td key={'date_text' + date_text + x} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
+                        <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
                             <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
                         </td>
                     );
