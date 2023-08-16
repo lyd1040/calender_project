@@ -80,7 +80,7 @@
   }
   .LoginPage_Calendar_wrap > div .LoginCalendar {
     padding-top: 5px;
-    line-height: 4vh;
+    line-height: 3.6vh;
     /* 요일 */
   }
   .LoginPage_Calendar_wrap > div .LoginCalendar .LoginCalendarDays {
