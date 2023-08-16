@@ -114,10 +114,10 @@ function Schedule(props: Class) {
         let select_date_text: number | string = props.Schedule_date_test.date_text;
         let select_YMD: string;
 
-        if (select_month <= 10) {
+        if (select_month < 10) {
             select_month = '0' + select_month;
         }
-        if (select_date_text <= 10) {
+        if (select_date_text < 10) {
             select_date_text = '0' + select_date_text;
         }
         select_YMD = `${select_year}-${select_month}-${select_date_text}`;
