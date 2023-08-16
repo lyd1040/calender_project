@@ -121,7 +121,7 @@ function Calendar(props: ContnetsProps) {
     }
 
     //년도, 월, 일 이전화살표 클릭 이벤트 핸들러
-    const next_click_evt =(event: React.MouseEvent<HTMLButtonElement>): void => {
+    const next_click_evt = (event: React.MouseEvent<HTMLButtonElement>): void => {
         const target = event.target as HTMLElement;
         if (target.classList.contains('yearNext')) {
             set_year_month_date_text([
@@ -171,7 +171,7 @@ function Calendar(props: ContnetsProps) {
         return date_tr;
     }
     //해당 월이 몇주인지 계산(필요한 데이터: 연도, 월, 요일(인덱스))
-    const date_separation =(year: number, month: number): number => {
+    const date_separation = (year: number, month: number): number => {
         let week_calc = new Date(year, month, 1);
         let month_last_date = new Date(year, month + 1, 0);
         return Math.ceil((week_calc.getDay() + month_last_date.getDate()) / 7);

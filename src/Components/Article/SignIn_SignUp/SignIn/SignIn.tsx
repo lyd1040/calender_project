@@ -77,7 +77,7 @@ function SignIn(props: SignInType) {
                     })
                     .then((data: boolean) => {
                         if (data === true) {
-                            GoMainPage('/');
+                            GoMainPage('/Calendar');
                         }
                     })
 

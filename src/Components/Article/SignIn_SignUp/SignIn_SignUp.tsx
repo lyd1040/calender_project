@@ -20,6 +20,18 @@ function SignIn_SignUp(props: SignIn_SignUpType) {
         setSignIn_SignUp_class(CHSG);
     }
 
+    //Gnb 감추기
+    const headerCheck = () => {
+        const gnb: Element | null = document.querySelector('.gnbul');
+
+        if (gnb) {
+            gnb.classList.remove('show');
+        }
+    }
+    useEffect(() => {
+        headerCheck();
+    }, [])
+
     useEffect(() => {
         let SignIn_SignUp_date_time_3dcard: HTMLDivElement = document.querySelector('.SignIn_SignUp_date_time_3dcard') as HTMLDivElement;
         if (LoadingState === true) {
@@ -36,7 +48,7 @@ function SignIn_SignUp(props: SignIn_SignUpType) {
                     <LoginPage_Loading />
                     <LoginPage_Calendar />
                 </div>
-                
+
                 <div id="SignIn_SignUp_comp_wrap" className="SignIn_SignUp_comp_wrap">
                     <div id="Sign_show_hide" className={`Sign_show_hide ${SignIn_SignUp_class}`}>
                         <SearchIdPw showSignUpFunction={showSignUpFunction} SignIn_SignUp_class={SignIn_SignUp_class}></SearchIdPw>

@@ -1,4 +1,5 @@
 @import './VarMixin';
+
 article {
     position: relative;
     height: calc(100vh - 70px);
@@ -9,10 +10,4 @@ article {
     background: $MainColorSal;
 
     overflow: hidden;
-}
-
-@media screen and (max-width:750px) {
-    article{
-        padding-bottom: 70px;
-    }
 }

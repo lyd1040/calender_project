@@ -42,8 +42,18 @@ function Contents(props: ContnetsProps) {
         setShowHideSchedule(!showHideSchedule);
     }
 
+    //Gnb 감추기
+    const headerCheck = () => {
+        const gnb: Element | null = document.querySelector('.gnbul');
+
+        if (gnb) {
+            gnb.classList.remove('show');
+        }
+    }
+
 
     useEffect(() => {
+        headerCheck();
         setBackgroundElement(<BackgroundAni header_YMD={props.header_YMD} Schedule_date_test={Schedule_date_test}></BackgroundAni>);
         setScheduleComponents(null);
     }, [])

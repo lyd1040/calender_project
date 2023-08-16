@@ -17,7 +17,7 @@ function BackgroundAni(props: BackgroundAniType) {
 
     const [LottieElement, setLottieElement] = useState<JSX.Element>(<div id="lottie-container" className='lottie-container' />)
     const [anim, setAnim] = useState<AnimationItem | null>(null);
-    const [EventPath, setEventPath] = useState<string>('./lottieanimations/Halloween.json');
+    const [EventPath, setEventPath] = useState<string>('/Calendar/lottieanimations/Halloween.json');
 
     const LottieDataSetting = async () => {
         const lottie_container: HTMLDivElement = document.getElementById('lottie-container') as HTMLDivElement;
@@ -47,7 +47,7 @@ function BackgroundAni(props: BackgroundAniType) {
             let EventDayArray: string[] = EventDays[x].EventMD.split('-');
 
             if (Number(EventDayArray[0]) === props.Schedule_date_test.month && Number(EventDayArray[1]) === props.Schedule_date_test.date_text) {
-                setEventPath(`./lottieanimations/${EventDays[x].EventName}.json`)
+                setEventPath(`/Calendar/lottieanimations/${EventDays[x].EventName}.json`)
                 LottieDataSetting();
                 break;
             }

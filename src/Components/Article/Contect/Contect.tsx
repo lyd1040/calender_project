@@ -3,7 +3,6 @@ import '../../../css/Contect.css'
 import { fbdb } from '../../../firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom'
-import { async } from "q";
 
 function Contect() {
     const navigate = useNavigate();
@@ -94,8 +93,16 @@ function Contect() {
         return false;
     }
 
+    const headerCheck = () => {
+        const gnb: Element | null = document.querySelector('.gnbul');
+
+        if (gnb) {
+            gnb.classList.remove('show');
+        }
+    }
 
     useEffect(() => {
+        headerCheck();
         draw_Contect_input_label();
     }, [])
     return (
@@ -113,7 +120,7 @@ function Contect() {
 
                 <div id="btn_wrap">
                     <div>
-                        <button type="button" onClick={() => { navigate("/"); }}>홈</button>
+                        <button type="button" onClick={() => { navigate("/Calendar"); }}>홈</button>
                         <button type="button" onClick={() => { sendContectContents(); }}>문의하기</button>
                     </div>
                 </div>

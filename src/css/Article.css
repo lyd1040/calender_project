@@ -9,10 +9,4 @@ article {
   overflow: hidden;
 }
 
-@media screen and (max-width: 750px) {
-  article {
-    padding-bottom: 70px;
-  }
-}
-
 /*# sourceMappingURL=Article.css.map */

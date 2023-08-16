@@ -32,8 +32,8 @@ function Nav(props: NavProps) {
             setLoginText("Login");
         }
         const gnb_name: JSX.Element[] = [<i className="fa-solid fa-calendar-days"></i>, <i className="fa-solid fa-user"></i>, <i className="fa-solid fa-address-book"></i>];
-        const gnb_path: string[] = ['/', 'SignIn_SignUp', 'Contect'];
-        const gnb_className: string[] = ['NavCalendar','NavSignIn','NavContect'];
+        const gnb_path: string[] = ['/Calendar/', 'Calendar/SignIn_SignUp', 'Calendar/Contect'];
+        const gnb_className: string[] = ['NavCalendar', 'NavSignIn', 'NavContect'];
 
         for (let x = 0; x < gnb_name.length; x++) {
             if ((x === 1 && sessionStorage.getItem('userUID') === null) || x !== 1) {
