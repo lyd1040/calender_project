@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { db } from '../../../../firebase';
+import { ref, get, set, remove } from 'firebase/database';
 import '../../../../css/Calendar.css'
 
 type ContnetsProps = {
@@ -8,6 +10,15 @@ type ContnetsProps = {
     changeSchedule: () => void
     onChangeMode: (id: number, year: number, month: number, date_text: number) => void; // 예시로 빈 함수 타입 설정
 };
+
+type ScheduleContents = {
+    birth: true;
+    exercise: true;
+    just: true;
+    shopping: true;
+    travel: true;
+
+}
 
 
 function Calendar(props: ContnetsProps) {
@@ -193,68 +204,34 @@ function Calendar(props: ContnetsProps) {
         let date_text: number = Number(localStorage.getItem('date_text')); //날짜
         let month_box_length = Number(localStorage.getItem('month_box_length'));
 
-        let AddClassToday = '';
+        let AddClassToday: string = '';
         //날짜 텍스트 그리기
-        if (tr_idx === 0) {
-            for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
-                if ((x + 1) % 7 === 0) {
-                    Aclass = 'saturday';
-                } else if (x % 7 === 0) {
-                    Aclass = 'sunday';
-                } else {
-                    Aclass = '';
-                }
-                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
-                else { AddClassToday = ''; }
+        for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
+            if ((x + 1) % 7 === 0) {
+                Aclass = 'saturday';
+            } else if (x % 7 === 0) {
+                Aclass = 'sunday';
+            } else {
+                Aclass = '';
+            }
+            if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
+            else { AddClassToday = ''; }
 
+
+            if (tr_idx === 0) {
                 if (x >= frist_week_first_day) {
-                    date_td.push(
-                        <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
-                        </td>
-                    );
+                    date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                    date_text++;
                 } else {
                     date_td.push(<td key={'date_text' + date_text + x}></td>)
                 }
-            }
-        } else if (tr_idx <= tr_list_idx - 2) {
-            for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
-                if ((x + 1) % 7 === 0) {
-                    Aclass = 'saturday';
-                } else if (x % 7 === 0) {
-                    Aclass = 'sunday';
-                } else {
-                    Aclass = '';
-                }
-
-                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
-                else { AddClassToday = ''; }
-
-                date_td.push(
-                    <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                        <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
-                    </td>
-                );
-            }
-        } else {
-            for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
-                if ((x + 1) % 7 === 0) {
-                    Aclass = 'saturday';
-                } else if (x % 7 === 0) {
-                    Aclass = 'sunday';
-                } else {
-                    Aclass = '';
-                }
-
-                if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
-                else { AddClassToday = ''; }
-
+            } else if (tr_idx <= tr_list_idx - 2) {
+                date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                date_text++;
+            } else {
                 if (date_text <= last_week_last_date) {
-                    date_td.push(
-                        <td key={'date_text' + date_text + x} className={AddClassToday} onClick={() => { hide_calendar(year, month, (x + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (x + 1) - frist_week_first_day); changeSchedule(); }}>
-                            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text++}</a>
-                        </td>
-                    );
+                    date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                    date_text++;
                 } else {
                     date_td.push(<td key={'date_text' + date_text + x}></td>)
                 }
@@ -273,12 +250,113 @@ function Calendar(props: ContnetsProps) {
         return date_td;
     }
 
+    //날짜(td) 세팅
+    const [stickerWrapElement, setStickerWrapElement] = useState<JSX.Element>(<></>);
+    const DataSetting = (date_text: number, AddClassToday: string, year: number, month: number, idx: number, frist_week_first_day: number, Aclass: string) => {
+
+        let stickerWrapElementClass: string[];
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+
+        if (save_UID !== null) { dataRef = ref(db, save_UID); }
+        else { dataRef = ref(db, 'test'); }
+
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return data;
+                }
+            })
+            .then((data) => {
+                for (let x = 0; x < data.length; x++) {
+                    const dataYMDsplit: string[] = data[x].date.split(" ~ ");
+                    const dataSE_YMD: Date[] = [new Date(dataYMDsplit[0]), new Date(dataYMDsplit[1])];
+                    const nowDate: Date = new Date(year, month, date_text);
+                    if (BooleanYMD(dataSE_YMD, nowDate) === true && ScheduleContentsLength(data[x].schedulecontents) > 1) {
+
+                        stickerWrapElementClass = ScheduleAddClass(data[x].schedulecontents);
+
+                        for (let y = 0; y < ScheduleContentsLength(data[x].schedulecontents); y++) {
+                            setStickerWrapElement(
+                                <div className="sticker_wrap">
+                                    <div className={`sticker${stickerWrapElementClass[y]}`}></div>
+                                </div>
+                            )
+                        }
+                    }
+                }
+
+            })
+        return <td key={'date_text' + date_text + idx} className={AddClassToday} onClick={() => { hide_calendar(year, month, (idx + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (idx + 1) - frist_week_first_day); changeSchedule(); }}>
+            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text}</a>
+            {stickerWrapElement}
+        </td>
+
+    }
+
+
+    //년 월 일 같은지 봐주는 함수
+    const BooleanYMD = (dataSE_YMD: Date[], nowDate: Date): boolean => {
+        if (dataSE_YMD[0].getFullYear() === nowDate.getFullYear() && nowDate.getFullYear() === dataSE_YMD[1].getFullYear()) {
+            if (dataSE_YMD[0].getMonth() === nowDate.getMonth() && nowDate.getMonth() === dataSE_YMD[1].getMonth()) {
+                if (dataSE_YMD[0].getDate() === nowDate.getDate() && nowDate.getDate() === dataSE_YMD[1].getDate()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    const ScheduleAddClass = (data: ScheduleContents): string[] => {
+        const dataArr: string[] = [];
+        if (data.birth === true) {
+            dataArr.push('birth');
+        }
+        if (data.exercise === true) {
+            dataArr.push('exercise');
+        }
+        if (data.just === true) {
+            dataArr.push('just');
+        }
+        if (data.shopping === true) {
+            dataArr.push('shopping');
+        }
+        if (data.travel === true) {
+            dataArr.push('travel');
+        }
+
+        return dataArr;
+    }
+
+    //일정 개수 세주는 함수
+    const ScheduleContentsLength = (data: ScheduleContents): number => {
+        let count: number = 0;
+
+        if (data.birth === true) {
+            count++;
+        }
+        if (data.exercise === true) {
+            count++;
+        }
+        if (data.just === true) {
+            count++;
+        }
+        if (data.shopping === true) {
+            count++;
+        }
+        if (data.travel === true) {
+            count++;
+        }
+        return count;
+    }
+
 
     // 최초 렌더링 시에만 함수를 호출하여 초기값 설정후 출력
     useEffect(() => {
         set_print_year_month_date(year_month_date_printer(year_month_date_text));
         setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
-    }, []);
+    }, [stickerWrapElement]);
 
     //업데이트
     useEffect(() => {

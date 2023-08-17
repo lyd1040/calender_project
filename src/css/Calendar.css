@@ -148,6 +148,23 @@
   border: 2px solid;
   border-radius: 50px;
 }
+.Calendar table tbody tr td .sticker_wrap {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 36px);
+  border: 1px solid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.Calendar table tbody tr td .sticker_wrap div {
+  border: 1px solid;
+  width: 50%;
+  min-width: 8px;
+  max-width: 50px;
+}
 .Calendar .show_calendar {
   position: absolute;
   top: 50%;
