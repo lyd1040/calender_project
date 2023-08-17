@@ -154,16 +154,34 @@
   left: 0;
   width: 100%;
   height: calc(100% - 36px);
-  border: 1px solid;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 .Calendar table tbody tr td .sticker_wrap div {
-  border: 1px solid;
   width: 50%;
   min-width: 8px;
   max-width: 50px;
+}
+.Calendar table tbody tr td .sticker_wrap div.stickerbirth {
+  background: url(/public/imgs/brith.png) no-repeat;
+  background-size: contain;
+}
+.Calendar table tbody tr td .sticker_wrap div.stickerexercise {
+  background: url(/public/imgs/exercise.png) no-repeat;
+  background-size: contain;
+}
+.Calendar table tbody tr td .sticker_wrap div.stickerjust {
+  background: url(/public/imgs/just.png) no-repeat;
+  background-size: contain;
+}
+.Calendar table tbody tr td .sticker_wrap div.stickershopping {
+  background: url(/public/imgs/shopping.png) no-repeat;
+  background-size: contain;
+}
+.Calendar table tbody tr td .sticker_wrap div.stickertravel {
+  background: url(/public/imgs/travel.png) no-repeat;
+  background-size: contain;
 }
 .Calendar .show_calendar {
   position: absolute;

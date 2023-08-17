@@ -11,6 +11,14 @@ type ContnetsProps = {
     onChangeMode: (id: number, year: number, month: number, date_text: number) => void; // 예시로 빈 함수 타입 설정
 };
 
+type UserInfoType = {
+    content:string,
+    date:string,
+    id:number,
+    schedulecontents:ScheduleContents,
+    time:string,
+    title:string
+}
 type ScheduleContents = {
     birth: true;
     exercise: true;
@@ -168,7 +176,7 @@ function Calendar(props: ContnetsProps) {
     }
 
     //날짜 테이블 생성 및 날짜 그리기
-    const date_print = (year: number, month: number): JSX.Element[] => {
+    const date_print = (data:UserInfoType[], year: number, month: number): JSX.Element[] => {
         localStorage.setItem('date_text', '1'); // 날짜 세기위한 카운트
         localStorage.setItem('month_box_length', '1');
 
@@ -176,7 +184,7 @@ function Calendar(props: ContnetsProps) {
         const date_separat = date_separation(year, month);
 
         for (let x = 0; x < date_separat; x++) {
-            date_tr.push(<tr key={'date_separat' + x}>{create_td(x, date_separat, year, month)}</tr>)
+            date_tr.push(<tr key={'date_separat' + x}>{create_td(data, x, date_separat, year, month)}</tr>)
         }
 
         return date_tr;
@@ -189,7 +197,7 @@ function Calendar(props: ContnetsProps) {
     }
 
     //td생성
-    const create_td = (tr_idx: number, tr_list_idx: number, year: number, month: number): JSX.Element[] => {
+    const create_td = (data:UserInfoType[], tr_idx: number, tr_list_idx: number, year: number, month: number): JSX.Element[] => {
         const date_td: JSX.Element[] = [];
         const DateToday: Date = new Date();
         const TodayYear: number = DateToday.getFullYear();
@@ -205,6 +213,13 @@ function Calendar(props: ContnetsProps) {
         let month_box_length = Number(localStorage.getItem('month_box_length'));
 
         let AddClassToday: string = '';
+
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
+
+        if (save_UID !== null) { dataRef = ref(db, save_UID); }
+        else { dataRef = ref(db, 'test'); }
+        
         //날짜 텍스트 그리기
         for (let x = (tr_idx * 7); x < (tr_idx * 7) + 7; x++) {
             if ((x + 1) % 7 === 0) {
@@ -217,20 +232,19 @@ function Calendar(props: ContnetsProps) {
             if (year === TodayYear && month + 1 === TodayMonth && date_text == TodayDate) { AddClassToday = 'today'; }
             else { AddClassToday = ''; }
 
-
             if (tr_idx === 0) {
                 if (x >= frist_week_first_day) {
-                    date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                    date_td.push(DataSetting(data, date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
                     date_text++;
                 } else {
                     date_td.push(<td key={'date_text' + date_text + x}></td>)
                 }
             } else if (tr_idx <= tr_list_idx - 2) {
-                date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                date_td.push(DataSetting(data, date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
                 date_text++;
             } else {
                 if (date_text <= last_week_last_date) {
-                    date_td.push(DataSetting(date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
+                    date_td.push(DataSetting(data, date_text, AddClassToday, year, month, x, frist_week_first_day, Aclass));
                     date_text++;
                 } else {
                     date_td.push(<td key={'date_text' + date_text + x}></td>)
@@ -251,48 +265,29 @@ function Calendar(props: ContnetsProps) {
     }
 
     //날짜(td) 세팅
-    const [stickerWrapElement, setStickerWrapElement] = useState<JSX.Element>(<></>);
-    const DataSetting = (date_text: number, AddClassToday: string, year: number, month: number, idx: number, frist_week_first_day: number, Aclass: string) => {
-
+    const DataSetting = (data:UserInfoType[], date_text: number, AddClassToday: string, year: number, month: number, idx: number, frist_week_first_day: number, Aclass: string) => {
+        let stickerWrapElement:JSX.Element[] = [];
         let stickerWrapElementClass: string[];
-        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
-        let dataRef;
+            
+        for (let x = 0; x < data.length; x++) {
+            const dataYMDsplit: string[] = data[x].date.split(" ~ ");
+            const dataSE_YMD: Date[] = [new Date(dataYMDsplit[0]), new Date(dataYMDsplit[1])];
+            const nowDate: Date = new Date(year, month, date_text);
+            if (BooleanYMD(dataSE_YMD, nowDate) === true && ScheduleContentsLength(data[x].schedulecontents) > 1) {
 
-        if (save_UID !== null) { dataRef = ref(db, save_UID); }
-        else { dataRef = ref(db, 'test'); }
+                stickerWrapElementClass = ScheduleAddClass(data[x].schedulecontents);
 
-        get(dataRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    return data;
+                for (let y = 0; y < stickerWrapElementClass.length; y++) {
+                    stickerWrapElement.push(<div className={`sticker${stickerWrapElementClass[y]}`}></div>)
                 }
-            })
-            .then((data) => {
-                for (let x = 0; x < data.length; x++) {
-                    const dataYMDsplit: string[] = data[x].date.split(" ~ ");
-                    const dataSE_YMD: Date[] = [new Date(dataYMDsplit[0]), new Date(dataYMDsplit[1])];
-                    const nowDate: Date = new Date(year, month, date_text);
-                    if (BooleanYMD(dataSE_YMD, nowDate) === true && ScheduleContentsLength(data[x].schedulecontents) > 1) {
-
-                        stickerWrapElementClass = ScheduleAddClass(data[x].schedulecontents);
-
-                        for (let y = 0; y < ScheduleContentsLength(data[x].schedulecontents); y++) {
-                            setStickerWrapElement(
-                                <div className="sticker_wrap">
-                                    <div className={`sticker${stickerWrapElementClass[y]}`}></div>
-                                </div>
-                            )
-                        }
-                    }
-                }
-
-            })
-        return <td key={'date_text' + date_text + idx} className={AddClassToday} onClick={() => { hide_calendar(year, month, (idx + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (idx + 1) - frist_week_first_day); changeSchedule(); }}>
-            <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text}</a>
-            {stickerWrapElement}
-        </td>
-
+            }
+        }
+        return  <td key={'date_text' + date_text + idx} className={AddClassToday} onClick={() => { hide_calendar(year, month, (idx + 1) - frist_week_first_day); props.bgChangeFromCalendar(year, month, (idx + 1) - frist_week_first_day); changeSchedule(); }}>
+                    <a href="/" className={Aclass} onClick={event => { event.preventDefault(); }}>{date_text}</a>
+                    <div className="sticker_wrap">
+                        {stickerWrapElement}
+                    </div>
+                </td>
     }
 
 
@@ -309,7 +304,9 @@ function Calendar(props: ContnetsProps) {
     }
 
     const ScheduleAddClass = (data: ScheduleContents): string[] => {
+        console.log(data.birth);
         const dataArr: string[] = [];
+
         if (data.birth === true) {
             dataArr.push('birth');
         }
@@ -354,16 +351,26 @@ function Calendar(props: ContnetsProps) {
 
     // 최초 렌더링 시에만 함수를 호출하여 초기값 설정후 출력
     useEffect(() => {
-        set_print_year_month_date(year_month_date_printer(year_month_date_text));
-        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
-    }, [stickerWrapElement]);
+        let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
+        let dataRef;
 
-    //업데이트
-    useEffect(() => {
-        set_print_year_month_date(year_month_date_printer(year_month_date_text));
-        setChange_date(date_print(year_month_date_text[0], year_month_date_text[1] - 1));
-        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+        if (save_UID !== null) { dataRef = ref(db, save_UID); }
+        else { dataRef = ref(db, 'test'); }
+
+        get(dataRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    return data;
+                }
+            })
+            .then((data)=>{
+                set_print_year_month_date(year_month_date_printer(year_month_date_text));
+                setChange_date(date_print(data, year_month_date_text[0], year_month_date_text[1] - 1));
+            })
+        
     }, [year_month_date_text]);
+
 
     return (
         <div id="Calendar" className='Calendar'>

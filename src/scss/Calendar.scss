@@ -184,17 +184,35 @@
 
                         @include WH(100%, calc(100% - 36px));
 
-                        border: 1px solid;
-
                         display: flex;
                         flex-wrap: wrap;
                         justify-content: center;
 
                         div {
-                            border: 1px solid;
                             width: 50%;
                             min-width: 8px;
                             max-width: 50px;
+
+                            &.stickerbirth{
+                                background: url(/public/imgs/brith.png) no-repeat;
+                                background-size: contain;
+                            }
+                            &.stickerexercise{
+                                background: url(/public/imgs/exercise.png) no-repeat;
+                                background-size: contain;
+                            }
+                            &.stickerjust{
+                                background: url(/public/imgs/just.png) no-repeat;
+                                background-size: contain;
+                            }
+                            &.stickershopping{
+                                background: url(/public/imgs/shopping.png) no-repeat;
+                                background-size: contain;
+                            }
+                            &.stickertravel{
+                                background: url(/public/imgs/travel.png) no-repeat;
+                                background-size: contain;
+                            }
                         }
                     }
                 }
