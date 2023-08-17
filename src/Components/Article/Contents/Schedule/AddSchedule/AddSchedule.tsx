@@ -225,6 +225,14 @@ function AddSchedule(props: AddSchedule_props) {
                             <input type="time" id="endTime" onChange={() => { onchangedate() }} />
                         </div>
                     </div>
+
+                    <div className="ScheduleRadioBox">
+                        <div><label htmlFor="exercise">운동</label><input type="radio" id="exercise" name="ScheduleRadioBox" checked/></div>
+                        <div><label htmlFor="just">일상</label><input type="radio" id="just" name="ScheduleRadioBox"/></div>
+                        <div><label htmlFor="shopping">쇼핑</label><input type="radio" id="shopping" name="ScheduleRadioBox"/></div>
+                        <div><label htmlFor="birth">생일</label><input type="radio" id="birth" name="ScheduleRadioBox"/></div>
+                        <div><label htmlFor="travel">여행</label><input type="radio" id="travel" name="ScheduleRadioBox"/></div>
+                    </div>
                 </form>
             </div>
             <div className="Schedule_btnWrap">
