@@ -12,7 +12,7 @@
 .Loading div.LoadingImgs {
   width: 120px;
   height: 120px;
-  animation: LoadingChangeImg 1.5s infinite linear steps(1);
+  animation: LoadingChangeImg 1.5s infinite linear;
   background: url(/public/imgs/brith.png) no-repeat;
   background-size: cover;
   background-position: center;

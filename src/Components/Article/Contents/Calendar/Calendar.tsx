@@ -6,6 +6,7 @@ import '../../../../css/Calendar.css'
 type ContnetsProps = {
     Mode: string;
     showHideSchedule: boolean;
+    updateLading: (state: boolean) => void;
     bgChangeFromCalendar: (year: number, month: number, date_text: number) => void;
     onChangeMode2: (id: number) => void
     changeSchedule: () => void
@@ -359,6 +360,7 @@ function Calendar(props: ContnetsProps) {
 
     // 최초 렌더링 시에만 함수를 호출하여 초기값 설정후 출력
     useEffect(() => {
+        props.updateLading(true);
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;
 
@@ -375,6 +377,9 @@ function Calendar(props: ContnetsProps) {
             .then((data) => {
                 set_print_year_month_date(year_month_date_printer(year_month_date_text));
                 setChange_date(date_print(data, year_month_date_text[0], year_month_date_text[1] - 1));
+            })
+            .then(() => {
+                props.updateLading(false);
             })
 
     }, [year_month_date_text, props.showHideSchedule]);

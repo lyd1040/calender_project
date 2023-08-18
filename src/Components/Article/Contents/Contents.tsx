@@ -19,7 +19,7 @@ type Schedule_date_test_type = {
 }
 
 function Contents(props: ContnetsProps) {
-    const [LoadState, setLoadState] = useState<boolean>(true);
+    const [LoadState, setLoadState] = useState<boolean>(false);
     const [showHideSchedule, setShowHideSchedule] = useState<boolean>(false);
     const [LoadingElement, setLoadingElement] = useState<JSX.Element | null>(null);
     const [Schedule_Components, setScheduleComponents] = useState<JSX.Element | null>(null);
@@ -52,6 +52,10 @@ function Contents(props: ContnetsProps) {
         if (gnb) {
             gnb.classList.remove('show');
         }
+    }
+
+    const updateLading = (state: boolean) => {
+        setLoadState(state);
     }
 
 
@@ -97,7 +101,7 @@ function Contents(props: ContnetsProps) {
     return (
         <section className="Contents" id="Contents">
             {BackgroundElement}
-            <Calendar showHideSchedule={showHideSchedule} onChangeMode={props.onChangeMode} bgChangeFromCalendar={bgChangeFromCalendar} onChangeMode2={props.onChangeMode2} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
+            <Calendar updateLading={updateLading} showHideSchedule={showHideSchedule} onChangeMode={props.onChangeMode} bgChangeFromCalendar={bgChangeFromCalendar} onChangeMode2={props.onChangeMode2} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
             {Schedule_Components}
             {LoadingElement}
         </section>
