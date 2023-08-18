@@ -3,6 +3,7 @@ import '../../../css/Contents.css';
 import Calendar from './Calendar/Calendar';
 import Schedule from './Schedule/Schedule';
 import BackgroundAni from "./BackgroundAni/BackgroundAni";
+import Loading from "./Loading/Loading";
 
 type ContnetsProps = {
     Mode: string;
@@ -18,7 +19,9 @@ type Schedule_date_test_type = {
 }
 
 function Contents(props: ContnetsProps) {
+    const [LoadState, setLoadState] = useState<boolean>(true);
     const [showHideSchedule, setShowHideSchedule] = useState<boolean>(false);
+    const [LoadingElement, setLoadingElement] = useState<JSX.Element | null>(null);
     const [Schedule_Components, setScheduleComponents] = useState<JSX.Element | null>(null);
     const [Schedule_date_test, set_Schedule_date_test] = useState<Schedule_date_test_type>({
         year: NaN,
@@ -84,11 +87,19 @@ function Contents(props: ContnetsProps) {
         }
     }, [Schedule_date_test])
 
+    useEffect(() => {
+        if (LoadState) {
+            setLoadingElement(<Loading></Loading>)
+        } else {
+            setLoadingElement(null);
+        }
+    }, [LoadState])
     return (
         <section className="Contents" id="Contents">
             {BackgroundElement}
-            <Calendar onChangeMode={props.onChangeMode} bgChangeFromCalendar={bgChangeFromCalendar} onChangeMode2={props.onChangeMode2} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
+            <Calendar showHideSchedule={showHideSchedule} onChangeMode={props.onChangeMode} bgChangeFromCalendar={bgChangeFromCalendar} onChangeMode2={props.onChangeMode2} Mode={props.Mode} changeSchedule={changeSchedule}></Calendar>
             {Schedule_Components}
+            {LoadingElement}
         </section>
     )
 }

@@ -1,10 +1,26 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from '../../../../../firebase';
 import { ref, get, set } from 'firebase/database';
 import '../../../../../css/AddSchedule.css'
 
+type AddFirebaseType = {
+    id: number,
+    schedulecontents: {
+        birth: boolean,
+        exercise: boolean,
+        just: boolean,
+        shopping: boolean,
+        travel: boolean
+    },
+    title: string,
+    content: string,
+    date: string,
+    time: string
+
+}
+
 type planListType = {
-    id: number
+    id: number,
     title: string,
     content: string,
     date: string,
@@ -23,8 +39,22 @@ type Schedule_date_test_type = {
     month: number;
     date_text: number;
 }
+
+interface RadioOption {
+    value: string;
+    label: string;
+}
+
 function AddSchedule(props: AddSchedule_props) {
-    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
+    const [MediaWidthClass, setMediaWidthClass] = useState<string>('');
+    const options: RadioOption[] = [
+        { value: 'birth', label: '생일' },
+        { value: 'exercise', label: '운동' },
+        { value: 'just', label: '일상' },
+        { value: 'shopping', label: '쇼핑' },
+        { value: 'travel', label: '여행' },
+    ];
+    const [selectedOption, setSelectedOption] = useState<string>(options[0].value);
 
     const onAddPlanList = (): void | boolean => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
@@ -48,8 +78,15 @@ function AddSchedule(props: AddSchedule_props) {
                 }
             })
             .then((data) => {
-                let list: planListType = {
+                let list: AddFirebaseType = {
                     id: data.length + 1,
+                    schedulecontents: {
+                        birth: selectedOption === "birth" ? true : false,
+                        exercise: selectedOption === "exercise" ? true : false,
+                        just: selectedOption === "just" ? true : false,
+                        shopping: selectedOption === "shopping" ? true : false,
+                        travel: selectedOption === "travel" ? true : false
+                    },
                     title: '',
                     content: '',
                     date: '',
@@ -163,6 +200,11 @@ function AddSchedule(props: AddSchedule_props) {
         }
     }
 
+    //라디오버튼 선택 바꾸기
+    const ChangeRadioBtn = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedOption(event.target.value);
+    };
+
     //마운트시 한번만 실행
     useEffect(() => {
         const startDate: HTMLInputElement | null = document.getElementById('startDate') as HTMLInputElement;
@@ -187,13 +229,13 @@ function AddSchedule(props: AddSchedule_props) {
         endTime.value = `23:59`;
     }, [])
 
-    useEffect(()=>{
-        if(props.ScheduleWidthClass===true){
+    useEffect(() => {
+        if (props.ScheduleWidthClass === true) {
             setMediaWidthClass('MediaWidth');
-        }else{
+        } else {
             setMediaWidthClass('');
         }
-    },[props.ScheduleWidthClass])
+    }, [props.ScheduleWidthClass])
 
     return (
         <div id="AddSchedule" className={`AddSchedule ${MediaWidthClass}`}>
@@ -227,11 +269,17 @@ function AddSchedule(props: AddSchedule_props) {
                     </div>
 
                     <div className="ScheduleRadioBox">
-                        <div><label htmlFor="exercise">운동</label><input type="radio" id="exercise" name="ScheduleRadioBox" checked/></div>
-                        <div><label htmlFor="just">일상</label><input type="radio" id="just" name="ScheduleRadioBox"/></div>
-                        <div><label htmlFor="shopping">쇼핑</label><input type="radio" id="shopping" name="ScheduleRadioBox"/></div>
-                        <div><label htmlFor="birth">생일</label><input type="radio" id="birth" name="ScheduleRadioBox"/></div>
-                        <div><label htmlFor="travel">여행</label><input type="radio" id="travel" name="ScheduleRadioBox"/></div>
+                        {options.map((option) => (
+                            <label key={option.value}>
+                                <input
+                                    type="radio"
+                                    value={option.value}
+                                    checked={selectedOption === option.value}
+                                    onChange={ChangeRadioBtn}
+                                />
+                                {option.label}
+                            </label>
+                        ))}
                     </div>
                 </form>
             </div>

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../../../../../css/updateSchedule.css'
 import { db } from '../../../../../firebase';
 import { ref, get, update } from 'firebase/database';
@@ -6,10 +6,26 @@ import { ref, get, update } from 'firebase/database';
 type UpdateScheduleType = {
     onUpdatePlanList(data: planListType[]): void; //Update Component에서는 Update로 활용할것
     ChangeplanMode(mode: string): void;
-    ScheduleWidthClass:boolean;
+    ScheduleWidthClass: boolean;
     planList: planListType[];
     useUpdate_PlanList_Index: number;
     Schedule_date_test: Schedule_date_test_type;
+}
+
+type AddFirebaseType = {
+    id: number,
+    schedulecontents: {
+        birth: boolean,
+        exercise: boolean,
+        just: boolean,
+        shopping: boolean,
+        travel: boolean
+    },
+    title: string,
+    content: string,
+    date: string,
+    time: string
+
 }
 
 type planListType = {
@@ -25,8 +41,22 @@ type Schedule_date_test_type = {
     date_text: number;
 }
 
+interface RadioOption {
+    value: string;
+    label: string;
+}
+
 function UpdateSchedule(props: UpdateScheduleType) {
-    const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
+    const [MediaWidthClass, setMediaWidthClass] = useState<string>('');
+
+    const options: RadioOption[] = [
+        { value: 'birth', label: '생일' },
+        { value: 'exercise', label: '운동' },
+        { value: 'just', label: '일상' },
+        { value: 'shopping', label: '쇼핑' },
+        { value: 'travel', label: '여행' },
+    ];
+    const [selectedOption, setSelectedOption] = useState<string>(options[0].value);
 
     const onUpdatePlanList = (): void | boolean => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
@@ -50,8 +80,14 @@ function UpdateSchedule(props: UpdateScheduleType) {
                 }
             })
             .then((data) => {
-                console.log(props.useUpdate_PlanList_Index);
-                let planlist_arr: planListType[] = data;
+                let planlist_arr: AddFirebaseType[] = data;
+                planlist_arr[props.useUpdate_PlanList_Index - 1].schedulecontents = {
+                    birth: selectedOption === "birth" ? true : false,
+                    exercise: selectedOption === "exercise" ? true : false,
+                    just: selectedOption === "just" ? true : false,
+                    shopping: selectedOption === "shopping" ? true : false,
+                    travel: selectedOption === "travel" ? true : false,
+                };
                 if (content_title && content_text && startDate && endDate && startTime && endTime) {
                     if (content_title.value === '') {
                         alert('제목은 비어있을 수 없습니다.');
@@ -73,7 +109,7 @@ function UpdateSchedule(props: UpdateScheduleType) {
     }
 
     //파이어베이스 데이터 업데이트
-    const firebaseUpdateList = (data: planListType[]) => {
+    const firebaseUpdateList = (data: AddFirebaseType[]) => {
         let save_UID: any = sessionStorage.getItem('userUID'); //firebase의 데이터 저장하는 경로이름
         let dataRef;
         if (save_UID !== null) { dataRef = save_UID }
@@ -93,7 +129,7 @@ function UpdateSchedule(props: UpdateScheduleType) {
 
     }
 
-    const returnlist = (data: planListType[]) => {
+    const returnlist = (data: AddFirebaseType[]) => {
         let select_YMD: string = Select_date_update();
         let filter_list: planListType[] = [];
 
@@ -161,6 +197,12 @@ function UpdateSchedule(props: UpdateScheduleType) {
             }
         }
     }
+
+    //라디오버튼 선택 바꾸기
+    const ChangeRadioBtn = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedOption(event.target.value);
+    };
+
     //처음 렌더링 됐을때만 실행
     useEffect(() => {
         const content_title: HTMLInputElement | null = document.getElementById('content_title') as HTMLInputElement;
@@ -193,13 +235,13 @@ function UpdateSchedule(props: UpdateScheduleType) {
             })
     }, [])
 
-    useEffect(()=>{
-        if(props.ScheduleWidthClass===true){
+    useEffect(() => {
+        if (props.ScheduleWidthClass === true) {
             setMediaWidthClass('MediaWidth');
-        }else{
+        } else {
             setMediaWidthClass('');
         }
-    },[props.ScheduleWidthClass])
+    }, [props.ScheduleWidthClass])
 
     return (
         <div id="UpdateSchedule" className={`UpdateSchedule ${MediaWidthClass}`}>
@@ -230,6 +272,20 @@ function UpdateSchedule(props: UpdateScheduleType) {
                             <label htmlFor="endTime">~</label>
                             <input type="time" id="endTime" onChange={() => { onchangedate() }} />
                         </div>
+                    </div>
+
+                    <div className="ScheduleRadioBox">
+                        {options.map((option) => (
+                            <label key={option.value}>
+                                <input
+                                    type="radio"
+                                    value={option.value}
+                                    checked={selectedOption === option.value}
+                                    onChange={ChangeRadioBtn}
+                                />
+                                {option.label}
+                            </label>
+                        ))}
                     </div>
                 </form>
             </div>

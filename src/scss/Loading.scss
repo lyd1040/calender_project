@@ -1,0 +1,47 @@
+@import './VarMixin';
+
+.Loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @include WH(100%, 100%);
+
+    @include disFlexJustifyAlign();
+
+    z-index: 2;
+
+    div.LoadingImgs {
+        width: 120px;
+        height: 120px;
+        animation: LoadingChangeImg 1.5s infinite linear;
+
+        background: url(/public/imgs/brith.png) no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+@keyframes LoadingChangeImg {
+
+    0%,
+    100% {
+        background: url(/public/imgs/brith.png) no-repeat;
+    }
+
+    20% {
+        background: url(/public/imgs/exercise.png) no-repeat;
+    }
+
+    40% {
+        background: url(/public/imgs/just.png) no-repeat;
+    }
+
+    60% {
+        background: url(/public/imgs/shopping.png) no-repeat;
+    }
+
+    80% {
+        background: url(/public/imgs/travel.png) no-repeat;
+    }
+}
