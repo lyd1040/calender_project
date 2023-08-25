@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import '../../../../../css/ScheduleList.css'
 
 type Schedule_list_props = {
@@ -18,6 +19,7 @@ type planListType = {
 }
 
 function ScheduleList(props: Schedule_list_props) {
+    const Navigate = useNavigate();
 
     const [MediaWidthClass,setMediaWidthClass] = useState<string>('');
     const [PlanList, setPlanList] = useState<JSX.Element[]>([]);
@@ -77,6 +79,16 @@ function ScheduleList(props: Schedule_list_props) {
         setpagingBtn_List(paginbtnWrap);
     }
 
+    //로그인 여부
+    const LoginChecking = () =>{
+        if(window.sessionStorage.getItem('userUID')===null){
+            alert('로그인이 되어있지 않습니다.');
+            Navigate('/Calendar/SignIn_SignUp');
+        }else{
+            props.ChangeplanMode('CREATE'); 
+        }
+    }
+
     useEffect(() => {
         addPlanList(1);
     }, [props.planList])
@@ -105,7 +117,7 @@ function ScheduleList(props: Schedule_list_props) {
                 <div className="pagingBtn_wrap">
                     {pagingBtn_List}
                 </div>
-                <button type="button" className="Schedule_btn" onClick={() => { props.ChangeplanMode('CREATE') }}>일정 추가</button>
+                <button type="button" className="Schedule_btn" onClick={() => { LoginChecking(); }}>일정 추가</button>
             </div>
         </div>
     )

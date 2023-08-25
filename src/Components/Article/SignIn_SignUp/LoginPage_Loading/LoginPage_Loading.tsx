@@ -9,7 +9,6 @@ function LoginPage_Loading() {
         let Points: HTMLDivElement = document.getElementById('LoginLoading') as HTMLDivElement;
 
         try {
-            console.log('a');
             const response = await fetch('lottieanimations/Loading.json');
             const animationData = await response.json();
             setAnim(lottie.loadAnimation({
