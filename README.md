@@ -6,8 +6,14 @@
 - npm start
 
 ## 사용기술
-- React, JS, TS, CSS, SCSS, Firebase, Lottie.js
-- 
+- React
+- JS
+- TS
+- CSS
+- SCSS
+- Firebase
+- Lottie.js
+
 ## 주요기능
 - 로그인
 - 회원가입
